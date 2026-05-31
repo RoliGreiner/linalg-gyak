@@ -1,188 +1,1032 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DM &amp; LA — Gyakorló kvíz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500&display=swap" rel="stylesheet">
-<script>
-  window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, svg:{fontCache:'global'}, startup:{typeset:false} };
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script"></script>
-<style>
-  :root{
-    --paper:#f5efe4; --ink:#241f1a; --ink-soft:#5a5048; --rule:#d8cdbb;
-    --accent:#b3461f; --accent-deep:#7d2f12; --green:#3f6b3a; --green-bg:#e7efe0;
-    --red:#a8341f; --red-bg:#f6e3dc; --gold:#c08a2e; --card:#fbf7ee; --shadow:rgba(50,38,25,.14);
-    --blue:#33617a; --blue-bg:#e3edf1;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Spline Sans',system-ui,sans-serif;
-    background:radial-gradient(circle at 12% 8%,#fbf6ec,transparent 40%),radial-gradient(circle at 88% 92%,#efe6d4,transparent 45%),var(--paper);
-    color:var(--ink);min-height:100vh;line-height:1.5;padding:clamp(14px,4vw,48px) clamp(12px,4vw,24px);background-attachment:fixed;}
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
-  .wrap{max-width:780px;margin:0 auto;position:relative;z-index:1;}
-  header.masthead{text-align:center;border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:22px;}
-  .eyebrow{font-family:'Spline Sans Mono',monospace;letter-spacing:.32em;text-transform:uppercase;font-size:.66rem;color:var(--accent-deep);}
-  h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,7vw,3.2rem);line-height:.95;letter-spacing:-.01em;margin:.18em 0 .1em;}
-  h1 em{font-style:italic;color:var(--accent);font-weight:500;}
-  .sub{font-size:.9rem;color:var(--ink-soft);font-style:italic;font-family:'Fraunces',serif;}
-  .card{background:var(--card);border:1px solid var(--rule);border-radius:4px;box-shadow:0 1px 0 var(--rule),0 18px 40px -28px var(--shadow);padding:clamp(20px,5vw,38px);position:relative;animation:rise .45s cubic-bezier(.2,.8,.2,1);}
-  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-  .card.bar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);border-radius:4px 0 0 4px;}
-  .setup h2,.addform h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;margin-bottom:4px;}
-  .lead{color:var(--ink-soft);font-style:italic;font-family:'Fraunces',serif;margin-bottom:22px;}
-  .field{margin-bottom:20px;}
-  .field label, .flbl{display:block;font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:8px;}
-  .countrow{display:flex;align-items:center;gap:16px;}
-  input[type=range]{flex:1;accent-color:var(--accent);height:6px;}
-  .countbadge{font-family:'Fraunces',serif;font-weight:900;font-size:2rem;min-width:2.4ch;text-align:center;}
-  select,input[type=text],input[type=password],textarea{width:100%;font-family:'Spline Sans',sans-serif;font-size:.95rem;color:var(--ink);background:#fffdf8;border:1.5px solid var(--rule);border-radius:6px;padding:10px 12px;}
-  select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent);}
-  .bankinfo{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-  .stat{flex:1;min-width:110px;background:#fffdf8;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;}
-  .stat .n{font-family:'Fraunces',serif;font-weight:900;font-size:1.7rem;line-height:1;}
-  .stat .l{font-family:'Spline Sans Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;}
-  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
-  button.btn{font-family:'Spline Sans',sans-serif;font-weight:600;font-size:.92rem;border:none;border-radius:99px;padding:12px 22px;cursor:pointer;transition:transform .08s,box-shadow .2s,background .2s;}
-  button.btn:active{transform:translateY(1px);}
-  .btn.primary{background:var(--ink);color:var(--paper);box-shadow:0 8px 20px -10px var(--ink);}
-  .btn.primary:hover{background:var(--accent-deep);}
-  .btn.primary:disabled{background:#cabfa9;cursor:not-allowed;box-shadow:none;color:#f0e9da;}
-  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
-  .btn.ghost:hover{background:var(--ink);color:var(--paper);}
-  .btn.small{padding:9px 16px;font-size:.84rem;}
-  .btn.blue{background:var(--blue);color:#fff;} .btn.blue:hover{filter:brightness(1.08);}
-  .progress-row{display:flex;align-items:center;gap:14px;margin:0 2px 18px;}
-  .ptrack{flex:1;height:7px;background:var(--rule);border-radius:99px;overflow:hidden;}
-  .pfill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .5s cubic-bezier(.2,.8,.2,1);border-radius:99px;}
-  .pmeta{font-family:'Spline Sans Mono',monospace;font-size:.74rem;color:var(--ink-soft);white-space:nowrap;}
-  .score-chip{font-family:'Spline Sans Mono',monospace;font-size:.74rem;color:var(--accent-deep);font-weight:500;}
-  .qtag{font-family:'Spline Sans Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:6px;}
-  .qtopic{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--rule);border-radius:99px;padding:3px 10px;margin-bottom:14px;}
-  .prompt{font-family:'Fraunces',serif;font-size:clamp(1.15rem,3.6vw,1.45rem);line-height:1.32;font-weight:600;margin-bottom:6px;}
-  .hint{font-size:.82rem;color:var(--ink-soft);font-style:italic;margin-bottom:18px;}
-  .options{display:flex;flex-direction:column;gap:10px;list-style:none;}
-  .opt{display:flex;gap:13px;align-items:flex-start;border:1.5px solid var(--rule);background:#fefcf7;border-radius:6px;padding:13px 15px;cursor:pointer;transition:border-color .15s,background .15s,transform .08s;font-size:.97rem;}
-  .opt:hover{border-color:var(--accent);background:#fdf6ea;}
-  .opt:active{transform:scale(.994);}
-  .opt .mark{flex:none;width:22px;height:22px;border:1.6px solid #b9ac96;border-radius:5px;display:grid;place-items:center;margin-top:1px;font-size:.8rem;color:#fff;transition:all .15s;background:#fff;}
-  .opt.single .mark{border-radius:50%;}
-  .opt.sel{border-color:var(--accent);background:#fbeede;}
-  .opt.sel .mark{background:var(--accent);border-color:var(--accent);}
-  .opt.sel .mark::after{content:"✓";}
-  .opt.single.sel .mark::after{content:"";width:9px;height:9px;background:#fff;border-radius:50%;}
-  .opt.locked{cursor:default;} .opt.locked:hover{background:#fefcf7;border-color:var(--rule);}
-  .opt.correct{border-color:var(--green);background:var(--green-bg);}
-  .opt.correct .mark{background:var(--green);border-color:var(--green);} .opt.correct .mark::after{content:"✓";color:#fff;}
-  .opt.wrongpick{border-color:var(--red);background:var(--red-bg);}
-  .opt.wrongpick .mark{background:var(--red);border-color:var(--red);} .opt.wrongpick .mark::after{content:"✕";color:#fff;}
-  .opt.missed{border-color:var(--green);border-style:dashed;background:#fff;} .opt.missed .mark{border-color:var(--green);}
-  .opt .badge{margin-left:auto;font-family:'Spline Sans Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;align-self:center;padding-left:8px;}
-  .opt.correct .badge{color:var(--green);} .opt.wrongpick .badge{color:var(--red);} .opt.missed .badge{color:var(--green);}
-  .feedback{margin-top:20px;border-radius:6px;padding:16px 18px;font-size:.94rem;border:1px solid var(--rule);animation:rise .35s ease;}
-  .feedback.ok{background:var(--green-bg);border-color:#bcd0ad;}
-  .feedback.part{background:#fbf0d8;border-color:#e6d09a;}
-  .feedback.no{background:var(--red-bg);border-color:#e3b9ad;}
-  .fb-head{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
-  .feedback .expl{color:var(--ink-soft);line-height:1.55;} .feedback .expl strong{color:var(--ink);}
-  .controls{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
-  .result{text-align:center;}
-  .ring{width:160px;height:160px;margin:6px auto 18px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--rule) 0,var(--rule) 0);}
-  .ring::before{content:"";position:absolute;inset:13px;border-radius:50%;background:var(--card);}
-  .ring .inner{position:relative;}
-  .ring .big{font-family:'Fraunces',serif;font-weight:900;font-size:2.5rem;line-height:1;}
-  .ring .small{font-family:'Spline Sans Mono',monospace;font-size:.72rem;color:var(--ink-soft);letter-spacing:.1em;}
-  .result h2{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;margin-bottom:6px;}
-  .verdict{color:var(--ink-soft);font-style:italic;font-family:'Fraunces',serif;font-size:1.05rem;margin-bottom:8px;}
-  .breakdown{text-align:left;max-width:560px;margin:24px auto 0;border-top:1px solid var(--rule);}
-  .brow{display:flex;gap:12px;align-items:baseline;padding:10px 4px;border-bottom:1px solid var(--rule);font-size:.9rem;}
-  .brow .ico{flex:none;width:18px;text-align:center;}
-  .brow .topic{color:var(--ink-soft);margin-left:auto;font-family:'Spline Sans Mono',monospace;font-size:.7rem;}
-  .ok-i{color:var(--green);} .no-i{color:var(--red);} .pt-i{color:var(--gold);}
-  .addform .frow{margin-bottom:16px;}
-  .optedit{display:flex;gap:10px;align-items:center;margin-bottom:8px;}
-  .optedit input[type=text]{flex:1;}
-  .optedit .cbx{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--ink-soft);white-space:nowrap;cursor:pointer;font-family:'Spline Sans Mono',monospace;text-transform:uppercase;letter-spacing:.06em;}
-  .optedit .cbx input{width:18px;height:18px;accent-color:var(--green);}
-  .optedit .del{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:4px;}
-  .seg{display:inline-flex;border:1.5px solid var(--rule);border-radius:99px;overflow:hidden;}
-  .seg button{background:#fffdf8;border:none;padding:8px 18px;cursor:pointer;font-family:'Spline Sans',sans-serif;font-size:.85rem;color:var(--ink-soft);}
-  .seg button.on{background:var(--ink);color:var(--paper);}
-  .help{font-size:.78rem;color:var(--ink-soft);margin-top:6px;font-style:italic;}
-  .gh-panel{margin-top:18px;border:1px dashed var(--rule);border-radius:10px;padding:18px;background:var(--blue-bg);display:none;}
-  .gh-panel.open{display:block;animation:rise .3s ease;}
-  .gh-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-  .gh-grid .full{grid-column:1/-1;}
-  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:99px;font-size:.9rem;font-weight:600;box-shadow:0 12px 30px -10px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:all .3s;z-index:50;max-width:90vw;text-align:center;}
-  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-  mjx-container{font-size:1.02em !important;}
-  footer.foot{text-align:center;margin-top:24px;font-size:.7rem;color:var(--ink-soft);font-family:'Spline Sans Mono',monospace;letter-spacing:.06em;}
-  @media(max-width:480px){.toolbar .btn{flex:1;text-align:center;}.controls .btn{flex:1;text-align:center;}.gh-grid{grid-template-columns:1fr;}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DM &amp; LA — Gyakorló kvíz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500&display=swap"
+    rel="stylesheet">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' }, startup: { typeset: false } };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script"></script>
+  <style>
+    :root {
+      --paper: #f5efe4;
+      --ink: #241f1a;
+      --ink-soft: #5a5048;
+      --rule: #d8cdbb;
+      --accent: #b3461f;
+      --accent-deep: #7d2f12;
+      --green: #3f6b3a;
+      --green-bg: #e7efe0;
+      --red: #a8341f;
+      --red-bg: #f6e3dc;
+      --gold: #c08a2e;
+      --card: #fbf7ee;
+      --shadow: rgba(50, 38, 25, .14);
+      --blue: #33617a;
+      --blue-bg: #e3edf1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Spline Sans', system-ui, sans-serif;
+      background: radial-gradient(circle at 12% 8%, #fbf6ec, transparent 40%), radial-gradient(circle at 88% 92%, #efe6d4, transparent 45%), var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding: clamp(14px, 4vw, 48px) clamp(12px, 4vw, 24px);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* === LAYOUT (Grid) === */
+    .layout {
+      display: grid;
+      /* 3 oszlop: bal (üres, 1fr), közép (feladat, max 780px), jobb (oldalsávnak hely, 1fr) */
+      grid-template-columns: 1fr minmax(auto, 780px) 1fr;
+      gap: 30px;
+      width: 100%;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* A feladat mindig pontosan középen van */
+    .main-col {
+      grid-column: 2;
+      width: 100%;
+    }
+
+    /* A jobb oldali tér */
+    .sidebar-wrapper {
+      grid-column: 3;
+      width: 100%;
+    }
+
+    /* Maga az oldalsáv a jobb oldali térben rögzítve (sticky) */
+    .sidebar {
+      width: 280px;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 24px;
+      box-shadow: 0 1px 0 var(--rule), 0 18px 40px -28px var(--shadow);
+      position: sticky;
+      top: 24px;
+      display: none;
+    }
+
+    .sidebar.open {
+      display: block;
+      animation: rise .45s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .sidebar h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--ink);
+    }
+
+    .q-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .q-nav-btn {
+      aspect-ratio: 1;
+      background: #fffdf8;
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+      display: grid;
+      place-items: center;
+      color: var(--ink-soft);
+    }
+
+    .q-nav-btn:hover {
+      border-color: var(--accent);
+      background: #fdf6ea;
+      color: var(--accent-deep);
+    }
+
+    .q-nav-btn.active {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 1px var(--ink);
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .q-nav-btn.ok {
+      background: var(--green-bg);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .q-nav-btn.part {
+      background: #fbf0d8;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .q-nav-btn.no {
+      background: var(--red-bg);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    header.masthead {
+      text-align: center;
+      border-bottom: 3px double var(--ink);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      font-family: 'Spline Sans Mono', monospace;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      font-size: .66rem;
+      color: var(--accent-deep);
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      line-height: .95;
+      letter-spacing: -.01em;
+      margin: .18em 0 .1em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .sub {
+      font-size: .9rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: 0 1px 0 var(--rule), 0 18px 40px -28px var(--shadow);
+      padding: clamp(20px, 5vw, 38px);
+      position: relative;
+      animation: rise .45s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .card.bar::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--accent);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .setup h2,
+    .addform h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .lead {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+      margin-bottom: 22px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label,
+    .flbl {
+      display: block;
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 8px;
+    }
+
+    .countrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    input[type=range] {
+      flex: 1;
+      accent-color: var(--accent);
+      height: 6px;
+    }
+
+    .countbadge {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 2rem;
+      min-width: 2.4ch;
+      text-align: center;
+    }
+
+    select,
+    input[type=text],
+    input[type=password],
+    textarea {
+      width: 100%;
+      font-family: 'Spline Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--ink);
+      background: #fffdf8;
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .bankinfo {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 110px;
+      background: #fffdf8;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .stat .n {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .stat .l {
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 4px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    button.btn {
+      font-family: 'Spline Sans', sans-serif;
+      font-weight: 600;
+      font-size: .92rem;
+      border: none;
+      border-radius: 99px;
+      padding: 12px 22px;
+      cursor: pointer;
+      transition: transform .08s, box-shadow .2s, background .2s;
+    }
+
+    button.btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 0 8px 20px -10px var(--ink);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-deep);
+    }
+
+    .btn.primary:disabled {
+      background: #cabfa9;
+      cursor: not-allowed;
+      box-shadow: none;
+      color: #f0e9da;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+    }
+
+    .btn.ghost:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn.small {
+      padding: 9px 16px;
+      font-size: .84rem;
+    }
+
+    .btn.blue {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn.blue:hover {
+      filter: brightness(1.08);
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 2px 18px;
+    }
+
+    .ptrack {
+      flex: 1;
+      height: 7px;
+      background: var(--rule);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .pfill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transition: width .5s cubic-bezier(.2, .8, .2, 1);
+      border-radius: 99px;
+    }
+
+    .pmeta {
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .74rem;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    .score-chip {
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .74rem;
+      color: var(--accent-deep);
+      font-weight: 500;
+    }
+
+    .qtag {
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 6px;
+    }
+
+    .qtopic {
+      display: inline-block;
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      border: 1px solid var(--rule);
+      border-radius: 99px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+    }
+
+    .prompt {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.15rem, 3.6vw, 1.45rem);
+      line-height: 1.32;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      font-size: .82rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .opt {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      border: 1.5px solid var(--rule);
+      background: #fefcf7;
+      border-radius: 6px;
+      padding: 13px 15px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s, transform .08s;
+      font-size: .97rem;
+    }
+
+    .opt:hover {
+      border-color: var(--accent);
+      background: #fdf6ea;
+    }
+
+    .opt:active {
+      transform: scale(.994);
+    }
+
+    .opt .mark {
+      flex: none;
+      width: 22px;
+      height: 22px;
+      border: 1.6px solid #b9ac96;
+      border-radius: 5px;
+      display: grid;
+      place-items: center;
+      margin-top: 1px;
+      font-size: .8rem;
+      color: #fff;
+      transition: all .15s;
+      background: #fff;
+    }
+
+    .opt.single .mark {
+      border-radius: 50%;
+    }
+
+    .opt.sel {
+      border-color: var(--accent);
+      background: #fbeede;
+    }
+
+    .opt.sel .mark {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .opt.sel .mark::after {
+      content: "✓";
+    }
+
+    .opt.single.sel .mark::after {
+      content: "";
+      width: 9px;
+      height: 9px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .opt.locked {
+      cursor: default;
+    }
+
+    .opt.locked:hover {
+      background: #fefcf7;
+      border-color: var(--rule);
+    }
+
+    .opt.correct {
+      border-color: var(--green);
+      background: var(--green-bg);
+    }
+
+    .opt.correct .mark {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .opt.correct .mark::after {
+      content: "✓";
+      color: #fff;
+    }
+
+    .opt.wrongpick {
+      border-color: var(--red);
+      background: var(--red-bg);
+    }
+
+    .opt.wrongpick .mark {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    .opt.wrongpick .mark::after {
+      content: "✕";
+      color: #fff;
+    }
+
+    .opt.missed {
+      border-color: var(--green);
+      border-style: dashed;
+      background: #fff;
+    }
+
+    .opt.missed .mark {
+      border-color: var(--green);
+    }
+
+    .opt .badge {
+      margin-left: auto;
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      align-self: center;
+      padding-left: 8px;
+    }
+
+    .opt.correct .badge {
+      color: var(--green);
+    }
+
+    .opt.wrongpick .badge {
+      color: var(--red);
+    }
+
+    .opt.missed .badge {
+      color: var(--green);
+    }
+
+    .feedback {
+      margin-top: 20px;
+      border-radius: 6px;
+      padding: 16px 18px;
+      font-size: .94rem;
+      border: 1px solid var(--rule);
+      animation: rise .35s ease;
+    }
+
+    .feedback.ok {
+      background: var(--green-bg);
+      border-color: #bcd0ad;
+    }
+
+    .feedback.part {
+      background: #fbf0d8;
+      border-color: #e6d09a;
+    }
+
+    .feedback.no {
+      background: var(--red-bg);
+      border-color: #e3b9ad;
+    }
+
+    .fb-head {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feedback .expl {
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .feedback .expl strong {
+      color: var(--ink);
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .result {
+      text-align: center;
+    }
+
+    .ring {
+      width: 160px;
+      height: 160px;
+      margin: 6px auto 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background: conic-gradient(var(--rule) 0, var(--rule) 0);
+    }
+
+    .ring::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border-radius: 50%;
+      background: var(--card);
+    }
+
+    .ring .inner {
+      position: relative;
+    }
+
+    .ring .big {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .ring .small {
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .72rem;
+      color: var(--ink-soft);
+      letter-spacing: .1em;
+    }
+
+    .result h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .verdict {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .breakdown {
+      text-align: left;
+      max-width: 560px;
+      margin: 24px auto 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .brow {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--rule);
+      font-size: .9rem;
+    }
+
+    .brow .ico {
+      flex: none;
+      width: 18px;
+      text-align: center;
+    }
+
+    .brow .topic {
+      color: var(--ink-soft);
+      margin-left: auto;
+      font-family: 'Spline Sans Mono', monospace;
+      font-size: .7rem;
+    }
+
+    .ok-i {
+      color: var(--green);
+    }
+
+    .no-i {
+      color: var(--red);
+    }
+
+    .pt-i {
+      color: var(--gold);
+    }
+
+    .addform .frow {
+      margin-bottom: 16px;
+    }
+
+    .optedit {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .optedit input[type=text] {
+      flex: 1;
+    }
+
+    .optedit .cbx {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .8rem;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: 'Spline Sans Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .optedit .cbx input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+    }
+
+    .optedit .del {
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 4px;
+    }
+
+    .seg {
+      display: inline-flex;
+      border: 1.5px solid var(--rule);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .seg button {
+      background: #fffdf8;
+      border: none;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-family: 'Spline Sans', sans-serif;
+      font-size: .85rem;
+      color: var(--ink-soft);
+    }
+
+    .seg button.on {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .help {
+      font-size: .78rem;
+      color: var(--ink-soft);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .gh-panel {
+      margin-top: 18px;
+      border: 1px dashed var(--rule);
+      border-radius: 10px;
+      padding: 18px;
+      background: var(--blue-bg);
+      display: none;
+    }
+
+    .gh-panel.open {
+      display: block;
+      animation: rise .3s ease;
+    }
+
+    .gh-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .gh-grid .full {
+      grid-column: 1/-1;
+    }
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 12px 22px;
+      border-radius: 99px;
+      font-size: .9rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .4);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .3s;
+      z-index: 50;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    mjx-container {
+      font-size: 1.02em !important;
+    }
+
+    footer.foot {
+      text-align: center;
+      margin-top: 24px;
+      font-size: .7rem;
+      color: var(--ink-soft);
+      font-family: 'Spline Sans Mono', monospace;
+      letter-spacing: .06em;
+    }
+
+    /* HA kisebb a képernyő és nem fér el az 1fr + 780 + 1fr tökéletesen */
+    @media(max-width: 1450px) {
+      .layout {
+        grid-template-columns: 1fr 280px;
+        max-width: 1100px;
+        margin: 0 auto;
+        gap: 20px;
+      }
+
+      .main-col {
+        grid-column: 1;
+      }
+
+      .sidebar-wrapper {
+        grid-column: 2;
+      }
+    }
+
+    /* Mobilon vagy nagyon keskeny képernyőn egymás alá kerülnek */
+    @media(max-width: 900px) {
+      .layout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .main-col {
+        max-width: 780px;
+      }
+
+      .sidebar-wrapper {
+        max-width: 780px;
+      }
+
+      .sidebar {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .toolbar .btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      .controls .btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      .gh-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-  <header class="masthead">
-    <div class="eyebrow">Diszkrét matematika · Lineáris algebra</div>
-    <h1>Gyakorló <em>kvíz</em></h1>
-    <div class="sub">Online megosztható · véletlen sorsolás · bővíthető kérdésbank</div>
-  </header>
-  <div id="app"><div class="card"><div class="lead" style="margin:0">Kérdések betöltése…</div></div></div>
-  <footer class="foot" id="foot"></footer>
-</div>
-<div id="toast"></div>
 
-<script>
-/* ===== Tartalék bank (ha a questions.json nem érhető el, pl. fájlból megnyitva) ===== */
-const FALLBACK_BANK = [
-  {topic:"Komplex számok",multi:false,prompt:"Mennyi (2+5i)·(1−i)?",options:[{t:"7+3i",c:true},{t:"2−5i",c:false},{t:"7−3i",c:false},{t:"−3+7i",c:false}],e:"(2+5i)(1−i)=2+3i+5 = <strong>7+3i</strong>."},
-  {topic:"Sajátérték",multi:true,prompt:"Melyik igaz a sajátértékekről?",options:[{t:"Különböző sajátértékek sajátvektorai függetlenek.",c:true},{t:"geom. multiplicitás ≤ alg. multiplicitás.",c:true},{t:"Különböző sajátértékek sajátvektorai mindig merőlegesek.",c:false},{t:"A 0 minden transzformációnak sajátértéke.",c:false}],e:"Függetlenek (nem feltétlenül merőlegesek); geom ≤ alg; a 0 csak nem invertálható esetben sajátérték."},
-  {topic:"Logika",multi:true,prompt:"Melyik igaz a logikai következményről?",options:[{t:"α⊨β: minden α-modellben β is igaz.",c:true},{t:"α→β érvényes ⇔ α⊨β.",c:true},{t:"Elég egyetlen közös modell.",c:false},{t:"Egységesítésnél konstanst is cserélhetek.",c:false}],e:"Minden modellben kell; ekvivalens α→β érvényességével; az egységesítés változót cserél."},
-  {topic:"Gráfok",multi:true,prompt:"Melyik igaz Euler/Hamilton-körről?",options:[{t:"Euler-kör ⇔ minden fok páros.",c:true},{t:"Minden csúcsot tartalmazó kör = Hamilton-kör.",c:true},{t:"Hamilton-kör ⇒ Euler-kör.",c:false},{t:"Fában nincs Hamilton-út.",c:false}],e:"Euler-kör: minden fok páros. Hamilton és Euler független. Az útgráf fa, van benne Hamilton-út."},
-  {topic:"Síkgráfok",multi:false,prompt:"Síkgráf: 6 csúcs, 9 él. Hány lap (tartomány)?",options:[{t:"5",c:true},{t:"3",c:false},{t:"17",c:false},{t:"6",c:false}],e:"Euler: c−e+l=2 → l=2−6+9=5."}
-];
+  <div class="layout">
+    <div class="main-col">
+      <header class="masthead">
+        <div class="eyebrow">Diszkrét matematika · Lineáris algebra</div>
+        <h1>Gyakorló <em>kvíz</em></h1>
+        <div class="sub">Online megosztható · véletlen sorsolás · bővíthető kérdésbank</div>
+      </header>
+      <div id="app">
+        <div class="card">
+          <div class="lead" style="margin:0">Kérdések betöltése…</div>
+        </div>
+      </div>
+      <footer class="foot" id="foot"></footer>
+    </div>
 
-/* ===== Állapot ===== */
-let bank = [];
-let quiz = [], i = 0, score = 0, answered = false, selected = new Set();
-const results = [];
-let ghToken = '';                   // csak memóriában él
-const app = document.getElementById('app');
-const foot = document.getElementById('foot');
+    <div class="sidebar-wrapper">
+      <aside class="sidebar" id="sidebar">
+        <h3>Kérdések állapota</h3>
+        <div class="q-grid" id="q-grid"></div>
+        <button class="btn primary" id="sidebar-finishbtn" style="width:100%;">Kvíz befejezése</button>
+      </aside>
+    </div>
+  </div>
 
-function typeset(el){ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(()=>{}); }
-function shuffle(a){ a=a.slice(); for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];} return a; }
-function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2600); }
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function norm(arr){ return arr.filter(q=>q&&q.prompt&&Array.isArray(q.options)).map(q=>({topic:q.topic||"Egyéb",multi:!!q.multi,prompt:q.prompt,options:q.options.map(o=>({t:o.t||o.text||'',c:!!o.c||!!o.correct})),e:q.e||q.explanation||''})); }
+  <div id="toast"></div>
 
-/* ===== Indítás: questions.json letöltése ===== */
-async function init(){
-  try{
-    const res = await fetch('questions.json?t='+Date.now(), {cache:'no-store'});
-    if(!res.ok) throw new Error(res.status);
-    const data = await res.json();
-    const arr = Array.isArray(data)? data : data.questions;
-    const clean = norm(arr||[]);
-    bank = clean.length? clean : FALLBACK_BANK.map(q=>({...q}));
-    if(!clean.length) toast('questions.json üres — tartalék bank betöltve');
-  }catch(e){
-    bank = FALLBACK_BANK.map(q=>({...q}));
-    toast('questions.json nem elérhető — tartalék bank ('+bank.length+' kérdés)');
-  }
-  renderSetup();
-}
+  <script>
+    /* ===== Tartalék bank ===== */
+    const FALLBACK_BANK = [
+      { topic: "Komplex számok", multi: false, prompt: "Mennyi (2+5i)·(1−i)?", options: [{ t: "7+3i", c: true }, { t: "2−5i", c: false }, { t: "7−3i", c: false }, { t: "−3+7i", c: false }], e: "(2+5i)(1−i)=2+3i+5 = <strong>7+3i</strong>." },
+      { topic: "Sajátérték", multi: true, prompt: "Melyik igaz a sajátértékekről?", options: [{ t: "Különböző sajátértékek sajátvektorai függetlenek.", c: true }, { t: "geom. multiplicitás ≤ alg. multiplicitás.", c: true }, { t: "Különböző sajátértékek sajátvektorai mindig merőlegesek.", c: false }, { t: "A 0 minden transzformációnak sajátértéke.", c: false }], e: "Függetlenek (nem feltétlenül merőlegesek); geom ≤ alg; a 0 csak nem invertálható esetben sajátérték." }
+    ];
 
-/* ===== SETUP ===== */
-function renderSetup(){
-  const topics=[...new Set(bank.map(q=>q.topic))].sort();
-  const maxN=bank.length, def=Math.min(10,maxN);
-  const gh=detectRepo();
-  app.innerHTML=`
+    /* ===== Állapot ===== */
+    let bank = [];
+    let quiz = [], quizState = [], i = 0, score = 0;
+    const results = [];
+    let ghToken = '';
+    const app = document.getElementById('app');
+    const foot = document.getElementById('foot');
+
+    function typeset(el) { if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(() => { }); }
+    function shuffle(a) { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1));[a[k], a[j]] = [a[j], a[k]]; } return a; }
+    function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function norm(arr) { return arr.filter(q => q && q.prompt && Array.isArray(q.options)).map(q => ({ topic: q.topic || "Egyéb", multi: !!q.multi, prompt: q.prompt, options: q.options.map(o => ({ t: o.t || o.text || '', c: !!o.c || !!o.correct })), e: q.e || q.explanation || '' })); }
+
+    /* ===== Indítás: questions.json letöltése ===== */
+    async function init() {
+      try {
+        const res = await fetch('questions.json?t=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        const arr = Array.isArray(data) ? data : data.questions;
+        const clean = norm(arr || []);
+        bank = clean.length ? clean : FALLBACK_BANK.map(q => ({ ...q }));
+        if (!clean.length) toast('questions.json üres — tartalék bank betöltve');
+      } catch (e) {
+        bank = FALLBACK_BANK.map(q => ({ ...q }));
+        toast('questions.json nem elérhető — tartalék bank (' + bank.length + ' kérdés)');
+      }
+      renderSetup();
+    }
+
+    /* ===== SETUP ===== */
+    function renderSetup() {
+      document.getElementById('sidebar').classList.remove('open');
+      const topics = [...new Set(bank.map(q => q.topic))].sort();
+      const maxN = bank.length, def = Math.min(10, maxN);
+      const gh = detectRepo();
+      app.innerHTML = `
    <div class="card setup">
      <h2>Kvíz beállítása</h2>
      <div class="lead">Válaszd ki, hány kérdés legyen — a program véletlenszerűen sorsol a bankból.</div>
@@ -193,14 +1037,15 @@ function renderSetup(){
      </div>
      <div class="field"><label for="topic">Téma szűrő</label>
        <select id="topic"><option value="__all">Összes téma (${bank.length})</option>
-       ${topics.map(t=>`<option value="${esc(t)}">${esc(t)} (${bank.filter(q=>q.topic===t).length})</option>`).join("")}</select></div>
+       ${topics.map(t => `<option value="${esc(t)}">${esc(t)} (${bank.filter(q => q.topic === t).length})</option>`).join("")}</select></div>
      <div class="field"><label for="count">Kérdések száma</label>
        <div class="countrow"><input type="range" id="count" min="1" max="${maxN}" value="${def}"><span class="countbadge" id="countval">${def}</span></div></div>
      <div class="controls">
        <button class="btn primary" id="start">Kvíz indítása →</button>
        <button class="btn ghost small" id="add">＋ Új kérdés</button>
-       <button class="btn ghost small" id="export">⬇ JSON letöltése</button>
-       <button class="btn ghost small" id="loadbtn">📂 JSON betöltése</button>
+       <button class="btn ghost small" id="export">⬇ Teljes bank letöltése</button>
+       <button class="btn ghost small" id="loadbtn">📂 JSON felülírása</button>
+       <button class="btn ghost small" id="mergebtn" style="color:var(--accent-deep); border-color:var(--accent-deep)">➕ Új JSON hozzáfűzése</button>
        <button class="btn blue small" id="ghbtn">⚙ GitHub feltöltés</button>
      </div>
 
@@ -214,166 +1059,279 @@ function renderSetup(){
          <div class="full"><label class="flbl">Personal Access Token (Contents: write)</label><input type="password" id="gh-token" placeholder="github_pat_… (csak ebben a fülben tárolódik)"></div>
        </div>
        <button class="btn blue small" id="ghpush">Feltöltés GitHubra</button>
-       <div class="help">A token csak a memóriában marad (frissítéskor újra kell írni). Visitor­oknak nincs rá szükségük — ők játszanak és a „JSON letöltése” gombbal exportálhatnak. Részletek a README-ben.</div>
+       <div class="help">A token csak a memóriában marad. Visitoroknak nincs rá szükségük.</div>
      </div>
-
-     <div class="help" style="margin-top:14px">Új kérdést a legegyszerűbben a <strong>questions.json</strong> github.com-on való szerkesztésével adhatsz hozzá (Edit → Commit), vagy itt a „⚙ GitHub feltöltés” gombbal.</div>
    </div>`;
 
-  const range=document.getElementById('count'), countval=document.getElementById('countval'),
-        willdo=document.getElementById('willdo'), topicSel=document.getElementById('topic');
-  function refreshMax(){const t=topicSel.value;const n=t==='__all'?bank.length:bank.filter(q=>q.topic===t).length;range.max=n;if(+range.value>n)range.value=n;countval.textContent=range.value;willdo.textContent=range.value;}
-  topicSel.addEventListener('change',refreshMax);
-  range.addEventListener('input',()=>{countval.textContent=range.value;willdo.textContent=range.value;});
-  document.getElementById('start').addEventListener('click',()=>{
-    const t=topicSel.value, pool=t==='__all'?bank:bank.filter(q=>q.topic===t);
-    const n=Math.min(+range.value,pool.length);
-    quiz=shuffle(pool).slice(0,n); i=0;score=0;results.length=0; renderQuestion(); scrollTop();
-  });
-  document.getElementById('add').addEventListener('click',renderAddForm);
-  document.getElementById('export').addEventListener('click',exportJSON);
-  document.getElementById('loadbtn').addEventListener('click',loadFile);
-  const panel=document.getElementById('ghpanel');
-  document.getElementById('ghbtn').addEventListener('click',()=>{panel.classList.toggle('open');});
-  document.getElementById('ghpush').addEventListener('click',pushToGitHub);
-  if(ghToken) document.getElementById('gh-token').value=ghToken;
-  foot.textContent="Kérdésbank: "+bank.length+" kérdés · "+topics.length+" téma";
-}
-function scrollTop(){window.scrollTo({top:0,behavior:'smooth'});}
+      const range = document.getElementById('count'), countval = document.getElementById('countval'),
+        willdo = document.getElementById('willdo'), topicSel = document.getElementById('topic');
+      function refreshMax() { const t = topicSel.value; const n = t === '__all' ? bank.length : bank.filter(q => q.topic === t).length; range.max = n; if (+range.value > n) range.value = n; countval.textContent = range.value; willdo.textContent = range.value; }
+      topicSel.addEventListener('change', refreshMax);
+      range.addEventListener('input', () => { countval.textContent = range.value; willdo.textContent = range.value; });
 
-/* ===== KÉRDÉS ===== */
-function renderQuestion(){
-  const q=quiz[i]; selected=new Set(); answered=false;
-  const opts=q.options.map((o,idx)=>`<li class="opt ${q.multi?'':'single'}" data-idx="${idx}"><span class="mark"></span><span class="txt">${o.t}</span></li>`).join("");
-  app.innerHTML=`
-   <div class="progress-row"><span class="pmeta">${i+1} / ${quiz.length}</span><div class="ptrack"><div class="pfill" id="pfill"></div></div><span class="score-chip" id="scorechip">${score} pont</span></div>
+      document.getElementById('start').addEventListener('click', () => {
+        const t = topicSel.value, pool = t === '__all' ? bank : bank.filter(q => q.topic === t);
+        const n = Math.min(+range.value, pool.length);
+        quiz = shuffle(pool).slice(0, n);
+        quizState = quiz.map(() => ({ answered: false, selected: new Set(), result: null }));
+        i = 0; score = 0; results.length = 0;
+        document.getElementById('sidebar').classList.add('open');
+        renderSidebar();
+        renderQuestion();
+        scrollTop();
+      });
+
+      document.getElementById('add').addEventListener('click', renderAddForm);
+      document.getElementById('export').addEventListener('click', exportJSON);
+      document.getElementById('loadbtn').addEventListener('click', loadFile);
+      document.getElementById('mergebtn').addEventListener('click', mergeFile);
+
+      const panel = document.getElementById('ghpanel');
+      document.getElementById('ghbtn').addEventListener('click', () => { panel.classList.toggle('open'); });
+      document.getElementById('ghpush').addEventListener('click', pushToGitHub);
+      if (ghToken) document.getElementById('gh-token').value = ghToken;
+      foot.textContent = "Kérdésbank: " + bank.length + " kérdés · " + topics.length + " téma";
+    }
+
+    function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    window.goTo = function (idx) { i = idx; renderQuestion(); renderSidebar(); scrollTop(); };
+
+    /* ===== SIDEBAR (Oldalsáv) ===== */
+    function renderSidebar() {
+      const grid = document.getElementById('q-grid');
+      grid.innerHTML = quizState.map((s, idx) => {
+        let cls = 'q-nav-btn';
+        if (idx === i) cls += ' active';
+        if (s.answered && s.result) cls += ' ' + s.result;
+        return `<button class="${cls}" onclick="goTo(${idx})">${idx + 1}</button>`;
+      }).join('');
+      document.getElementById('sidebar-finishbtn').onclick = finish;
+    }
+
+    /* ===== KÉRDÉS NÉZET ===== */
+    function renderQuestion() {
+      const q = quiz[i], s = quizState[i];
+      const opts = q.options.map((o, idx) => {
+        let cls = q.multi ? '' : 'single';
+        let badge = '';
+        const isSel = s.selected.has(idx);
+        if (isSel) cls += ' sel';
+        if (s.answered) {
+          cls += ' locked';
+          const isC = o.c;
+          if (isSel && isC) { cls += ' correct'; badge = '<span class="badge">helyes</span>'; }
+          else if (isSel && !isC) { cls += ' wrongpick'; badge = '<span class="badge">rossz</span>'; }
+          else if (!isSel && isC) { cls += ' missed'; badge = '<span class="badge">kimaradt</span>'; }
+        }
+        return `<li class="opt ${cls}" data-idx="${idx}"><span class="mark"></span><span class="txt">${o.t}</span>${badge}</li>`;
+      }).join("");
+
+      let fbHtml = '';
+      if (s.answered) {
+        let head, dot;
+        if (s.result === 'ok') { head = "Helyes!"; dot = "✓"; }
+        else if (s.result === 'part') { head = "Részben helyes"; dot = "◐"; }
+        else { head = "Nem talált"; dot = "✕"; }
+        fbHtml = `<div class="feedback ${s.result}"><div class="fb-head"><span>${dot}</span>${head}</div><div class="expl">${q.e || ''}</div></div>`;
+      }
+
+      app.innerHTML = `
+   <div class="progress-row"><span class="pmeta">${i + 1} / ${quiz.length}</span><div class="ptrack"><div class="pfill" id="pfill"></div></div><span class="score-chip" id="scorechip">${score} pont</span></div>
    <div class="card bar">
-     <div class="qtag">${i+1}. kérdés</div><span class="qtopic">${esc(q.topic||'')}</span>
+     <div class="qtag">${i + 1}. kérdés</div><span class="qtopic">${esc(q.topic || '')}</span>
      <div class="prompt">${q.prompt}</div>
-     <div class="hint">${q.multi?"Több helyes válasz is lehet — jelöld be mindet.":"Egy helyes válasz van."}</div>
-     <ul class="options">${opts}</ul><div id="fbslot"></div>
-     <div class="controls"><button class="btn primary" id="checkbtn" disabled>Ellenőrzés</button></div>
+     <div class="hint">${q.multi ? "Több helyes válasz is lehet — jelöld be mindet." : "Egy helyes válasz van."}</div>
+     <ul class="options">${opts}</ul><div id="fbslot">${fbHtml}</div>
+     <div class="controls">
+       <button class="btn ghost" id="prevbtn" ${i === 0 ? 'disabled' : ''}>← Előző</button>
+       ${!s.answered ? `<button class="btn primary" id="checkbtn" ${s.selected.size === 0 ? 'disabled' : ''}>Ellenőrzés</button>` : ''}
+       <button class="btn primary" id="nextbtn">${i + 1 < quiz.length ? 'Következő →' : 'Befejezés'}</button>
+     </div>
    </div>`;
-  document.getElementById('pfill').style.width=(i/quiz.length*100)+"%";
-  app.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',()=>pick(el)));
-  document.getElementById('checkbtn').addEventListener('click',check);
-  typeset(app);
-}
-function pick(el){if(answered)return;const idx=+el.dataset.idx,q=quiz[i];
-  if(q.multi){if(selected.has(idx)){selected.delete(idx);el.classList.remove('sel');}else{selected.add(idx);el.classList.add('sel');}}
-  else{selected.clear();app.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));selected.add(idx);el.classList.add('sel');}
-  document.getElementById('checkbtn').disabled=selected.size===0;}
-function check(){if(answered)return;answered=true;const q=quiz[i];
-  const correct=new Set(q.options.map((o,k)=>o.c?k:-1).filter(k=>k>=0));let right=0,wrong=0;
-  app.querySelectorAll('.opt').forEach(el=>{const idx=+el.dataset.idx;el.classList.add('locked');el.classList.remove('sel');
-    const isC=correct.has(idx),isCh=selected.has(idx);
-    if(isCh&&isC){el.classList.add('correct');el.querySelector('.txt').insertAdjacentHTML('afterend','<span class="badge">helyes</span>');right++;}
-    else if(isCh&&!isC){el.classList.add('wrongpick');el.querySelector('.txt').insertAdjacentHTML('afterend','<span class="badge">rossz</span>');wrong++;}
-    else if(!isCh&&isC){el.classList.add('missed');el.querySelector('.txt').insertAdjacentHTML('afterend','<span class="badge">kimaradt</span>');}});
-  const all=wrong===0&&right===correct.size, part=!all&&right>0&&wrong===0;
-  let cls,head,dot;
-  if(all){score++;cls="ok";head="Helyes!";dot="✓";results.push({topic:q.topic,state:"ok"});}
-  else if(part){cls="part";head="Részben helyes";dot="◐";results.push({topic:q.topic,state:"part"});}
-  else{cls="no";head="Nem talált";dot="✕";results.push({topic:q.topic,state:"no"});}
-  document.getElementById('scorechip').textContent=score+" pont";
-  document.getElementById('fbslot').innerHTML=`<div class="feedback ${cls}"><div class="fb-head"><span>${dot}</span>${head}</div><div class="expl">${q.e||''}</div></div>`;
-  app.querySelector('.controls').innerHTML=`<button class="btn primary" id="nextbtn">${i+1<quiz.length?'Következő →':'Eredmény →'}</button>`;
-  document.getElementById('nextbtn').addEventListener('click',next); typeset(app);}
-function next(){if(i+1<quiz.length){i++;renderQuestion();scrollTop();}else finish();}
-function finish(){const pct=Math.round(score/quiz.length*100);
-  let verdict=pct>=90?"Kiváló — ez vizsgaérett tudás.":pct>=70?"Erős teljesítmény, pár fogalmat csiszolj.":pct>=50?"Jó alap — nézd át a hibás témákat.":"Még gyakorolj — a magyarázatok segítenek.";
-  const rows=results.map((r,k)=>{const ico=r.state==="ok"?'<span class="ico ok-i">✓</span>':r.state==="part"?'<span class="ico pt-i">◐</span>':'<span class="ico no-i">✕</span>';return `<div class="brow">${ico}<span>${k+1}. kérdés</span><span class="topic">${esc(r.topic||'')}</span></div>`;}).join("");
-  app.innerHTML=`<div class="card result"><div class="ring" id="ring"><div class="inner"><div class="big">${score}<span style="font-size:1.1rem;color:var(--ink-soft)">/${quiz.length}</span></div><div class="small">${pct}%</div></div></div>
-   <h2>Kvíz kész</h2><div class="verdict">${verdict}</div><div class="breakdown">${rows}</div>
-   <div class="controls" style="justify-content:center"><button class="btn primary" id="again">Új kvíz</button></div></div>`;
-  requestAnimationFrame(()=>{const r=document.getElementById('ring');if(r)r.style.background=`conic-gradient(var(--accent) ${pct}%, var(--rule) 0)`;});
-  document.getElementById('again').addEventListener('click',renderSetup); typeset(app);}
 
-/* ===== ÚJ KÉRDÉS ===== */
-let draftType='multi';
-function renderAddForm(){draftType='multi';
-  app.innerHTML=`<div class="card addform"><h2>Új kérdés</h2>
+      document.getElementById('pfill').style.width = (quizState.filter(x => x.answered).length / quiz.length * 100) + "%";
+
+      if (!s.answered) {
+        app.querySelectorAll('.opt').forEach(el => el.addEventListener('click', () => {
+          const idx = +el.dataset.idx;
+          if (q.multi) {
+            if (s.selected.has(idx)) { s.selected.delete(idx); el.classList.remove('sel'); }
+            else { s.selected.add(idx); el.classList.add('sel'); }
+          } else {
+            s.selected.clear();
+            app.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+            s.selected.add(idx); el.classList.add('sel');
+          }
+          document.getElementById('checkbtn').disabled = s.selected.size === 0;
+        }));
+
+        document.getElementById('checkbtn').addEventListener('click', () => {
+          const correct = new Set(q.options.map((o, k) => o.c ? k : -1).filter(k => k >= 0));
+          let right = 0, wrong = 0;
+          app.querySelectorAll('.opt').forEach(el => {
+            const idx = +el.dataset.idx;
+            if (s.selected.has(idx) && correct.has(idx)) right++;
+            else if (s.selected.has(idx) && !correct.has(idx)) wrong++;
+          });
+          const all = (wrong === 0 && right === correct.size);
+          const part = (!all && right > 0 && wrong === 0);
+
+          s.answered = true;
+          if (all) { s.result = 'ok'; score++; }
+          else if (part) { s.result = 'part'; }
+          else { s.result = 'no'; }
+
+          renderQuestion();
+          renderSidebar();
+        });
+      }
+
+      document.getElementById('prevbtn').addEventListener('click', () => goTo(i - 1));
+      document.getElementById('nextbtn').addEventListener('click', () => {
+        if (i + 1 < quiz.length) goTo(i + 1); else finish();
+      });
+      typeset(app);
+    }
+
+    function finish() {
+      document.getElementById('sidebar').classList.remove('open');
+      let finalScore = 0;
+      results.length = 0;
+      quizState.forEach((s, idx) => {
+        if (s.result === 'ok') finalScore++;
+        results.push({ topic: quiz[idx].topic, state: s.result || 'no' });
+      });
+      score = finalScore;
+
+      const pct = Math.round(score / quiz.length * 100);
+      let verdict = pct >= 90 ? "Kiváló — ez vizsgaérett tudás." : pct >= 70 ? "Erős teljesítmény, pár fogalmat csiszolj." : pct >= 50 ? "Jó alap — nézd át a hibás témákat." : "Még gyakorolj — a magyarázatok segítenek.";
+      const rows = results.map((r, k) => { const ico = r.state === "ok" ? '<span class="ico ok-i">✓</span>' : r.state === "part" ? '<span class="ico pt-i">◐</span>' : '<span class="ico no-i">✕</span>'; return `<div class="brow">${ico}<span>${k + 1}. kérdés</span><span class="topic">${esc(r.topic || '')}</span></div>`; }).join("");
+      app.innerHTML = `<div class="card result"><div class="ring" id="ring"><div class="inner"><div class="big">${score}<span style="font-size:1.1rem;color:var(--ink-soft)">/${quiz.length}</span></div><div class="small">${pct}%</div></div></div>
+   <h2>Kvíz kész</h2><div class="verdict">${verdict}</div><div class="breakdown">${rows}</div>
+   <div class="controls" style="justify-content:center"><button class="btn primary" id="again">Új kvíz beállítása</button></div></div>`;
+      requestAnimationFrame(() => { const r = document.getElementById('ring'); if (r) r.style.background = `conic-gradient(var(--accent) ${pct}%, var(--rule) 0)`; });
+      document.getElementById('again').addEventListener('click', renderSetup); typeset(app);
+    }
+
+    /* ===== ÚJ KÉRDÉS (Szerkesztő) ===== */
+    let draftType = 'multi';
+    function renderAddForm() {
+      draftType = 'multi';
+
+      // Kiszedjük és sorbarendezzük a már meglévő (egyedi) témákat a bankból
+      const topics = [...new Set(bank.map(q => q.topic))].filter(Boolean).sort();
+      const datalistOpts = topics.map(t => `<option value="${esc(t)}"></option>`).join('');
+
+      app.innerHTML = `<div class="card addform"><h2>Új kérdés</h2>
    <div class="lead">A bekapcsolt jelölő = helyes válasz. LaTeX-hez: \\( ... \\).</div>
-   <div class="frow"><label class="flbl">Téma</label><input type="text" id="f-topic" placeholder="pl. Gráfok"></div>
+   
+   <div class="frow">
+     <label class="flbl">Téma</label>
+     <input type="text" id="f-topic" list="topic-list" placeholder="Kattints ide a meglévőkhöz vagy gépelj újat..." autocomplete="off">
+     <datalist id="topic-list">${datalistOpts}</datalist>
+   </div>
+   
    <div class="frow"><label class="flbl">Típus</label><div class="seg"><button id="t-multi" class="on">Több válasz</button><button id="t-single">Egy válasz</button></div></div>
    <div class="frow"><label class="flbl">Kérdés szövege</label><textarea id="f-prompt" rows="2" placeholder="A kérdés..."></textarea></div>
    <div class="frow"><label class="flbl">Válaszlehetőségek (pipáld be a helyeseket)</label><div id="opts"></div><button class="btn ghost small" id="addopt" style="margin-top:4px;">＋ Válasz</button></div>
    <div class="frow"><label class="flbl">Magyarázat</label><textarea id="f-expl" rows="3" placeholder="Miért ez a helyes válasz..."></textarea></div>
-   <div class="controls"><button class="btn primary" id="saveq">Hozzáadás a bankhoz</button><button class="btn ghost small" id="back">← Vissza</button></div>
-   <div class="help">A hozzáadott kérdés ebben a munkamenetben él. Tartós mentéshez: „JSON letöltése” + commit, vagy „⚙ GitHub feltöltés”.</div></div>`;
-  const box=document.getElementById('opts');
-  function addOpt(t='',c=false){const r=document.createElement('div');r.className='optedit';
-    r.innerHTML=`<input type="text" class="o-text" placeholder="Válasz szövege" value="${esc(t)}"><label class="cbx"><input type="checkbox" class="o-correct" ${c?'checked':''}>helyes</label><button class="del">✕</button>`;
-    r.querySelector('.del').addEventListener('click',()=>{if(box.children.length>2)r.remove();else toast('Legalább 2 válasz kell');});box.appendChild(r);}
-  addOpt('',true);addOpt('');addOpt('');addOpt('');
-  document.getElementById('addopt').addEventListener('click',()=>{if(box.children.length<8)addOpt();else toast('Max 8 válasz');});
-  const tm=document.getElementById('t-multi'),ts=document.getElementById('t-single');
-  tm.addEventListener('click',()=>{draftType='multi';tm.classList.add('on');ts.classList.remove('on');});
-  ts.addEventListener('click',()=>{draftType='single';ts.classList.add('on');tm.classList.remove('on');});
-  document.getElementById('saveq').addEventListener('click',()=>{
-    const topic=document.getElementById('f-topic').value.trim()||"Egyéb";
-    const prompt=document.getElementById('f-prompt').value.trim();
-    const expl=document.getElementById('f-expl').value.trim();
-    const rows=[...box.querySelectorAll('.optedit')];
-    const options=rows.map(r=>({t:r.querySelector('.o-text').value.trim(),c:r.querySelector('.o-correct').checked})).filter(o=>o.t);
-    if(!prompt){toast('Írd be a kérdést');return;}
-    if(options.length<2){toast('Legalább 2 válasz kell');return;}
-    const nC=options.filter(o=>o.c).length;
-    if(nC<1){toast('Jelölj meg helyes választ');return;}
-    if(draftType==='single'&&nC>1){toast('Egyválaszos: csak 1 helyes');return;}
-    bank.push({topic,multi:draftType==='multi',prompt,options,e:expl});
-    toast('Hozzáadva ('+bank.length+' kérdés)'); renderSetup();
-  });
-  document.getElementById('back').addEventListener('click',renderSetup); typeset(app);
-}
+   <div class="controls"><button class="btn primary" id="saveq">Hozzáadás a bankhoz</button><button class="btn ghost small" id="back">← Vissza</button></div></div>`;
 
-/* ===== Export / import / GitHub ===== */
-function bankJSON(){ return JSON.stringify({version:1, questions:bank}, null, 2); }
-function exportJSON(){
-  const blob=new Blob([bankJSON()],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='questions.json';
-  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);toast('Letöltve: questions.json');
-}
-function loadFile(){
-  const inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';
-  inp.onchange=async()=>{const f=inp.files[0];if(!f)return;try{const data=JSON.parse(await f.text());const arr=Array.isArray(data)?data:data.questions;const clean=norm(arr||[]);if(!clean.length)throw new Error('üres');bank=clean;toast('Betöltve: '+bank.length+' kérdés');renderSetup();}catch(e){toast('Hiba: '+e.message);}};
-  inp.click();
-}
-function detectRepo(){
-  // GitHub Pages URL alapján: owner.github.io/repo/...
-  try{
-    const h=location.hostname, parts=location.pathname.split('/').filter(Boolean);
-    if(h.endsWith('.github.io')){
-      const owner=h.split('.')[0];
-      const repo = parts.length? parts[0] : owner+'.github.io';
-      return {owner, repo};
+      const box = document.getElementById('opts');
+      function addOpt(t = '', c = false) {
+        const r = document.createElement('div'); r.className = 'optedit';
+        r.innerHTML = `<input type="text" class="o-text" placeholder="Válasz szövege" value="${esc(t)}"><label class="cbx"><input type="checkbox" class="o-correct" ${c ? 'checked' : ''}>helyes</label><button class="del">✕</button>`;
+        r.querySelector('.del').addEventListener('click', () => { if (box.children.length > 2) r.remove(); else toast('Legalább 2 válasz kell'); }); box.appendChild(r);
+      }
+      addOpt('', true); addOpt(''); addOpt(''); addOpt('');
+      document.getElementById('addopt').addEventListener('click', () => { if (box.children.length < 8) addOpt(); else toast('Max 8 válasz'); });
+      const tm = document.getElementById('t-multi'), ts = document.getElementById('t-single');
+      tm.addEventListener('click', () => { draftType = 'multi'; tm.classList.add('on'); ts.classList.remove('on'); });
+      ts.addEventListener('click', () => { draftType = 'single'; ts.classList.add('on'); tm.classList.remove('on'); });
+
+      document.getElementById('saveq').addEventListener('click', () => {
+        const topic = document.getElementById('f-topic').value.trim() || "Egyéb";
+        const prompt = document.getElementById('f-prompt').value.trim();
+        const expl = document.getElementById('f-expl').value.trim();
+        const rows = [...box.querySelectorAll('.optedit')];
+        const options = rows.map(r => ({ t: r.querySelector('.o-text').value.trim(), c: r.querySelector('.o-correct').checked })).filter(o => o.t);
+        if (!prompt) { toast('Írd be a kérdést'); return; }
+        if (options.length < 2) { toast('Legalább 2 válasz kell'); return; }
+        const nC = options.filter(o => o.c).length;
+        if (nC < 1) { toast('Jelölj meg helyes választ'); return; }
+        if (draftType === 'single' && nC > 1) { toast('Egyválaszos: csak 1 helyes'); return; }
+        bank.push({ topic, multi: draftType === 'multi', prompt, options, e: expl });
+        toast('Hozzáadva (' + bank.length + ' kérdés)'); renderSetup();
+      });
+      document.getElementById('back').addEventListener('click', renderSetup); typeset(app);
     }
-  }catch(e){}
-  return {owner:'', repo:''};
-}
-function b64utf8(str){ return btoa(unescape(encodeURIComponent(str))); }
-async function pushToGitHub(){
-  const owner=document.getElementById('gh-owner').value.trim();
-  const repo=document.getElementById('gh-repo').value.trim();
-  const path=document.getElementById('gh-path').value.trim()||'questions.json';
-  const branch=document.getElementById('gh-branch').value.trim()||'main';
-  ghToken=document.getElementById('gh-token').value.trim();
-  if(!owner||!repo||!ghToken){toast('Töltsd ki: owner, repó, token');return;}
-  const api=`https://api.github.com/repos/${owner}/${repo}/contents/${path.split('/').map(encodeURIComponent).join('/')}`;
-  const headers={Authorization:`Bearer ${ghToken}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
-  toast('Feltöltés…');
-  let sha=null;
-  try{const g=await fetch(`${api}?ref=${encodeURIComponent(branch)}`,{headers});if(g.ok){const j=await g.json();sha=j.sha;}}catch(e){}
-  const body={message:`Kérdésbank frissítése (${bank.length} kérdés)`,content:b64utf8(bankJSON()),branch};
-  if(sha)body.sha=sha;
-  try{
-    const r=await fetch(api,{method:'PUT',headers,body:JSON.stringify(body)});
-    if(r.ok){toast('Feltöltve ✓ A Pages 1–2 perc múlva frissül.');}
-    else{const e=await r.json().catch(()=>({}));toast('GitHub hiba: '+(e.message||r.status));}
-  }catch(err){toast('Hálózati hiba: '+err.message);}
-}
 
-init();
-</script>
+    /* ===== Export / import / GitHub ===== */
+    function bankJSON() { return JSON.stringify({ version: 1, questions: bank }, null, 2); }
+    function exportJSON() {
+      const blob = new Blob([bankJSON()], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'questions.json';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href); toast('Letöltve: questions.json');
+    }
+    function loadFile() {
+      const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
+      inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { const data = JSON.parse(await f.text()); const arr = Array.isArray(data) ? data : data.questions; const clean = norm(arr || []); if (!clean.length) throw new Error('üres'); bank = clean; toast('Betöltve: ' + bank.length + ' kérdés (Felülírva)'); renderSetup(); } catch (e) { toast('Hiba: ' + e.message); } };
+      inp.click();
+    }
+
+    /* === JSON hozzáfűzése === */
+    function mergeFile() {
+      const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
+      inp.onchange = async () => {
+        const f = inp.files[0]; if (!f) return;
+        try {
+          const data = JSON.parse(await f.text());
+          const arr = Array.isArray(data) ? data : data.questions;
+          const clean = norm(arr || []);
+          if (!clean.length) throw new Error('Nem található érvényes kérdés a fájlban');
+          bank.push(...clean);
+          toast('Sikeresen hozzáfűzve ' + clean.length + ' kérdés! (Összesen: ' + bank.length + ')');
+          renderSetup();
+        } catch (e) { toast('Hiba a fájl feldolgozásakor: ' + e.message); }
+      };
+      inp.click();
+    }
+
+    function detectRepo() {
+      try {
+        const h = location.hostname, parts = location.pathname.split('/').filter(Boolean);
+        if (h.endsWith('.github.io')) {
+          const owner = h.split('.')[0];
+          const repo = parts.length ? parts[0] : owner + '.github.io';
+          return { owner, repo };
+        }
+      } catch (e) { }
+      return { owner: '', repo: '' };
+    }
+    function b64utf8(str) { return btoa(unescape(encodeURIComponent(str))); }
+    async function pushToGitHub() {
+      const owner = document.getElementById('gh-owner').value.trim();
+      const repo = document.getElementById('gh-repo').value.trim();
+      const path = document.getElementById('gh-path').value.trim() || 'questions.json';
+      const branch = document.getElementById('gh-branch').value.trim() || 'main';
+      ghToken = document.getElementById('gh-token').value.trim();
+      if (!owner || !repo || !ghToken) { toast('Töltsd ki: owner, repó, token'); return; }
+      const api = `https://api.github.com/repos/${owner}/${repo}/contents/${path.split('/').map(encodeURIComponent).join('/')}`;
+      const headers = { Authorization: `Bearer ${ghToken}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+      toast('Feltöltés…');
+      let sha = null;
+      try { const g = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers }); if (g.ok) { const j = await g.json(); sha = j.sha; } } catch (e) { }
+      const body = { message: `Kérdésbank frissítése (${bank.length} kérdés)`, content: b64utf8(bankJSON()), branch };
+      if (sha) body.sha = sha;
+      try {
+        const r = await fetch(api, { method: 'PUT', headers, body: JSON.stringify(body) });
+        if (r.ok) { toast('Feltöltve ✓ A Pages 1–2 perc múlva frissül.'); }
+        else { const e = await r.json().catch(() => ({})); toast('GitHub hiba: ' + (e.message || r.status)); }
+      } catch (err) { toast('Hálózati hiba: ' + err.message); }
+    }
+
+    init();
+  </script>
 </body>
+
 </html>
