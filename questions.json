@@ -648,6 +648,1062 @@
         }
       ],
       "e": "A kvadratikus alak mátrixa szimmetrikus. A spektráltétel szerint minden valós szimmetrikus mátrix ortogonálisan diagonalizálható — tehát hasonló egy diagonálishoz."
+    },
+    {
+      "topic": "Vektortér",
+      "multi": true,
+      "prompt": "Mikor altér egy V vektortér nemüres W részhalmaza?",
+      "options": [
+        {
+          "t": "Ha zárt az összeadásra és a skalárral való szorzásra.",
+          "c": true
+        },
+        {
+          "t": "Ekkor W tartalmazza a nullvektort.",
+          "c": true
+        },
+        {
+          "t": "Ha W-nek pontosan annyi eleme van, mint V-nek.",
+          "c": false
+        },
+        {
+          "t": "Ha W lineárisan független rendszer.",
+          "c": false
+        }
+      ],
+      "e": "Altérkritérium: nemüres és zárt a két műveletre — ebből következik, hogy tartalmazza a 0-t. A számosság/függetlenség nem feltétel."
+    },
+    {
+      "topic": "Vektortér",
+      "multi": true,
+      "prompt": "Mit mond a kicserélési (Steinitz) tétel és következményei?",
+      "options": [
+        {
+          "t": "Egy lineárisan független rendszer elemszáma nem nagyobb egy generátorrendszerénél.",
+          "c": true
+        },
+        {
+          "t": "Egy véges dimenziós tér bármely két bázisa azonos elemszámú.",
+          "c": true
+        },
+        {
+          "t": "Minden generátorrendszer egyben bázis is.",
+          "c": false
+        },
+        {
+          "t": "Egy bázist tetszőleges vektorral bővítve bázist kapunk.",
+          "c": false
+        }
+      ],
+      "e": "A kicserélési tétel következménye, hogy független ≤ generátor, és minden bázis egyforma méretű (= dimenzió). A generátorrendszer lehet több elemű, mint a bázis."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": false,
+      "prompt": "Mik a [[2,1],[1,2]] mátrix sajátértékei?",
+      "options": [
+        {
+          "t": "1 és 3",
+          "c": true
+        },
+        {
+          "t": "2 és 2",
+          "c": false
+        },
+        {
+          "t": "0 és 4",
+          "c": false
+        },
+        {
+          "t": "−1 és 1",
+          "c": false
+        }
+      ],
+      "e": "det(A−λI) = (2−λ)²−1 = λ²−4λ+3 = (λ−1)(λ−3) → λ = 1 és 3."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": false,
+      "prompt": "Egy 3×3-as mátrix karakterisztikus polinomja hányadfokú?",
+      "options": [
+        {
+          "t": "Harmadfokú",
+          "c": true
+        },
+        {
+          "t": "Másodfokú",
+          "c": false
+        },
+        {
+          "t": "Hatodfokú",
+          "c": false
+        },
+        {
+          "t": "Elsőfokú",
+          "c": false
+        }
+      ],
+      "e": "Egy n×n mátrix karakterisztikus polinomja det(A−λI) pontosan n-edfokú, így 3×3-nál harmadfokú (multiplicitással 3 komplex sajátérték)."
+    },
+    {
+      "topic": "Hasonló mátrixok",
+      "multi": true,
+      "prompt": "Mi igaz két hasonló mátrixra (B = P⁻¹AP)?",
+      "options": [
+        {
+          "t": "Megegyezik a sajátértékeik (és a karakterisztikus polinomjuk).",
+          "c": true
+        },
+        {
+          "t": "Megegyezik a determinánsuk és a nyomuk (trace).",
+          "c": true
+        },
+        {
+          "t": "Mindig megegyeznek a sajátvektoraik is.",
+          "c": false
+        },
+        {
+          "t": "Hasonló mátrixok mindig megegyeznek (azonosak).",
+          "c": false
+        }
+      ],
+      "e": "A hasonlóság megőrzi a karakterisztikus polinomot → azonos sajátérték, det, trace, rang. A sajátvektorok viszont általában mások (P transzformálja őket)."
+    },
+    {
+      "topic": "Szimmetrikus mátrix",
+      "multi": true,
+      "prompt": "Mi igaz egy valós szimmetrikus mátrixra?",
+      "options": [
+        {
+          "t": "Minden sajátértéke valós.",
+          "c": true
+        },
+        {
+          "t": "Különböző sajátértékekhez tartozó sajátvektorai merőlegesek.",
+          "c": true
+        },
+        {
+          "t": "Mindig diagonalizálható (ortonormált sajátvektor-bázis van).",
+          "c": true
+        },
+        {
+          "t": "Lehet, hogy egyetlen sajátértéke sem valós.",
+          "c": false
+        }
+      ],
+      "e": "A spektráltétel: valós szimmetrikus mátrix sajátértékei valósak, különböző sajátértékek sajátvektorai merőlegesek, és ortogonálisan diagonalizálható."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": true,
+      "prompt": "Mikor pozitív definit egy (valós szimmetrikus) kvadratikus alak?",
+      "options": [
+        {
+          "t": "Ha minden sajátértéke pozitív.",
+          "c": true
+        },
+        {
+          "t": "Ha minden vezető (bal felső) sarokaldetermináns pozitív (Sylvester-kritérium).",
+          "c": true
+        },
+        {
+          "t": "Ha a determinánsa pozitív (önmagában elég).",
+          "c": false
+        },
+        {
+          "t": "Ha minden eleme pozitív.",
+          "c": false
+        }
+      ],
+      "e": "Pozitív definit ⇔ minden sajátérték > 0 ⇔ minden vezető főminor > 0. A determináns előjele önmagában nem dönti el (pl. két negatív sajátérték szorzata is pozitív)."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": false,
+      "prompt": "Mit mond a főtengelytétel a kvadratikus alakokról?",
+      "options": [
+        {
+          "t": "Van olyan (ortonormált) bázis, amelyben a kvadratikus alak tisztán négyzetösszeg (diagonális mátrixú).",
+          "c": true
+        },
+        {
+          "t": "Minden kvadratikus alak pozitív definit.",
+          "c": false
+        },
+        {
+          "t": "A kvadratikus alak mátrixa nem szimmetrikus.",
+          "c": false
+        },
+        {
+          "t": "Kvadratikus alak csak 2D-ben értelmezhető.",
+          "c": false
+        }
+      ],
+      "e": "Főtengelytétel: a szimmetrikus mátrix ortogonálisan diagonalizálható, így van olyan ortonormált bázis, amelyben az alak Σλᵢyᵢ² alakú."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": true,
+      "prompt": "Melyek a (valós) skaláris szorzat axiómái?",
+      "options": [
+        {
+          "t": "Szimmetria: ⟨u,v⟩ = ⟨v,u⟩.",
+          "c": true
+        },
+        {
+          "t": "Linearitás az első változóban.",
+          "c": true
+        },
+        {
+          "t": "Pozitív definitség: ⟨v,v⟩ ≥ 0, és = 0 csak v = 0 esetén.",
+          "c": true
+        },
+        {
+          "t": "⟨u,v⟩ mindig pozitív.",
+          "c": false
+        }
+      ],
+      "e": "A skaláris szorzat szimmetrikus, (bi)lineáris és pozitív definit. ⟨u,v⟩ lehet negatív vagy 0 különböző vektorokra; csak ⟨v,v⟩ nemnegatív."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": false,
+      "prompt": "Hogyan származtatjuk a normát a skaláris szorzatból?",
+      "options": [
+        {
+          "t": "‖v‖ = √⟨v,v⟩",
+          "c": true
+        },
+        {
+          "t": "‖v‖ = ⟨v,v⟩",
+          "c": false
+        },
+        {
+          "t": "‖v‖ = ⟨v,v⟩²",
+          "c": false
+        },
+        {
+          "t": "‖v‖ = |⟨v,0⟩|",
+          "c": false
+        }
+      ],
+      "e": "A skaláris szorzatból származtatott norma ‖v‖ = √⟨v,v⟩; a szögre pedig cos α = ⟨u,v⟩ / (‖u‖·‖v‖)."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": false,
+      "prompt": "Mit mond a Cauchy–Schwarz-egyenlőtlenség?",
+      "options": [
+        {
+          "t": "|⟨u,v⟩| ≤ ‖u‖·‖v‖",
+          "c": true
+        },
+        {
+          "t": "|⟨u,v⟩| ≥ ‖u‖·‖v‖",
+          "c": false
+        },
+        {
+          "t": "⟨u,v⟩ = ‖u‖·‖v‖ mindig",
+          "c": false
+        },
+        {
+          "t": "‖u+v‖ = ‖u‖+‖v‖ mindig",
+          "c": false
+        }
+      ],
+      "e": "Cauchy–Schwarz: |⟨u,v⟩| ≤ ‖u‖·‖v‖, egyenlőség csak párhuzamos vektorokra. Ebből következik a szög általánosítása."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Mi igaz a (ℂ, +, ·) struktúrára és az inverzekre?",
+      "options": [
+        {
+          "t": "ℂ test (kommutatív, minden nemnulla elemnek van szorzásinverze).",
+          "c": true
+        },
+        {
+          "t": "z = a+bi szorzásinverze z⁻¹ = (a−bi)/(a²+b²), ha z ≠ 0.",
+          "c": true
+        },
+        {
+          "t": "A 0-nak is van szorzásinverze.",
+          "c": false
+        },
+        {
+          "t": "Az összeadás egységeleme az 1.",
+          "c": false
+        }
+      ],
+      "e": "ℂ test. Az összeadás egységeleme a 0, a szorzásé az 1; z⁻¹ = z̄/|z|². A 0-nak nincs szorzásinverze."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "Mennyi i²⁰²⁶?",
+      "options": [
+        {
+          "t": "−1",
+          "c": true
+        },
+        {
+          "t": "1",
+          "c": false
+        },
+        {
+          "t": "i",
+          "c": false
+        },
+        {
+          "t": "−i",
+          "c": false
+        }
+      ],
+      "e": "i hatványai 4 szerint ismétlődnek (i, −1, −i, 1). 2026 mod 4 = 2, tehát i²⁰²⁶ = i² = −1."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Melyik igaz a konjugáltra?",
+      "options": [
+        {
+          "t": "z·z̄ = |z|²",
+          "c": true
+        },
+        {
+          "t": "conj(z·w) = z̄·w̄",
+          "c": true
+        },
+        {
+          "t": "conj(z+w) = z̄ + w̄",
+          "c": true
+        },
+        {
+          "t": "z̄ = −z minden z-re",
+          "c": false
+        }
+      ],
+      "e": "A konjugálás művelettartó: conj(z+w)=z̄+w̄, conj(zw)=z̄w̄, és z·z̄=|z|². A z̄=−z csak tisztán képzetes számokra igaz."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "Mik az x²−2x+5 = 0 egyenlet (komplex) gyökei?",
+      "options": [
+        {
+          "t": "1 + 2i és 1 − 2i",
+          "c": true
+        },
+        {
+          "t": "2 + i és 2 − i",
+          "c": false
+        },
+        {
+          "t": "−1 ± 2i",
+          "c": false
+        },
+        {
+          "t": "5 és −1",
+          "c": false
+        }
+      ],
+      "e": "Diszkrimináns: 4 − 20 = −16. Gyökök: (2 ± √(−16))/2 = (2 ± 4i)/2 = 1 ± 2i. (Konjugált pár, mert valós együtthatós.)"
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Mit mond a komplex konjugált tétel és az algebra alaptétele?",
+      "options": [
+        {
+          "t": "Valós együtthatós polinom komplex gyökei konjugált párban lépnek fel.",
+          "c": true
+        },
+        {
+          "t": "Egy n-edfokú polinom gyöktényezős alakra bontható ℂ fölött.",
+          "c": true
+        },
+        {
+          "t": "Páratlan fokú valós polinomnak biztosan van valós gyöke.",
+          "c": true
+        },
+        {
+          "t": "Valós együtthatós polinomnak nem lehet komplex gyöke.",
+          "c": false
+        }
+      ],
+      "e": "Komplex konjugált tétel: ha a+bi gyök (b≠0), akkor a−bi is. Innen következik, hogy páratlan fokú valós polinomnak van valós gyöke (a komplex gyökök párban). Algebra alaptétele: ℂ fölött gyöktényezős alak."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "Mit mond ki az Euler-azonosság?",
+      "options": [
+        {
+          "t": "e^{iπ} + 1 = 0",
+          "c": true
+        },
+        {
+          "t": "e^{iπ} = 1",
+          "c": false
+        },
+        {
+          "t": "e^{2πi} = −1",
+          "c": false
+        },
+        {
+          "t": "e^{iπ} = i",
+          "c": false
+        }
+      ],
+      "e": "Euler-azonosság: e^{iπ}+1 = 0 (az e^{iφ}=cos φ + i sin φ formulából φ=π-vel)."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "A 8 (azaz 8+0i) köbgyökeinek (3. gyökeinek) abszolútértéke mennyi?",
+      "options": [
+        {
+          "t": "2",
+          "c": true
+        },
+        {
+          "t": "8",
+          "c": false
+        },
+        {
+          "t": "∛8 ≈ 1,26 (csak az egyik)",
+          "c": false
+        },
+        {
+          "t": "24",
+          "c": false
+        }
+      ],
+      "e": "A 3. gyökök abszolútértéke ∛|8| = ∛8 = 2; három gyök van, 120°-onként: 2, 2·e^{i·120°}, 2·e^{i·240°}."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Mi a különbség nyitott és zárt mondat között?",
+      "options": [
+        {
+          "t": "A zárt mondatban nincs szabad változó.",
+          "c": true
+        },
+        {
+          "t": "A nyitott mondat igazságértéke a változó értékelésétől függ.",
+          "c": true
+        },
+        {
+          "t": "A zárt mondatnak nincs igazságértéke.",
+          "c": false
+        },
+        {
+          "t": "Minden kvantor nélküli formula zárt.",
+          "c": false
+        }
+      ],
+      "e": "Zárt mondat = nincs szabad változó → interpretációban egyértelmű igazságérték. Nyitott mondatnak van szabad változója, igazságértéke az értékeléstől függ."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Hogyan definiáljuk a kielégíthető / érvényes / kontradikció fogalmakat?",
+      "options": [
+        {
+          "t": "Érvényes (tautológia): minden interpretációban igaz.",
+          "c": true
+        },
+        {
+          "t": "Kielégíthető: van legalább egy interpretáció, amelyben igaz.",
+          "c": true
+        },
+        {
+          "t": "Kontradikció: minden interpretációban hamis.",
+          "c": true
+        },
+        {
+          "t": "Érvényes: van olyan interpretáció, amelyben igaz.",
+          "c": false
+        }
+      ],
+      "e": "Érvényes = mindenhol igaz; kielégíthető = van modellje; kontradikció = sehol sem igaz. Az utolsó az érvényes hibás (gyenge) megfogalmazása."
+    },
+    {
+      "topic": "Logika",
+      "multi": false,
+      "prompt": "Melyik a ¬∃x P(x) helyes átalakítása?",
+      "options": [
+        {
+          "t": "∀x ¬P(x)",
+          "c": true
+        },
+        {
+          "t": "∃x ¬P(x)",
+          "c": false
+        },
+        {
+          "t": "∀x P(x)",
+          "c": false
+        },
+        {
+          "t": "¬∀x P(x)",
+          "c": false
+        }
+      ],
+      "e": "Kvantoros De Morgan: ¬∃x P(x) ≡ ∀x ¬P(x) (és ¬∀x P(x) ≡ ∃x ¬P(x))."
+    },
+    {
+      "topic": "Normálformák",
+      "multi": true,
+      "prompt": "Mit kell tudni a Skólem-normálformáról?",
+      "options": [
+        {
+          "t": "Az egzisztenciális kvantorokat küszöböli ki Skólem-konstanssal/függvénnyel.",
+          "c": true
+        },
+        {
+          "t": "Egy ∀-k hatókörén kívüli ∃-t Skólem-konstans helyettesít.",
+          "c": true
+        },
+        {
+          "t": "Egy ∀x₁…∀xₖ hatókörében lévő ∃-t e változóktól függő Skólem-függvény helyettesít.",
+          "c": true
+        },
+        {
+          "t": "A Skólem-alak ekvivalens az eredeti formulával.",
+          "c": false
+        }
+      ],
+      "e": "A skolemizálás az ∃-eket távolítja el: a ∀-któl függő ∃ → függvény, független ∃ → konstans. Az eredmény nem ekvivalens, csak kielégíthetőség-ekvivalens (equiszatiszfiábilis)."
+    },
+    {
+      "topic": "Normálformák",
+      "multi": false,
+      "prompt": "Mi jellemzi a prenex alakot?",
+      "options": [
+        {
+          "t": "Minden kvantor a formula elején van, a kvantormentes mag előtt.",
+          "c": true
+        },
+        {
+          "t": "Nincs benne egyetlen kvantor sem.",
+          "c": false
+        },
+        {
+          "t": "Csak diszjunkciókat tartalmaz.",
+          "c": false
+        },
+        {
+          "t": "A kvantorok a formula végén vannak.",
+          "c": false
+        }
+      ],
+      "e": "Prenex alak: (kvantorok előtagja) + (kvantormentes mag). A Skólem-/CNF-átalakítás egyik lépése; előtte gyakran standardizálni kell a változókat."
+    },
+    {
+      "topic": "Normálformák",
+      "multi": false,
+      "prompt": "Miért kell standardizálni (átnevezni) a változókat a normálformára hozás előtt?",
+      "options": [
+        {
+          "t": "Hogy a különböző kvantorok ne ugyanazt a változónevet használják (változó-ütközés elkerülése).",
+          "c": true
+        },
+        {
+          "t": "Hogy minden formula tautológia legyen.",
+          "c": false
+        },
+        {
+          "t": "Hogy eltűnjenek a konstansok.",
+          "c": false
+        },
+        {
+          "t": "Hogy a formula rövidebb legyen.",
+          "c": false
+        }
+      ],
+      "e": "A standardizálás (változó-átnevezés) megakadályozza, hogy a kvantorok mozgatásakor egy kvantor véletlenül „megfogja” egy másik hatókör változóját."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Mi a kapcsolat ekvivalenciareláció és partíció között?",
+      "options": [
+        {
+          "t": "Minden ekvivalenciareláció a halmaz egy partícióját adja (ekvivalenciaosztályok).",
+          "c": true
+        },
+        {
+          "t": "Minden partícióhoz tartozik egy ekvivalenciareláció.",
+          "c": true
+        },
+        {
+          "t": "Az ekvivalenciaosztályok diszjunktak és lefedik a halmazt.",
+          "c": true
+        },
+        {
+          "t": "Két különböző ekvivalenciaosztálynak lehet közös eleme.",
+          "c": false
+        }
+      ],
+      "e": "Az ekvivalenciareláció és a partíció kölcsönösen meghatározzák egymást; az osztályok diszjunktak és uniójuk a teljes halmaz."
+    },
+    {
+      "topic": "Relációk",
+      "multi": false,
+      "prompt": "Ha |A| = 3 és |B| = 4, mennyi az A × B Descartes-szorzat elemszáma?",
+      "options": [
+        {
+          "t": "12",
+          "c": true
+        },
+        {
+          "t": "7",
+          "c": false
+        },
+        {
+          "t": "81",
+          "c": false
+        },
+        {
+          "t": "1",
+          "c": false
+        }
+      ],
+      "e": "|A × B| = |A|·|B| = 3·4 = 12 (rendezett párok)."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": true,
+      "prompt": "Melyik igaz a rendezett halmazok fogalmaira?",
+      "options": [
+        {
+          "t": "A supremum a legkisebb felső korlát (ha létezik).",
+          "c": true
+        },
+        {
+          "t": "Teljes rendezésben bármely két elem összehasonlítható.",
+          "c": true
+        },
+        {
+          "t": "A legnagyobb elem ugyanaz, mint a maximális elem.",
+          "c": false
+        },
+        {
+          "t": "Minden részhalmaznak van suprémuma.",
+          "c": false
+        }
+      ],
+      "e": "Suprémum = legkisebb felső korlát. Lehet több maximális elem, de legnagyobb elem legfeljebb egy (és nem minden poszetben van). Nem minden részhalmaznak van suprémuma."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Mit mond a kézfogási (fokszám) tétel?",
+      "options": [
+        {
+          "t": "A fokszámok összege egyenlő az élek számának kétszeresével.",
+          "c": true
+        },
+        {
+          "t": "A páratlan fokú csúcsok száma mindig páros.",
+          "c": true
+        },
+        {
+          "t": "Minden csúcs fokszáma páros.",
+          "c": false
+        },
+        {
+          "t": "A fokszámok összege egyenlő a csúcsok számával.",
+          "c": false
+        }
+      ],
+      "e": "Σ deg(v) = 2·|E| (minden él két fokszámhoz járul hozzá), ebből következik, hogy a páratlan fokú csúcsok száma páros."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": false,
+      "prompt": "Hány éle van a teljes K₆ gráfnak?",
+      "options": [
+        {
+          "t": "15",
+          "c": true
+        },
+        {
+          "t": "30",
+          "c": false
+        },
+        {
+          "t": "6",
+          "c": false
+        },
+        {
+          "t": "36",
+          "c": false
+        }
+      ],
+      "e": "Kₙ éleinek száma n(n−1)/2; K₆ → 6·5/2 = 15."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Melyik igaz a speciális gráfokra?",
+      "options": [
+        {
+          "t": "A Petersen-gráf 3-reguláris, 10 csúcsú, 15 élű.",
+          "c": true
+        },
+        {
+          "t": "A Q₃ hiperkocka 3-reguláris és páros gráf.",
+          "c": true
+        },
+        {
+          "t": "Páros gráfban nincs páratlan hosszú kör.",
+          "c": true
+        },
+        {
+          "t": "Minden k-reguláris gráf teljes gráf.",
+          "c": false
+        }
+      ],
+      "e": "Petersen: 10 csúcs, 15 él, 3-reguláris. Q₃: 8 csúcs, 12 él, 3-reguláris, páros. Páros gráf ⇔ nincs páratlan kör. A k-regularitás nem jelent teljességet (Kₙ (n−1)-reguláris)."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": false,
+      "prompt": "Lehet-e egy (legalább 2 csúcsú) egyszerű gráfban minden csúcs fokszáma különböző?",
+      "options": [
+        {
+          "t": "Nem, mindig van két azonos fokszámú csúcs.",
+          "c": true
+        },
+        {
+          "t": "Igen, mindig megoldható.",
+          "c": false
+        },
+        {
+          "t": "Csak páros sok csúcsnál nem.",
+          "c": false
+        },
+        {
+          "t": "Csak fában nem.",
+          "c": false
+        }
+      ],
+      "e": "n csúcsnál a lehetséges fokszámok 0…n−1, de 0 és n−1 nem fordulhat elő egyszerre, így a fokszámok skatulyaelv szerint nem lehetnek mind különbözők."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Melyik igaz az élsorozatokra?",
+      "options": [
+        {
+          "t": "Az út olyan élsorozat, amelyben minden csúcs különböző.",
+          "c": true
+        },
+        {
+          "t": "A kör zárt élsorozat, amelyben (a kezdő/végpont kivételével) a csúcsok különbözők.",
+          "c": true
+        },
+        {
+          "t": "A séta megengedi élek és csúcsok ismétlését.",
+          "c": true
+        },
+        {
+          "t": "Minden séta egyben út is.",
+          "c": false
+        }
+      ],
+      "e": "Séta: tetszőleges ismétlés. Vonal (trail): élek nem ismétlődnek. Út: csúcsok sem. Kör: zárt út. Nem minden séta út."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Mi a különbség a szélességi (BFS) és mélységi (DFS) bejárás között?",
+      "options": [
+        {
+          "t": "A BFS sort (queue) használ, szintenként halad.",
+          "c": true
+        },
+        {
+          "t": "A DFS vermet (stack) / rekurziót használ, mélységben halad.",
+          "c": true
+        },
+        {
+          "t": "A BFS megadja a legrövidebb (élszámú) utat a kiindulóponttól súlyozatlan gráfban.",
+          "c": true
+        },
+        {
+          "t": "A DFS mindig a legrövidebb utat találja meg.",
+          "c": false
+        }
+      ],
+      "e": "BFS: sor, szintről szintre → súlyozatlan legrövidebb út. DFS: verem/rekurzió, mélységi. A DFS nem ad legrövidebb utat."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": false,
+      "prompt": "Bináris fa PREORDER bejárásánál milyen sorrendben látogatjuk a csomópontokat?",
+      "options": [
+        {
+          "t": "gyökér → bal részfa → jobb részfa",
+          "c": true
+        },
+        {
+          "t": "bal → gyökér → jobb (inorder)",
+          "c": false
+        },
+        {
+          "t": "bal → jobb → gyökér (postorder)",
+          "c": false
+        },
+        {
+          "t": "jobb → bal → gyökér",
+          "c": false
+        }
+      ],
+      "e": "Preorder: gyökér, majd bal, majd jobb. Inorder: bal-gyökér-jobb. Postorder: bal-jobb-gyökér."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Mit kell tudni a Dijkstra-algoritmusról?",
+      "options": [
+        {
+          "t": "Egy forrásból a legrövidebb utakat számolja.",
+          "c": true
+        },
+        {
+          "t": "Nemnegatív élsúlyokat feltételez.",
+          "c": true
+        },
+        {
+          "t": "Negatív élsúlyok esetén hibás eredményt adhat.",
+          "c": true
+        },
+        {
+          "t": "Tetszőleges (akár negatív) élsúlyokra is mindig helyes.",
+          "c": false
+        }
+      ],
+      "e": "Dijkstra mohó algoritmus, egy forrásból ad legrövidebb utakat, de csak nemnegatív élsúlyokra helyes (negatívra a Bellman–Ford kell)."
+    },
+    {
+      "topic": "Fák",
+      "multi": false,
+      "prompt": "Hány éle van egy n csúcsú fának?",
+      "options": [
+        {
+          "t": "n − 1",
+          "c": true
+        },
+        {
+          "t": "n",
+          "c": false
+        },
+        {
+          "t": "n(n−1)/2",
+          "c": false
+        },
+        {
+          "t": "2n",
+          "c": false
+        }
+      ],
+      "e": "Minden fának pontosan n−1 éle van (összefüggő és körmentes)."
+    },
+    {
+      "topic": "Fák",
+      "multi": false,
+      "prompt": "Milyen hosszú egy n csúcsú fa Prüfer-kódja?",
+      "options": [
+        {
+          "t": "n − 2",
+          "c": true
+        },
+        {
+          "t": "n − 1",
+          "c": false
+        },
+        {
+          "t": "n",
+          "c": false
+        },
+        {
+          "t": "2",
+          "c": false
+        }
+      ],
+      "e": "A Prüfer-kód hossza n−2; kölcsönösen egyértelmű megfeleltetés a címkézett fák és az {1..n} feletti (n−2) hosszú sorozatok között."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Melyik feltétel ekvivalens azzal, hogy egy n csúcsú G gráf fa?",
+      "options": [
+        {
+          "t": "G összefüggő és n−1 éle van.",
+          "c": true
+        },
+        {
+          "t": "G körmentes és n−1 éle van.",
+          "c": true
+        },
+        {
+          "t": "Bármely két csúcs között pontosan egy út vezet.",
+          "c": true
+        },
+        {
+          "t": "G-nek van köre.",
+          "c": false
+        }
+      ],
+      "e": "A fa ekvivalens jellemzései: összefüggő + körmentes; összefüggő + (n−1) él; körmentes + (n−1) él; egyértelmű út bármely két csúcs között."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Melyik igaz a feszítőfa-algoritmusokra?",
+      "options": [
+        {
+          "t": "A Kruskal és a Prim is minimális feszítőfát ad (összefüggő, súlyozott gráfra).",
+          "c": true
+        },
+        {
+          "t": "A feszítőfa az eredeti gráf összes csúcsát tartalmazza.",
+          "c": true
+        },
+        {
+          "t": "A Kruskal élek szerint, növekvő súly mentén, kör nélkül épít.",
+          "c": true
+        },
+        {
+          "t": "A feszítőfa tartalmazhat kört.",
+          "c": false
+        }
+      ],
+      "e": "Kruskal (élek mentén) és Prim (csúcsbővítéssel) is min. feszítőfát ad. A feszítőfa az összes csúcsot lefedi és körmentes (fa)."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": true,
+      "prompt": "Az Euler-tétel következményei egyszerű, összefüggő síkgráfra (n ≥ 3):",
+      "options": [
+        {
+          "t": "e ≤ 3n − 6 (élszám felső korlátja).",
+          "c": true
+        },
+        {
+          "t": "Háromszögmentes (páros) síkgráfra e ≤ 2n − 4.",
+          "c": true
+        },
+        {
+          "t": "Van legfeljebb 5 fokú csúcs.",
+          "c": true
+        },
+        {
+          "t": "Minden síkgráf legalább 4-reguláris.",
+          "c": false
+        }
+      ],
+      "e": "Az Euler-formulából: e ≤ 3n−6, háromszögmentesnél e ≤ 2n−4, és az átlagfok < 6 miatt van ≤5 fokú csúcs."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": false,
+      "prompt": "Hány szabályos (platóni) test van?",
+      "options": [
+        {
+          "t": "5",
+          "c": true
+        },
+        {
+          "t": "3",
+          "c": false
+        },
+        {
+          "t": "6",
+          "c": false
+        },
+        {
+          "t": "végtelen sok",
+          "c": false
+        }
+      ],
+      "e": "Öt platóni test van (tetraéder, kocka, oktaéder, dodekaéder, ikozaéder) — ez az Euler-féle poliéder-tétel egyik következménye."
+    },
+    {
+      "topic": "Színezés",
+      "multi": false,
+      "prompt": "Mennyi egy páros gráf kromatikus száma (legalább 1 éllel)?",
+      "options": [
+        {
+          "t": "Pontosan 2",
+          "c": true
+        },
+        {
+          "t": "Pontosan 1",
+          "c": false
+        },
+        {
+          "t": "Legalább 3",
+          "c": false
+        },
+        {
+          "t": "4",
+          "c": false
+        }
+      ],
+      "e": "Egy él nélküli gráf 1 színnel kiszínezhető; legalább egy éllel rendelkező páros gráf kromatikus száma pontosan 2 (a két osztály két szín)."
+    },
+    {
+      "topic": "Színezés",
+      "multi": true,
+      "prompt": "Mennyi a körök kromatikus száma?",
+      "options": [
+        {
+          "t": "Páros hosszú kör: 2.",
+          "c": true
+        },
+        {
+          "t": "Páratlan hosszú kör: 3.",
+          "c": true
+        },
+        {
+          "t": "Minden kör kromatikus száma 2.",
+          "c": false
+        },
+        {
+          "t": "Minden kör kromatikus száma 3.",
+          "c": false
+        }
+      ],
+      "e": "Páros kör 2-színezhető (páros gráf), páratlan kör viszont 3 színt igényel."
+    },
+    {
+      "topic": "Színezés",
+      "multi": true,
+      "prompt": "Mit mond az ötszíntétel és a négyszíntétel a síkgráfokról?",
+      "options": [
+        {
+          "t": "Ötszíntétel: minden síkgráf kiszínezhető legfeljebb 5 színnel (ez bizonyítható a kurzuson).",
+          "c": true
+        },
+        {
+          "t": "Négyszíntétel: minden síkgráf χ ≤ 4 (igaz, de nehéz a bizonyítása).",
+          "c": true
+        },
+        {
+          "t": "Van olyan síkgráf, amelyhez 4 szín kell (pl. K₄).",
+          "c": true
+        },
+        {
+          "t": "Van olyan síkgráf, amelyhez 5 szín kell.",
+          "c": false
+        }
+      ],
+      "e": "Az ötszíntétel a kurzuson bizonyított eredmény (≤5). A négyszíntétel (≤4) is igaz, csak a bizonyítása mély. K₄ síkgráf, χ=4 — de 5-öt igénylő síkgráf nincs."
     }
   ]
 }
