@@ -1,22 +1,49 @@
-/* ===== Tartalék bank ===== */
+/* ============================================================
+   DM & LA gyakorló kvíz  —  logika
+   Pontozás: feladatonként 4 pont. A 4 pont elosztva a helyes
+   állítások száma szerint (k helyes → minden helyes 4/k pont).
+   Minden tévesen bejelölt válasz büntetése a feladat pontjának
+   40%-a (= 1,6 pont); 5+ válaszlehetőségnél 25% (= 1,0 pont).
+   Feladatonként minimum 0 pont (a büntetés nem visz át más feladatra).
+   ============================================================ */
+
+const QUESTION_MAX = 4;
+
+/* ===== Tartalék bank (ha a questions.json nem érhető el) ===== */
 const FALLBACK_BANK = [
   { topic: "Komplex számok", multi: false, prompt: "Mennyi (2+5i)·(1−i)?", options: [{ t: "7+3i", c: true }, { t: "2−5i", c: false }, { t: "7−3i", c: false }, { t: "−3+7i", c: false }], e: "(2+5i)(1−i)=2+3i+5 = <strong>7+3i</strong>." },
-  { topic: "Sajátérték", multi: true, prompt: "Melyik igaz a sajátértékekről?", options: [{ t: "Különböző sajátértékek sajátvektorai függetlenek.", c: true }, { t: "geom. multiplicitás ≤ alg. multiplicitás.", c: true }, { t: "Különböző sajátértékek sajátvektorai mindig merőlegesek.", c: false }, { t: "A 0 minden transzformációnak sajátértéke.", c: false }], e: "Függetlenek (nem feltétlenül merőlegesek); geom ≤ alg; a 0 csak nem invertálható esetben sajátérték." }
+  { topic: "Sajátérték", multi: true, prompt: "Melyik igaz a sajátértékekről?", options: [{ t: "Különböző sajátértékek sajátvektorai függetlenek.", c: true }, { t: "geom. multiplicitás ≤ alg. multiplicitás.", c: true }, { t: "Különböző sajátértékek sajátvektorai mindig merőlegesek.", c: false }, { t: "A 0 minden transzformációnak sajátértéke.", c: false }], e: "Függetlenek (nem feltétlenül merőlegesek); geom ≤ alg; a 0 csak nem invertálható esetben sajátérték." },
+  { topic: "Logika", multi: true, prompt: "Melyik igaz a logikai következményről?", options: [{ t: "α⊨β: minden α-modellben β is igaz.", c: true }, { t: "α→β érvényes ⇔ α⊨β.", c: true }, { t: "Elég egyetlen közös modell.", c: false }, { t: "Egységesítésnél konstanst is cserélhetek.", c: false }], e: "Minden modellben kell; ekvivalens α→β érvényességével; az egységesítés változót cserél." },
+  { topic: "Gráfok", multi: true, prompt: "Melyik igaz Euler/Hamilton-körről?", options: [{ t: "Euler-kör ⇔ minden fok páros.", c: true }, { t: "Minden csúcsot tartalmazó kör = Hamilton-kör.", c: true }, { t: "Hamilton-kör ⇒ Euler-kör.", c: false }, { t: "Fában nincs Hamilton-út.", c: false }], e: "Euler-kör: minden fok páros. Hamilton és Euler független. Az útgráf fa, van benne Hamilton-út." },
+  { topic: "Síkgráfok", multi: false, prompt: "Síkgráf: 6 csúcs, 9 él. Hány lap (tartomány)?", options: [{ t: "5", c: true }, { t: "3", c: false }, { t: "17", c: false }, { t: "6", c: false }], e: "Euler: c−e+l=2 → l=2−6+9=5." }
 ];
 
 /* ===== Állapot ===== */
 let bank = [];
-let quiz = [], quizState = [], i = 0, score = 0;
-const results = [];
+let quiz = [], quizState = [], i = 0;
 let ghToken = '';
 const app = document.getElementById('app');
 const foot = document.getElementById('foot');
 
+/* ===== Segédfüggvények ===== */
 function typeset(el) { if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(() => { }); }
 function shuffle(a) { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1));[a[k], a[j]] = [a[j], a[k]]; } return a; }
 function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 function norm(arr) { return arr.filter(q => q && q.prompt && Array.isArray(q.options)).map(q => ({ topic: q.topic || "Egyéb", multi: !!q.multi, prompt: q.prompt, options: q.options.map(o => ({ t: o.t || o.text || '', c: !!o.c || !!o.correct })), e: q.e || q.explanation || '' })); }
+function fmtPts(n) { const r = Math.round(n * 100) / 100; return r.toFixed(2).replace(/\.?0+$/, '').replace('.', ','); }
+
+/* ===== Pontszámítás ===== */
+function scoreQuestion(q, selectedSet) {
+  const correctCount = q.options.filter(o => o.c).length || 1;
+  const perCorrect = QUESTION_MAX / correctCount;
+  const penalty = (q.options.length >= 5 ? 0.25 : 0.40) * QUESTION_MAX;
+  let pts = 0;
+  selectedSet.forEach(idx => { pts += (q.options[idx] && q.options[idx].c) ? perCorrect : -penalty; });
+  return Math.max(0, Math.min(QUESTION_MAX, pts));
+}
+function classify(pts) { if (pts >= QUESTION_MAX - 1e-9) return 'ok'; if (pts <= 1e-9) return 'no'; return 'part'; }
+function totalPoints() { return quizState.reduce((sum, s) => sum + (s.answered ? s.points : 0), 0); }
 
 /* ===== Indítás: questions.json letöltése ===== */
 async function init() {
@@ -38,7 +65,7 @@ async function init() {
 /* ===== SETUP ===== */
 function renderSetup() {
   document.getElementById('sidebar').classList.remove('open');
-  const topics = [...new Set(bank.map(q => q.topic))].sort();
+  const topics = [...new Set(bank.map(q => q.topic))].filter(Boolean).sort();
   const maxN = bank.length, def = Math.min(10, maxN);
   const gh = detectRepo();
   app.innerHTML = `
@@ -53,8 +80,11 @@ function renderSetup() {
      <div class="field"><label for="topic">Téma szűrő</label>
        <select id="topic"><option value="__all">Összes téma (${bank.length})</option>
        ${topics.map(t => `<option value="${esc(t)}">${esc(t)} (${bank.filter(q => q.topic === t).length})</option>`).join("")}</select></div>
-     <div class="field"><label for="count">Kérdések száma</label>
-       <div class="countrow"><input type="range" id="count" min="1" max="${maxN}" value="${def}"><span class="countbadge" id="countval">${def}</span></div></div>
+     <div class="field"><label for="count">Kérdések száma (csúszka vagy beírás)</label>
+       <div class="countrow">
+         <input type="range" id="count" min="1" max="${maxN}" value="${def}">
+         <input type="number" id="countnum" class="countbadge-input" min="1" max="${maxN}" value="${def}" inputmode="numeric">
+       </div></div>
      <div class="controls">
        <button class="btn primary" id="start">Kvíz indítása →</button>
        <button class="btn ghost small" id="add">＋ Új kérdés</button>
@@ -78,18 +108,32 @@ function renderSetup() {
      </div>
    </div>`;
 
-  const range = document.getElementById('count'), countval = document.getElementById('countval'),
+  const range = document.getElementById('count'), num = document.getElementById('countnum'),
     willdo = document.getElementById('willdo'), topicSel = document.getElementById('topic');
-  function refreshMax() { const t = topicSel.value; const n = t === '__all' ? bank.length : bank.filter(q => q.topic === t).length; range.max = n; if (+range.value > n) range.value = n; countval.textContent = range.value; willdo.textContent = range.value; }
+
+  function setCount(v) {
+    const mx = +range.max;
+    v = Math.round(+v) || 1;
+    v = Math.max(1, Math.min(mx, v));
+    range.value = v; num.value = v; willdo.textContent = v;
+  }
+  function refreshMax() {
+    const t = topicSel.value;
+    const n = t === '__all' ? bank.length : bank.filter(q => q.topic === t).length;
+    range.max = n; num.max = n;
+    setCount(Math.min(+num.value || 1, n));
+  }
   topicSel.addEventListener('change', refreshMax);
-  range.addEventListener('input', () => { countval.textContent = range.value; willdo.textContent = range.value; });
+  range.addEventListener('input', () => setCount(range.value));
+  num.addEventListener('input', () => { if (num.value === '') { willdo.textContent = '…'; return; } setCount(num.value); });
+  num.addEventListener('blur', () => setCount(num.value || 1));
 
   document.getElementById('start').addEventListener('click', () => {
     const t = topicSel.value, pool = t === '__all' ? bank : bank.filter(q => q.topic === t);
-    const n = Math.min(+range.value, pool.length);
+    const n = Math.min(Math.max(1, +num.value || 1), pool.length);
     quiz = shuffle(pool).slice(0, n);
-    quizState = quiz.map(() => ({ answered: false, selected: new Set(), result: null }));
-    i = 0; score = 0; results.length = 0;
+    quizState = quiz.map(() => ({ answered: false, selected: new Set(), result: null, points: 0 }));
+    i = 0;
     document.getElementById('sidebar').classList.add('open');
     renderSidebar();
     renderQuestion();
@@ -100,9 +144,8 @@ function renderSetup() {
   document.getElementById('export').addEventListener('click', exportJSON);
   document.getElementById('loadbtn').addEventListener('click', loadFile);
   document.getElementById('mergebtn').addEventListener('click', mergeFile);
-
   const panel = document.getElementById('ghpanel');
-  document.getElementById('ghbtn').addEventListener('click', () => { panel.classList.toggle('open'); });
+  document.getElementById('ghbtn').addEventListener('click', () => panel.classList.toggle('open'));
   document.getElementById('ghpush').addEventListener('click', pushToGitHub);
   if (ghToken) document.getElementById('gh-token').value = ghToken;
   foot.textContent = "Kérdésbank: " + bank.length + " kérdés · " + topics.length + " téma";
@@ -111,7 +154,7 @@ function renderSetup() {
 function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 window.goTo = function (idx) { i = idx; renderQuestion(); renderSidebar(); scrollTop(); };
 
-/* ===== SIDEBAR (Oldalsáv) ===== */
+/* ===== OLDALSÁV ===== */
 function renderSidebar() {
   const grid = document.getElementById('q-grid');
   grid.innerHTML = quizState.map((s, idx) => {
@@ -133,10 +176,9 @@ function renderQuestion() {
     if (isSel) cls += ' sel';
     if (s.answered) {
       cls += ' locked';
-      const isC = o.c;
-      if (isSel && isC) { cls += ' correct'; badge = '<span class="badge">helyes</span>'; }
-      else if (isSel && !isC) { cls += ' wrongpick'; badge = '<span class="badge">rossz</span>'; }
-      else if (!isSel && isC) { cls += ' missed'; badge = '<span class="badge">kimaradt</span>'; }
+      if (isSel && o.c) { cls += ' correct'; badge = '<span class="badge">helyes</span>'; }
+      else if (isSel && !o.c) { cls += ' wrongpick'; badge = '<span class="badge">rossz</span>'; }
+      else if (!isSel && o.c) { cls += ' missed'; badge = '<span class="badge">kimaradt</span>'; }
     }
     return `<li class="opt ${cls}" data-idx="${idx}"><span class="mark"></span><span class="txt">${o.t}</span>${badge}</li>`;
   }).join("");
@@ -147,11 +189,14 @@ function renderQuestion() {
     if (s.result === 'ok') { head = "Helyes!"; dot = "✓"; }
     else if (s.result === 'part') { head = "Részben helyes"; dot = "◐"; }
     else { head = "Nem talált"; dot = "✕"; }
-    fbHtml = `<div class="feedback ${s.result}"><div class="fb-head"><span>${dot}</span>${head}</div><div class="expl">${q.e || ''}</div></div>`;
+    fbHtml = `<div class="feedback ${s.result}"><div class="fb-head"><span>${dot}</span>${head}</div>
+      <div class="expl">${q.e || ''}</div>
+      <div class="fb-points">Megszerzett pont: <b>${fmtPts(s.points)}</b> / ${QUESTION_MAX}</div></div>`;
   }
 
+  const max = quiz.length * QUESTION_MAX;
   app.innerHTML = `
-   <div class="progress-row"><span class="pmeta">${i + 1} / ${quiz.length}</span><div class="ptrack"><div class="pfill" id="pfill"></div></div><span class="score-chip" id="scorechip">${score} pont</span></div>
+   <div class="progress-row"><span class="pmeta">${i + 1} / ${quiz.length}</span><div class="ptrack"><div class="pfill" id="pfill"></div></div><span class="score-chip" id="scorechip">${fmtPts(totalPoints())} / ${max} pont</span></div>
    <div class="card bar">
      <div class="qtag">${i + 1}. kérdés</div><span class="qtopic">${esc(q.topic || '')}</span>
      <div class="prompt">${q.prompt}</div>
@@ -181,95 +226,167 @@ function renderQuestion() {
     }));
 
     document.getElementById('checkbtn').addEventListener('click', () => {
-      const correct = new Set(q.options.map((o, k) => o.c ? k : -1).filter(k => k >= 0));
-      let right = 0, wrong = 0;
-      app.querySelectorAll('.opt').forEach(el => {
-        const idx = +el.dataset.idx;
-        if (s.selected.has(idx) && correct.has(idx)) right++;
-        else if (s.selected.has(idx) && !correct.has(idx)) wrong++;
-      });
-      const all = (wrong === 0 && right === correct.size);
-      const part = (!all && right > 0 && wrong === 0);
-
+      s.points = scoreQuestion(q, s.selected);
+      s.result = classify(s.points);
       s.answered = true;
-      if (all) { s.result = 'ok'; score++; }
-      else if (part) { s.result = 'part'; }
-      else { s.result = 'no'; }
-
       renderQuestion();
       renderSidebar();
     });
   }
 
   document.getElementById('prevbtn').addEventListener('click', () => goTo(i - 1));
-  document.getElementById('nextbtn').addEventListener('click', () => {
-    if (i + 1 < quiz.length) goTo(i + 1); else finish();
+  document.getElementById('nextbtn').addEventListener('click', () => { if (i + 1 < quiz.length) goTo(i + 1); else finish(); });
+  typeset(app);
+}
+
+/* ===== RÉSZLETES ÖSSZEFOGLALÓ ===== */
+function finish() {
+  document.getElementById('sidebar').classList.remove('open');
+
+  // A be nem fejezett, de már megjelölt feladatok automatikus ellenőrzése
+  quizState.forEach((s, idx) => {
+    if (!s.answered && s.selected.size > 0) {
+      s.points = scoreQuestion(quiz[idx], s.selected);
+      s.result = classify(s.points);
+      s.answered = true;
+    }
+  });
+
+  const max = quiz.length * QUESTION_MAX;
+  let earned = 0;
+  const dist = { ok: 0, part: 0, no: 0, skip: 0 };
+  const byTopic = {};
+  quizState.forEach((s, idx) => {
+    const q = quiz[idx];
+    const pts = s.answered ? s.points : 0;
+    earned += pts;
+    if (!s.answered) dist.skip++; else dist[s.result]++;
+    const t = q.topic || 'Egyéb';
+    (byTopic[t] = byTopic[t] || { earned: 0, max: 0 });
+    byTopic[t].earned += pts; byTopic[t].max += QUESTION_MAX;
+  });
+  const pct = max ? Math.round(earned / max * 100) : 0;
+  const verdict = pct >= 90 ? "Kiváló — ez vizsgaérett tudás." : pct >= 70 ? "Erős teljesítmény, pár fogalmat csiszolj." : pct >= 50 ? "Megvan az elégséges (50%) — nézd át a gyengébb témákat." : "Még gyakorolj — a magyarázatok segítenek.";
+
+  // statisztika-chipek (a "kihagyott" csak akkor jelenik meg, ha van ilyen)
+  const chips = `
+    <div class="stat-chips">
+      <div class="stat-chip"><span class="d ok"></span><b>${dist.ok}</b> teljes</div>
+      <div class="stat-chip"><span class="d part"></span><b>${dist.part}</b> részleges</div>
+      <div class="stat-chip"><span class="d no"></span><b>${dist.no}</b> hibás</div>
+      ${dist.skip ? `<div class="stat-chip"><span class="d skip"></span><b>${dist.skip}</b> kihagyott</div>` : ''}
+    </div>`;
+
+  // eloszlás-sáv (0-ról animálva)
+  const n = quiz.length;
+  const seg = (cls, c) => c ? `<span class="${cls}" data-w="${c / n * 100}%" style="width:0"></span>` : '';
+  const distbar = `<div class="distbar">${seg('ok', dist.ok)}${seg('part', dist.part)}${seg('no', dist.no)}${seg('skip', dist.skip)}</div>`;
+
+  // témánkénti bontás (leggyengébb felül), sávok 0-ról animálva
+  const topicArr = Object.entries(byTopic).map(([t, v]) => ({ t, ...v, pct: v.max ? v.earned / v.max : 0 }))
+    .sort((a, b) => a.pct - b.pct);
+  const topicBars = topicArr.map(o => {
+    const p = Math.round(o.pct * 100);
+    const col = o.pct >= 0.75 ? 'var(--green)' : o.pct >= 0.4 ? 'var(--gold)' : 'var(--red)';
+    return `<div class="topicbar">
+      <div class="row"><span>${esc(o.t)}</span><span class="pts">${fmtPts(o.earned)} / ${o.max} · ${p}%</span></div>
+      <div class="track"><div class="fill" data-w="${p}%" style="width:0;background:${col}"></div></div>
+    </div>`;
+  }).join('');
+
+  // részletes kérdéssorok pontszámmal
+  const rows = quizState.map((s, k) => {
+    const r = s.answered ? s.result : 'skip';
+    const ico = r === 'ok' ? '<span class="ico ok-i">✓</span>' : r === 'part' ? '<span class="ico pt-i">◐</span>' : r === 'no' ? '<span class="ico no-i">✕</span>' : '<span class="ico skip-i">○</span>';
+    const pts = s.answered ? `${fmtPts(s.points)} / ${QUESTION_MAX}` : '—';
+    return `<div class="brow">${ico}<span>${k + 1}. kérdés</span><span class="topic">${esc(quiz[k].topic || '')}</span><span class="qpts">${pts}</span></div>`;
+  }).join("");
+
+  app.innerHTML = `
+   <div class="card result">
+     <div class="ring" id="ring"><div class="inner"><div class="big"><span id="ringnum">0</span><span style="font-size:1.1rem">%</span></div><div class="small">eredmény</div></div></div>
+     <div class="summary-head">
+       <h2>Kvíz kész</h2>
+       <div class="summary-pts"><span id="ptsnum">0</span> <span>/ ${max} pont</span></div>
+       <div class="verdict">${verdict}</div>
+     </div>
+     ${chips}
+     ${distbar}
+     <div class="section-title">Témánkénti teljesítmény</div>
+     <div class="topicbars">${topicBars}</div>
+     <div class="section-title">Kérdésenként</div>
+     <div class="breakdown">${rows}</div>
+     <div class="controls" style="justify-content:center">
+       <button class="btn ghost" id="review">Vissza a kérdésekhez</button>
+       <button class="btn primary" id="again">Új kvíz beállítása</button>
+     </div>
+   </div>`;
+
+  // animációk: kör + pontszám 0-ról, majd a sávok kitöltése
+  const ring = document.getElementById('ring');
+  const ringnum = document.getElementById('ringnum');
+  const ptsnum = document.getElementById('ptsnum');
+  animateValue(900, e => {
+    const v = pct * e;
+    if (ring) ring.style.background = `conic-gradient(var(--accent) ${v}%, var(--rule) 0)`;
+    if (ringnum) ringnum.textContent = Math.round(v);
+    if (ptsnum) ptsnum.textContent = fmtPts(earned * e);
+  }, () => { if (ringnum) ringnum.textContent = pct; if (ptsnum) ptsnum.textContent = fmtPts(earned); });
+  requestAnimationFrame(() => app.querySelectorAll('[data-w]').forEach(el => { el.style.width = el.dataset.w; }));
+
+  document.getElementById('again').addEventListener('click', renderSetup);
+  document.getElementById('review').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.add('open');
+    renderSidebar(); renderQuestion(); scrollTop();
   });
   typeset(app);
 }
 
-function finish() {
-  document.getElementById('sidebar').classList.remove('open');
-  let finalScore = 0;
-  results.length = 0;
-  quizState.forEach((s, idx) => {
-    if (s.result === 'ok') finalScore++;
-    results.push({ topic: quiz[idx].topic, state: s.result || 'no' });
-  });
-  score = finalScore;
-
-  const pct = Math.round(score / quiz.length * 100);
-  let verdict = pct >= 90 ? "Kiváló — ez vizsgaérett tudás." : pct >= 70 ? "Erős teljesítmény, pár fogalmat csiszolj." : pct >= 50 ? "Jó alap — nézd át a hibás témákat." : "Még gyakorolj — a magyarázatok segítenek.";
-  const rows = results.map((r, k) => { const ico = r.state === "ok" ? '<span class="ico ok-i">✓</span>' : r.state === "part" ? '<span class="ico pt-i">◐</span>' : '<span class="ico no-i">✕</span>'; return `<div class="brow">${ico}<span>${k + 1}. kérdés</span><span class="topic">${esc(r.topic || '')}</span></div>`; }).join("");
-  app.innerHTML = `<div class="card result"><div class="ring" id="ring"><div class="inner"><div class="big">${score}<span style="font-size:1.1rem;color:var(--ink-soft)">/${quiz.length}</span></div><div class="small">${pct}%</div></div></div>
-   <h2>Kvíz kész</h2><div class="verdict">${verdict}</div><div class="breakdown">${rows}</div>
-   <div class="controls" style="justify-content:center"><button class="btn primary" id="again">Új kvíz beállítása</button></div></div>`;
-  requestAnimationFrame(() => { const r = document.getElementById('ring'); if (r) r.style.background = `conic-gradient(var(--accent) ${pct}%, var(--rule) 0)`; });
-  document.getElementById('again').addEventListener('click', renderSetup); typeset(app);
+/* easeOutCubic animáció: step(easedFraction) minden képkockán, majd done() a végén */
+function animateValue(duration, step, done) {
+  const start = performance.now();
+  function frame(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const e = 1 - Math.pow(1 - t, 3);
+    step(e);
+    if (t < 1) requestAnimationFrame(frame); else if (done) done();
+  }
+  requestAnimationFrame(frame);
 }
 
-/* ===== ÚJ KÉRDÉS (Szerkesztő) ===== */
+/* ===== ÚJ KÉRDÉS (szerkesztő) ===== */
 let draftType = 'multi';
 function renderAddForm() {
   draftType = 'multi';
-
-  // Kiszedjük és sorbarendezzük a már meglévő (egyedi) témákat a bankból
   const topics = [...new Set(bank.map(q => q.topic))].filter(Boolean).sort();
   const datalistOpts = topics.map(t => `<option value="${esc(t)}"></option>`).join('');
 
   app.innerHTML = `<div class="card addform"><h2>Új kérdés</h2>
    <div class="lead">A bekapcsolt jelölő = helyes válasz. LaTeX-hez: \\( ... \\).</div>
-   
    <div class="frow">
      <label class="flbl">Téma</label>
      <input type="text" id="f-topic" list="topic-list" placeholder="Kattints ide a meglévőkhöz vagy gépelj újat..." autocomplete="off">
      <datalist id="topic-list">${datalistOpts}</datalist>
    </div>
-   
    <div class="frow"><label class="flbl">Típus</label><div class="seg"><button id="t-multi" class="on">Több válasz</button><button id="t-single">Egy válasz</button></div></div>
    <div class="frow"><label class="flbl">Kérdés szövege</label><textarea id="f-prompt" rows="2" placeholder="A kérdés..."></textarea></div>
    <div class="frow"><label class="flbl">Válaszlehetőségek (pipáld be a helyeseket)</label><div id="opts"></div><button class="btn ghost small" id="addopt" style="margin-top:4px;">＋ Válasz</button></div>
-   <div class="frow"><label class="flbl">Magyarázat</label><textarea id="f-expl" rows="3" placeholder="Miért ez a helyes válasz..."></textarea></div>
+   <div class="frow"><label class="flbl">Magyarázat</label><textarea id="f-expl" rows="2" placeholder="Miért ez a helyes válasz..."></textarea></div>
    <div class="controls"><button class="btn primary" id="saveq">Hozzáadás a bankhoz</button><button class="btn ghost small" id="back">← Vissza</button></div></div>`;
 
-   // Szövegdobozok automatikus függőleges méretezése
+  // szövegdobozok automatikus függőleges méretezése (kézi átméretezés nélkül)
+  function autosize(ta) { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
   app.querySelectorAll('textarea').forEach(ta => {
-    ta.addEventListener('input', function() {
-      this.style.height = 'auto';
-      this.style.height = this.scrollHeight + 'px';
-    });
-    // Kezdeti magasság beállítása
-    requestAnimationFrame(() => {
-      ta.style.height = 'auto';
-      ta.style.height = ta.scrollHeight + 'px';
-    });
+    ta.addEventListener('input', () => autosize(ta));
+    requestAnimationFrame(() => autosize(ta));
   });
 
   const box = document.getElementById('opts');
   function addOpt(t = '', c = false) {
     const r = document.createElement('div'); r.className = 'optedit';
     r.innerHTML = `<input type="text" class="o-text" placeholder="Válasz szövege" value="${esc(t)}"><label class="cbx"><input type="checkbox" class="o-correct" ${c ? 'checked' : ''}>helyes</label><button class="del">✕</button>`;
-    r.querySelector('.del').addEventListener('click', () => { if (box.children.length > 2) r.remove(); else toast('Legalább 2 válasz kell'); }); box.appendChild(r);
+    r.querySelector('.del').addEventListener('click', () => { if (box.children.length > 2) r.remove(); else toast('Legalább 2 válasz kell'); });
+    box.appendChild(r);
   }
   addOpt('', true); addOpt(''); addOpt(''); addOpt('');
   document.getElementById('addopt').addEventListener('click', () => { if (box.children.length < 8) addOpt(); else toast('Max 8 válasz'); });
@@ -291,7 +408,8 @@ function renderAddForm() {
     bank.push({ topic, multi: draftType === 'multi', prompt, options, e: expl });
     toast('Hozzáadva (' + bank.length + ' kérdés)'); renderSetup();
   });
-  document.getElementById('back').addEventListener('click', renderSetup); typeset(app);
+  document.getElementById('back').addEventListener('click', renderSetup);
+  typeset(app);
 }
 
 /* ===== Export / import / GitHub ===== */
@@ -303,11 +421,9 @@ function exportJSON() {
 }
 function loadFile() {
   const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
-  inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { const data = JSON.parse(await f.text()); const arr = Array.isArray(data) ? data : data.questions; const clean = norm(arr || []); if (!clean.length) throw new Error('üres'); bank = clean; toast('Betöltve: ' + bank.length + ' kérdés (Felülírva)'); renderSetup(); } catch (e) { toast('Hiba: ' + e.message); } };
+  inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { const data = JSON.parse(await f.text()); const arr = Array.isArray(data) ? data : data.questions; const clean = norm(arr || []); if (!clean.length) throw new Error('üres'); bank = clean; toast('Betöltve: ' + bank.length + ' kérdés (felülírva)'); renderSetup(); } catch (e) { toast('Hiba: ' + e.message); } };
   inp.click();
 }
-
-/* === JSON hozzáfűzése === */
 function mergeFile() {
   const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
   inp.onchange = async () => {
@@ -316,15 +432,14 @@ function mergeFile() {
       const data = JSON.parse(await f.text());
       const arr = Array.isArray(data) ? data : data.questions;
       const clean = norm(arr || []);
-      if (!clean.length) throw new Error('Nem található érvényes kérdés a fájlban');
+      if (!clean.length) throw new Error('nincs érvényes kérdés a fájlban');
       bank.push(...clean);
-      toast('Sikeresen hozzáfűzve ' + clean.length + ' kérdés! (Összesen: ' + bank.length + ')');
+      toast('Hozzáfűzve ' + clean.length + ' kérdés (összesen: ' + bank.length + ')');
       renderSetup();
-    } catch (e) { toast('Hiba a fájl feldolgozásakor: ' + e.message); }
+    } catch (e) { toast('Hiba: ' + e.message); }
   };
   inp.click();
 }
-
 function detectRepo() {
   try {
     const h = location.hostname, parts = location.pathname.split('/').filter(Boolean);
