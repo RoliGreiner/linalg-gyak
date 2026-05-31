@@ -1,0 +1,653 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "Mennyi (2+5i)·(1−i)?",
+      "options": [
+        {
+          "t": "7+3i",
+          "c": true
+        },
+        {
+          "t": "2−5i",
+          "c": false
+        },
+        {
+          "t": "7−3i",
+          "c": false
+        },
+        {
+          "t": "−3+7i",
+          "c": false
+        }
+      ],
+      "e": "(2+5i)(1−i)=2−2i+5i−5i² = 2+3i+5 = <strong>7+3i</strong> (mert i²=−1)."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "Mennyi a |4−3i| abszolútérték?",
+      "options": [
+        {
+          "t": "5",
+          "c": true
+        },
+        {
+          "t": "7",
+          "c": false
+        },
+        {
+          "t": "√7",
+          "c": false
+        },
+        {
+          "t": "1",
+          "c": false
+        }
+      ],
+      "e": "|4−3i| = √(4²+3²) = √25 = <strong>5</strong>."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": false,
+      "prompt": "Mennyi z₂=1−i argumentuma (fok, 0–360)?",
+      "options": [
+        {
+          "t": "315°",
+          "c": true
+        },
+        {
+          "t": "45°",
+          "c": false
+        },
+        {
+          "t": "180°",
+          "c": false
+        },
+        {
+          "t": "225°",
+          "c": false
+        }
+      ],
+      "e": "1−i a IV. síknegyedben van, szöge −45° = <strong>315°</strong>."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Melyik igaz a hatványozásról és gyökökről?",
+      "options": [
+        {
+          "t": "Hatványozáskor az argumentum n-szeresére változik.",
+          "c": true
+        },
+        {
+          "t": "Hatványozáskor az abszolútérték az n-edik hatványra emelkedik (|z|ⁿ).",
+          "c": true
+        },
+        {
+          "t": "Hatványozáskor az abszolútérték n-szeresére (n·|z|) változik.",
+          "c": false
+        },
+        {
+          "t": "Egy komplex szám n-edik hatványának n különböző értéke van.",
+          "c": false
+        }
+      ],
+      "e": "Moivre: zⁿ = |z|ⁿ(cos nφ + i sin nφ). Tehát az argumentum n-szeres, az abszolútérték az n-edik hatvány. A hatvány <strong>egyértékű</strong>; n érték a <strong>gyöknek</strong> van."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Melyik igaz az egységgyökökről?",
+      "options": [
+        {
+          "t": "A komplex n-edik egységgyökök száma éppen n.",
+          "c": true
+        },
+        {
+          "t": "A z szám n-edik gyökei azok a w-k, melyekre wⁿ−z=0.",
+          "c": true
+        },
+        {
+          "t": "A primitív n-edik egységgyökök száma éppen n.",
+          "c": false
+        },
+        {
+          "t": "A z szám n-edik gyökei azok a w-k, melyekre w−zⁿ=0.",
+          "c": false
+        }
+      ],
+      "e": "Pontosan n darab n-edik egységgyök van, de a <strong>primitívek</strong> száma φ(n) (Euler-függvény). A gyök definíciója wⁿ=z."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": true,
+      "prompt": "Melyik igaz a polinomok gyökeiről?",
+      "options": [
+        {
+          "t": "Valós együtthatós polinomnak lehet komplex (nem valós) gyöke.",
+          "c": true
+        },
+        {
+          "t": "Egy n-edfokú polinomnak multiplicitással n gyöke van ℂ fölött.",
+          "c": true
+        },
+        {
+          "t": "Valós együtthatós polinomnak mindig van valós gyöke.",
+          "c": false
+        },
+        {
+          "t": "Komplex együtthatós polinomnak nincsenek gyökei.",
+          "c": false
+        }
+      ],
+      "e": "Az algebra alaptétele: minden n-edfokú polinomnak multiplicitással n gyöke van ℂ-ben. Valós polinomnak (pl. x²+1) lehet komplex gyöke, de nem feltétlenül van valós."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": true,
+      "prompt": "Melyik igaz a sajátértékekről és multiplicitásról?",
+      "options": [
+        {
+          "t": "Különböző sajátértékhez tartozó sajátvektorok lineárisan függetlenek.",
+          "c": true
+        },
+        {
+          "t": "A geometriai multiplicitás nem nagyobb az algebrainál.",
+          "c": true
+        },
+        {
+          "t": "Különböző sajátértékek sajátvektorai mindig merőlegesek egymásra.",
+          "c": false
+        },
+        {
+          "t": "A 0 minden lineáris transzformációnak sajátértéke.",
+          "c": false
+        }
+      ],
+      "e": "A különböző sajátértékek sajátvektorai <strong>függetlenek</strong> (de nem feltétlenül merőlegesek — az csak szimmetrikus operátornál). geom ≤ alg. A 0 csak nem invertálható esetben sajátérték."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": true,
+      "prompt": "Legyen s egy transzformáció sajátvektora λ sajátértékkel. Melyik igaz?",
+      "options": [
+        {
+          "t": "s képe λ·s.",
+          "c": true
+        },
+        {
+          "t": "Ha λ=0, akkor s képe a nullvektor.",
+          "c": true
+        },
+        {
+          "t": "s képe mindig a nullvektor.",
+          "c": false
+        },
+        {
+          "t": "Egy transzformációnak mindig annyi (különböző) sajátértéke van, ahány dimenziós a tér.",
+          "c": false
+        }
+      ],
+      "e": "Definíció szerint L(s)=λs. Csak λ=0 esetén nulla a kép. ℝ fölött lehet, hogy nincs is valós sajátérték (pl. forgatás)."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Melyik a helyes a homogenitás és additivitás közt?",
+      "options": [
+        {
+          "t": "Additivitás: L(u+v)=L(u)+L(v).",
+          "c": true
+        },
+        {
+          "t": "Homogenitás: L(λx)=λL(x).",
+          "c": true
+        },
+        {
+          "t": "Homogenitás: L(u+v)=L(u)+L(v).",
+          "c": false
+        },
+        {
+          "t": "Az ax²+bx+c ↦ abx²+b+c leképezés lineáris.",
+          "c": false
+        }
+      ],
+      "e": "Additivitás = összeg megtartása; homogenitás = skalárszoros megtartása. Az ab szorzat miatt a negyedik nem lineáris."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": false,
+      "prompt": "Melyik leképezés homogén lineáris a polinomokon?",
+      "options": [
+        {
+          "t": "ax²+bx+c ↦ cx²−2bx+2a+b",
+          "c": true
+        },
+        {
+          "t": "ax²+bx+c ↦ acx²−2bc+c",
+          "c": false
+        },
+        {
+          "t": "ax²+bx+c ↦ a²x²+bx+c",
+          "c": false
+        },
+        {
+          "t": "ax²+bx+c ↦ x²+bx+c",
+          "c": false
+        }
+      ],
+      "e": "Koordinátákban (a,b,c)↦(c,−2b,2a+b) minden komponense lineáris. A többinél szorzat / négyzet / konstanstag rontja el a linearitást."
+    },
+    {
+      "topic": "Bázis",
+      "multi": true,
+      "prompt": "Melyik igaz a bázisról és generátorrendszerről?",
+      "options": [
+        {
+          "t": "Van olyan generátorrendszer, amely egyben bázis is.",
+          "c": true
+        },
+        {
+          "t": "Minden bázis generátorrendszer.",
+          "c": true
+        },
+        {
+          "t": "Egy generátorrendszer tetszőleges vektorát elhagyva bázist kapunk.",
+          "c": false
+        },
+        {
+          "t": "Nem minden bázis generátorrendszer.",
+          "c": false
+        }
+      ],
+      "e": "A bázis = minimális (független) generátorrendszer, tehát mindig generátorrendszer. Csak a felesleges (függő) vektor hagyható el."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Melyik igaz a rendezési relációról?",
+      "options": [
+        {
+          "t": "A rendezési reláció reflexív, antiszimmetrikus és tranzitív.",
+          "c": true
+        },
+        {
+          "t": "Segítségével megkereshetők a minimális és maximális elemek, ha léteznek.",
+          "c": true
+        },
+        {
+          "t": "A rendezési reláció reflexív, szimmetrikus és tranzitív.",
+          "c": false
+        },
+        {
+          "t": "Ha értelmezett egy rendezési reláció, akkor minden részhalmaz korlátos.",
+          "c": false
+        }
+      ],
+      "e": "A rendezés <strong>antiszimmetrikus</strong> (nem szimmetrikus). Nem minden részhalmaz korlátos (pl. ℕ a ≤-vel felülről nem)."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Melyik igaz az ekvivalenciarelációról és bináris relációkról?",
+      "options": [
+        {
+          "t": "Az ekvivalenciareláció reflexív, szimmetrikus és tranzitív.",
+          "c": true
+        },
+        {
+          "t": "A bináris relációk rendezett párokat tartalmaznak az eredeti halmazból.",
+          "c": true
+        },
+        {
+          "t": "Ekvivalenciarelációval kiválasztható a legkisebb/legnagyobb elem.",
+          "c": false
+        },
+        {
+          "t": "„Különböző csoportba tartozó hallgatók” relációja ekvivalencia.",
+          "c": false
+        }
+      ],
+      "e": "Az ekvivalencia osztályoz, nem rendez (min/max a rendezéshez tartozik). A „más csoportban” reláció nem reflexív, így nem ekvivalencia."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Melyik igaz a logikai következményről?",
+      "options": [
+        {
+          "t": "α⊨β, ha minden interpretációban, ahol α igaz, β is igaz.",
+          "c": true
+        },
+        {
+          "t": "α→β érvényes formula ⇔ α⊨β.",
+          "c": true
+        },
+        {
+          "t": "α⊨β, ha van egyetlen interpretáció, ahol mindkettő igaz.",
+          "c": false
+        },
+        {
+          "t": "Egységesítésnél a konstansokat is kicserélhetem más elemre.",
+          "c": false
+        }
+      ],
+      "e": "A logikai következmény minden α-modellben megköveteli β-t. Ekvivalens azzal, hogy α→β érvényes (dedukciós tétel). Az egységesítés változókat helyettesít."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Melyik igaz a rezolúcióról?",
+      "options": [
+        {
+          "t": "A rezolúció minden lépésében a klózhalmaz logikai következményét írjuk fel.",
+          "c": true
+        },
+        {
+          "t": "A rezolúció alkalmazható annak eldöntésére, hogy egy formula kontradikció-e.",
+          "c": true
+        },
+        {
+          "t": "A rezolúció célja tautológiák generálása.",
+          "c": false
+        },
+        {
+          "t": "A rezolúcióhoz nem kell normálformára hozni a formulát.",
+          "c": false
+        }
+      ],
+      "e": "A rezolvens a szülőklózok logikai következménye; az üres klóz levezetése kielégíthetetlenséget (kontradikciót) igazol (cáfolatteljesség). Előbb klóz/CNF alakra kell hozni."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Melyik igaz a kvantorokról és ekvivalenciáról?",
+      "options": [
+        {
+          "t": "¬∀x P(x) ≡ ∃x ¬P(x)",
+          "c": true
+        },
+        {
+          "t": "Két formula ekvivalens, ha minden interpretációban azonos az igazságértékük.",
+          "c": true
+        },
+        {
+          "t": "¬∀x P(x) ≡ ∃x P(x)",
+          "c": false
+        },
+        {
+          "t": "Két formula ekvivalens, ha van olyan interpretáció, ahol azonos az értékük.",
+          "c": false
+        }
+      ],
+      "e": "Kvantoros De Morgan: a „nem minden” = „van olyan, amire nem”. Az ekvivalencia <strong>minden</strong> interpretációban azonos értéket követel."
+    },
+    {
+      "topic": "Logika",
+      "multi": false,
+      "prompt": "Mi a kontradikció (kielégíthetetlen formula) logikai következménye?",
+      "options": [
+        {
+          "t": "Minden formula (ex falso quodlibet).",
+          "c": true
+        },
+        {
+          "t": "Csak önmaga.",
+          "c": false
+        },
+        {
+          "t": "Csak a tautológiák.",
+          "c": false
+        },
+        {
+          "t": "Semmilyen formula.",
+          "c": false
+        }
+      ],
+      "e": "A kontradikció minden interpretációban hamis, így az „ahol igaz, ott…” feltétel üresen teljesül — <strong>minden</strong> formula következik belőle."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Melyik igaz a gráfizomorfiáról?",
+      "options": [
+        {
+          "t": "Ha két gráf izomorf, megegyezik a fokszámsorozatuk.",
+          "c": true
+        },
+        {
+          "t": "Az izomorfia ekvivalenciareláció a gráfok halmazán.",
+          "c": true
+        },
+        {
+          "t": "Azonos fokszámsorozat esetén a gráfok izomorfak.",
+          "c": false
+        },
+        {
+          "t": "Különböző fokszámösszeg mellett is lehetnek izomorfak.",
+          "c": false
+        }
+      ],
+      "e": "Az izomorfia megőrzi a fokszámokat (szükséges, nem elégséges feltétel). A fokszámösszeg = 2·élszám, így különböző összeg → nem izomorf."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Melyik igaz az Euler- és Hamilton-körről?",
+      "options": [
+        {
+          "t": "Euler-kör ⇔ (összefüggő gráfban) minden fokszám páros.",
+          "c": true
+        },
+        {
+          "t": "Egy minden csúcsot tartalmazó kör maga Hamilton-kör.",
+          "c": true
+        },
+        {
+          "t": "Ha van Hamilton-kör, akkor van Euler-kör is.",
+          "c": false
+        },
+        {
+          "t": "Fagráfban nem lehet Hamilton-út.",
+          "c": false
+        }
+      ],
+      "e": "Euler-kör feltétele: minden fok páros. A Hamilton (csúcsok) és Euler (élek) független. Az útgráf fa, mégis van benne Hamilton-út."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": false,
+      "prompt": "Hány páratlan fokú csúcs kell egy Euler-ÚT létezéséhez (összefüggő gráfban)?",
+      "options": [
+        {
+          "t": "0 vagy 2",
+          "c": true
+        },
+        {
+          "t": "Pontosan 1",
+          "c": false
+        },
+        {
+          "t": "Mindig páros sok, de legalább 4",
+          "c": false
+        },
+        {
+          "t": "Tetszőleges",
+          "c": false
+        }
+      ],
+      "e": "Euler-út pontosan akkor van, ha a páratlan fokú csúcsok száma 0 (akkor Euler-kör is) vagy 2 (a két végpont)."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Melyik igaz a Hamilton-feltételekről (n csúcsú egyszerű gráf)?",
+      "options": [
+        {
+          "t": "Dirac: ha minden fok ≥ n/2, van Hamilton-kör.",
+          "c": true
+        },
+        {
+          "t": "Ore: ha bármely két nem szomszédos u,v-re deg u + deg v ≥ n, van Hamilton-kör.",
+          "c": true
+        },
+        {
+          "t": "Ha Dirac feltétele nem teljesül, biztosan nincs Hamilton-kör.",
+          "c": false
+        },
+        {
+          "t": "Pósa feltétele gyengébb (kevésbé éles), mint Dirac.",
+          "c": false
+        }
+      ],
+      "e": "Dirac és Ore <strong>elégséges</strong> feltételek — ha nem teljesülnek, attól még lehet Hamilton-kör. Pósa épp <strong>erősebb</strong> (több gráfra ad garanciát), mint Dirac."
+    },
+    {
+      "topic": "Színezés",
+      "multi": true,
+      "prompt": "Melyik igaz a kromatikus számról és színezésről?",
+      "options": [
+        {
+          "t": "Tetszőleges térkép kiszínezhető legfeljebb 4 színnel.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráfban van öt hosszú (páratlan) kör, kromatikus száma legalább 3.",
+          "c": true
+        },
+        {
+          "t": "Egy síkgráf kromatikus száma lehet 5.",
+          "c": false
+        },
+        {
+          "t": "χ(G) felülről becsülhető a legnagyobb teljes részgráf csúcsszámával.",
+          "c": false
+        }
+      ],
+      "e": "Négyszíntétel: síkgráf/térkép ≤ 4 szín (nem 5). A klikkszám csak <strong>alsó</strong> korlát: χ ≥ ω. Páratlan kör → χ ≥ 3."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": false,
+      "prompt": "Egy összefüggő síkgráfnak 6 csúcsa és 9 éle van. Hány tartománya (lapja) van?",
+      "options": [
+        {
+          "t": "5",
+          "c": true
+        },
+        {
+          "t": "3",
+          "c": false
+        },
+        {
+          "t": "17",
+          "c": false
+        },
+        {
+          "t": "6",
+          "c": false
+        }
+      ],
+      "e": "Euler-tétel: c−e+l=2 → l = 2−6+9 = <strong>5</strong> (a külső tartományt is beleszámolva)."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": true,
+      "prompt": "Melyik igaz a síkgráfokról?",
+      "options": [
+        {
+          "t": "Minden egyszerű, összefüggő síkgráfban van legfeljebb 5 fokú csúcs.",
+          "c": true
+        },
+        {
+          "t": "Ha tartalmaz K₃,₃-mal homeomorf részgráfot, nem síkbarajzolható.",
+          "c": true
+        },
+        {
+          "t": "Euler-tétel: p+e−t ≥ 2.",
+          "c": false
+        },
+        {
+          "t": "Tetszőleges egyszerű, összefüggő gráf síkba rajzolható.",
+          "c": false
+        }
+      ],
+      "e": "Euler-formulából az átlagfok < 6, így van ≤5 fokú csúcs. Kuratowski: K₅ vagy K₃,₃ homeomorf részgráf → nem síkgráf. A helyes Euler-alak: p−e+t=2 (egyenlőség)."
+    },
+    {
+      "topic": "Lineáris algebra",
+      "multi": false,
+      "prompt": "L: V⁵→W³ lineáris. Mekkora lehet dim Im(L)?",
+      "options": [
+        {
+          "t": "0 és 3 között",
+          "c": true
+        },
+        {
+          "t": "0 és 5 között",
+          "c": false
+        },
+        {
+          "t": "pontosan 3",
+          "c": false
+        },
+        {
+          "t": "pontosan 5",
+          "c": false
+        }
+      ],
+      "e": "Im(L) ⊆ W³, ezért dim Im(L) ≤ 3 (és ≤ dim V=5). A szigorúbb korlát: 0 ≤ dim Im(L) ≤ 3."
+    },
+    {
+      "topic": "Lineáris algebra",
+      "multi": false,
+      "prompt": "Ugyanaz az L: V⁵→W³. Mekkora lehet dim Ker(L)?",
+      "options": [
+        {
+          "t": "2 és 5 között",
+          "c": true
+        },
+        {
+          "t": "0 és 5 között",
+          "c": false
+        },
+        {
+          "t": "0 és 3 között",
+          "c": false
+        },
+        {
+          "t": "pontosan 2",
+          "c": false
+        }
+      ],
+      "e": "Dimenziótétel: dim Ker = 5 − dim Im. Mivel dim Im ∈ {0,1,2,3}, ezért 2 ≤ dim Ker ≤ 5."
+    },
+    {
+      "topic": "Lineáris algebra",
+      "multi": false,
+      "prompt": "Igaz-e, hogy egy kvadratikus alak mátrixa hasonló egy diagonális mátrixhoz?",
+      "options": [
+        {
+          "t": "Igen, mert szimmetrikus, és minden valós szimmetrikus mátrix diagonalizálható.",
+          "c": true
+        },
+        {
+          "t": "Nem, szimmetrikus mátrix sosem diagonalizálható.",
+          "c": false
+        },
+        {
+          "t": "Csak ha minden sajátérték különböző.",
+          "c": false
+        },
+        {
+          "t": "Csak komplex test fölött.",
+          "c": false
+        }
+      ],
+      "e": "A kvadratikus alak mátrixa szimmetrikus. A spektráltétel szerint minden valós szimmetrikus mátrix ortogonálisan diagonalizálható — tehát hasonló egy diagonálishoz."
+    }
+  ]
+}
