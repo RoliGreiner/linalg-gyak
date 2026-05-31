@@ -1451,11 +1451,11 @@
           "c": true
         },
         {
-          "t": "bal → gyökér → jobb (inorder)",
+          "t": "bal → gyökér → jobb",
           "c": false
         },
         {
-          "t": "bal → jobb → gyökér (postorder)",
+          "t": "bal → jobb → gyökér",
           "c": false
         },
         {
@@ -1711,19 +1711,19 @@
       "prompt": "Egy bináris keresőfa melyik bejárása adja a kulcsokat növekvő sorrendben?",
       "options": [
         {
-          "t": "Inorder (bal → gyökér → jobb)",
+          "t": "Inorder",
           "c": true
         },
         {
-          "t": "Preorder (gyökér → bal → jobb)",
+          "t": "Preorder",
           "c": false
         },
         {
-          "t": "Postorder (bal → jobb → gyökér)",
+          "t": "Postorder",
           "c": false
         },
         {
-          "t": "Szélességi (szintenkénti)",
+          "t": "Szélességi",
           "c": false
         }
       ],
@@ -2219,7 +2219,7 @@
           "c": true
         },
         {
-          "t": "Konjunkciók diszjunkciója (ez a DNF).",
+          "t": "Konjunkciók diszjunkciója.",
           "c": false
         },
         {
