@@ -260,6 +260,7 @@ input[type=range] {
   text-align: center;
 }
 
+/* === INPUT MEZŐK ÉS TEXTAREA (Méretezés tiltása) === */
 select,
 input[type=text],
 input[type=password],
@@ -272,6 +273,9 @@ textarea {
   border: 1.5px solid var(--rule);
   border-radius: 6px;
   padding: 10px 12px;
+  
+  /* Szigorúan letiltja a kézi átméretezést a jobb alsó sarokban */
+  resize: none !important;
 }
 
 select:focus,
@@ -282,13 +286,12 @@ textarea:focus {
 }
 
 textarea {
-  resize: none;
-  /* Letiltja a jobb alsó sarkos kézi húzogatást */
-  overflow: hidden;
-  /* Eltünteti az oldalsó görgetősávot */
+  /* Eltünteti az esetlegesen beragadó görgetősávot */
+  overflow: hidden !important; 
+  /* Kényelmes alapmagasság indulásnál */
   min-height: 80px;
-  /* Egy alapmagasság, hogy ne legyen túl lapos üresen */
 }
+/* =================================================== */
 
 .bankinfo {
   display: flex;
