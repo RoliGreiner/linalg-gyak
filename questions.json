@@ -1704,6 +1704,1014 @@
         }
       ],
       "e": "Az ötszíntétel a kurzuson bizonyított eredmény (≤5). A négyszíntétel (≤4) is igaz, csak a bizonyítása mély. K₄ síkgráf, χ=4 — de 5-öt igénylő síkgráf nincs."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": false,
+      "prompt": "Egy bináris keresőfa melyik bejárása adja a kulcsokat növekvő sorrendben?",
+      "options": [
+        {
+          "t": "Inorder (bal → gyökér → jobb)",
+          "c": true
+        },
+        {
+          "t": "Preorder (gyökér → bal → jobb)",
+          "c": false
+        },
+        {
+          "t": "Postorder (bal → jobb → gyökér)",
+          "c": false
+        },
+        {
+          "t": "Szélességi (szintenkénti)",
+          "c": false
+        }
+      ],
+      "e": "Keresőfánál az inorder bejárás a kulcsokat rendezett (növekvő) sorrendben látogatja."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Melyik igaz a gráf- és fabejárásokra?",
+      "options": [
+        {
+          "t": "A szélességi bejárás (BFS) összefüggő gráfban egy feszítőfát határoz meg.",
+          "c": true
+        },
+        {
+          "t": "A mélységi bejárás (DFS) visszalépéssel (backtracking) halad.",
+          "c": true
+        },
+        {
+          "t": "A BFS mélységben halad, a DFS szintenként.",
+          "c": false
+        },
+        {
+          "t": "A postorder bejárás a gyökeret látogatja először.",
+          "c": false
+        }
+      ],
+      "e": "A BFS és DFS is feszítőfát ad; a BFS szintenként (sor), a DFS mélységben (verem/rekurzió). A postorder a gyökeret hagyja utoljára."
+    },
+    {
+      "topic": "Bázis",
+      "multi": true,
+      "prompt": "Melyik igaz a lineáris függetlenségről?",
+      "options": [
+        {
+          "t": "Vektorok függetlenek, ha a nullvektor csak triviálisan (csupa 0 együtthatóval) áll elő belőlük.",
+          "c": true
+        },
+        {
+          "t": "A nullvektort tartalmazó rendszer mindig lineárisan összefüggő.",
+          "c": true
+        },
+        {
+          "t": "Két párhuzamos (egyirányú) vektor lineárisan független.",
+          "c": false
+        },
+        {
+          "t": "Minden lineárisan független rendszer egyben generátorrendszer is.",
+          "c": false
+        }
+      ],
+      "e": "Függetlenség: a 0 csak triviálisan áll elő. A 0-t tartalmazó rendszer összefüggő. Párhuzamos vektorok összefüggők. A függetlenség nem jelent generálást."
+    },
+    {
+      "topic": "Bázis",
+      "multi": false,
+      "prompt": "Hány vektorból áll ℝⁿ bármely bázisa?",
+      "options": [
+        {
+          "t": "n",
+          "c": true
+        },
+        {
+          "t": "n − 1",
+          "c": false
+        },
+        {
+          "t": "n + 1",
+          "c": false
+        },
+        {
+          "t": "2n",
+          "c": false
+        }
+      ],
+      "e": "A bázis elemszáma a tér dimenziója; ℝⁿ-nek minden bázisa pontosan n elemű."
+    },
+    {
+      "topic": "Bázis",
+      "multi": true,
+      "prompt": "Melyik igaz a bázisra?",
+      "options": [
+        {
+          "t": "A bázis lineárisan független generátorrendszer.",
+          "c": true
+        },
+        {
+          "t": "Minden vektor egyértelműen áll elő a bázisvektorok lineáris kombinációjaként.",
+          "c": true
+        },
+        {
+          "t": "A bázisvektorok száma a tér dimenziója.",
+          "c": true
+        },
+        {
+          "t": "Egy térnek csak egyetlen bázisa lehet.",
+          "c": false
+        }
+      ],
+      "e": "A bázis független + generál; ebben a felírás egyértelmű, és az elemszám a dimenzió. Bázisból végtelen sok lehet."
+    },
+    {
+      "topic": "Bázis",
+      "multi": false,
+      "prompt": "Legalább hány vektor kell ℝ³ kifeszítéséhez (generálásához)?",
+      "options": [
+        {
+          "t": "3",
+          "c": true
+        },
+        {
+          "t": "2",
+          "c": false
+        },
+        {
+          "t": "1",
+          "c": false
+        },
+        {
+          "t": "4",
+          "c": false
+        }
+      ],
+      "e": "ℝ³ generálásához legalább 3 (lineárisan független) vektor kell — kevesebb nem feszíti ki a teret."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": true,
+      "prompt": "Melyik igaz a merőlegességre és a normára?",
+      "options": [
+        {
+          "t": "Két vektor merőleges, ha skaláris szorzatuk 0.",
+          "c": true
+        },
+        {
+          "t": "Az egységvektor normája 1.",
+          "c": true
+        },
+        {
+          "t": "A nullvektor minden vektorra merőleges.",
+          "c": true
+        },
+        {
+          "t": "A skaláris szorzat eredménye vektor.",
+          "c": false
+        }
+      ],
+      "e": "Merőlegesség ⇔ ⟨u,v⟩=0; az egységvektor normája 1; a 0 minden vektorra merőleges. A skaláris szorzat eredménye skalár (szám)."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": false,
+      "prompt": "Mit mond a háromszög-egyenlőtlenség a normára?",
+      "options": [
+        {
+          "t": "‖u + v‖ ≤ ‖u‖ + ‖v‖",
+          "c": true
+        },
+        {
+          "t": "‖u + v‖ ≥ ‖u‖ + ‖v‖",
+          "c": false
+        },
+        {
+          "t": "‖u + v‖ = ‖u‖ + ‖v‖ mindig",
+          "c": false
+        },
+        {
+          "t": "‖u + v‖ = ‖u‖ − ‖v‖",
+          "c": false
+        }
+      ],
+      "e": "A háromszög-egyenlőtlenség: ‖u+v‖ ≤ ‖u‖+‖v‖ (egyenlőség csak azonos irányú vektoroknál)."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Melyik igaz a fákról?",
+      "options": [
+        {
+          "t": "A fa összefüggő, körmentes gráf.",
+          "c": true
+        },
+        {
+          "t": "Egy n csúcsú fának n − 1 éle van.",
+          "c": true
+        },
+        {
+          "t": "A levélcsúcs (levél) fokszáma 1.",
+          "c": true
+        },
+        {
+          "t": "Minden fában van kör.",
+          "c": false
+        }
+      ],
+      "e": "A fa összefüggő és körmentes; n csúcs → n−1 él; a levelek elsőfokú csúcsok. Körmentes, tehát nincs benne kör."
+    },
+    {
+      "topic": "Hasonló mátrixok",
+      "multi": true,
+      "prompt": "Melyik igaz a diagonalizálhatóságról?",
+      "options": [
+        {
+          "t": "Egy n×n mátrix diagonalizálható, ha van n lineárisan független sajátvektora.",
+          "c": true
+        },
+        {
+          "t": "n különböző sajátérték esetén a mátrix biztosan diagonalizálható.",
+          "c": true
+        },
+        {
+          "t": "A diagonális alakban a főátlóba a sajátértékek kerülnek.",
+          "c": true
+        },
+        {
+          "t": "Minden négyzetes mátrix diagonalizálható.",
+          "c": false
+        }
+      ],
+      "e": "Diagonalizálható ⇔ van n független sajátvektor (a sajátvektorbázisban a főátlón a sajátértékek). n különböző sajátérték elégséges. Nem minden mátrix az."
+    },
+    {
+      "topic": "Hasonló mátrixok",
+      "multi": false,
+      "prompt": "Mi igaz két hasonló mátrix determinánsára?",
+      "options": [
+        {
+          "t": "Megegyezik.",
+          "c": true
+        },
+        {
+          "t": "Ellentett előjelű.",
+          "c": false
+        },
+        {
+          "t": "Egymás reciproka.",
+          "c": false
+        },
+        {
+          "t": "Mindig 0.",
+          "c": false
+        }
+      ],
+      "e": "Hasonló mátrixoknak (B=P⁻¹AP) megegyezik a determinánsa, nyoma és karakterisztikus polinomja."
+    },
+    {
+      "topic": "Hasonló mátrixok",
+      "multi": false,
+      "prompt": "Két hasonló mátrix ugyanazt a lineáris transzformációt írja le, csak…",
+      "options": [
+        {
+          "t": "másik bázisban.",
+          "c": true
+        },
+        {
+          "t": "másik dimenzióban.",
+          "c": false
+        },
+        {
+          "t": "másik test felett.",
+          "c": false
+        },
+        {
+          "t": "ezek sosem ugyanazt írják le.",
+          "c": false
+        }
+      ],
+      "e": "A hasonlóság épp a bázisváltást fejezi ki: B=P⁻¹AP ugyanaz a transzformáció más bázisban."
+    },
+    {
+      "topic": "Hasonló mátrixok",
+      "multi": false,
+      "prompt": "A hasonlóság a négyzetes mátrixok halmazán milyen reláció?",
+      "options": [
+        {
+          "t": "Ekvivalenciareláció.",
+          "c": true
+        },
+        {
+          "t": "Rendezési reláció.",
+          "c": false
+        },
+        {
+          "t": "Nem reláció.",
+          "c": false
+        },
+        {
+          "t": "Függvény.",
+          "c": false
+        }
+      ],
+      "e": "A hasonlóság reflexív, szimmetrikus és tranzitív → ekvivalenciareláció."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": false,
+      "prompt": "Milyen a kvadratikus alakhoz tartozó mátrix?",
+      "options": [
+        {
+          "t": "Szimmetrikus.",
+          "c": true
+        },
+        {
+          "t": "Ferdén szimmetrikus.",
+          "c": false
+        },
+        {
+          "t": "Mindig diagonális.",
+          "c": false
+        },
+        {
+          "t": "Nem négyzetes.",
+          "c": false
+        }
+      ],
+      "e": "A kvadratikus alak mátrixa szimmetrikus (A = Aᵀ)."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": true,
+      "prompt": "Mikor negatív definit egy kvadratikus alak?",
+      "options": [
+        {
+          "t": "Ha minden sajátértéke negatív.",
+          "c": true
+        },
+        {
+          "t": "Ha a −Q kvadratikus alak pozitív definit.",
+          "c": true
+        },
+        {
+          "t": "Ha a determinánsa negatív.",
+          "c": false
+        },
+        {
+          "t": "Ha van pozitív és negatív sajátértéke is.",
+          "c": false
+        }
+      ],
+      "e": "Negatív definit ⇔ minden sajátérték < 0 ⇔ −Q pozitív definit. Vegyes előjelű sajátértékeknél indefinit."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": false,
+      "prompt": "Ha egy szimmetrikus mátrixnak van pozitív és negatív sajátértéke is, akkor a kvadratikus alak…",
+      "options": [
+        {
+          "t": "indefinit.",
+          "c": true
+        },
+        {
+          "t": "pozitív definit.",
+          "c": false
+        },
+        {
+          "t": "negatív definit.",
+          "c": false
+        },
+        {
+          "t": "pozitív szemidefinit.",
+          "c": false
+        }
+      ],
+      "e": "Vegyes (pozitív és negatív) sajátértékek → indefinit kvadratikus alak."
+    },
+    {
+      "topic": "Lineáris algebra",
+      "multi": false,
+      "prompt": "Mit mond a dimenziótétel (rang–nullitás) egy L: V→W leképezésre?",
+      "options": [
+        {
+          "t": "dim V = dim Ker(L) + dim Im(L)",
+          "c": true
+        },
+        {
+          "t": "dim W = dim Ker(L) + dim Im(L)",
+          "c": false
+        },
+        {
+          "t": "dim V = dim Ker(L) − dim Im(L)",
+          "c": false
+        },
+        {
+          "t": "dim Im(L) = dim V + dim Ker(L)",
+          "c": false
+        }
+      ],
+      "e": "Dimenziótétel: a kiindulási tér dimenziója = a mag és a kép dimenziójának összege."
+    },
+    {
+      "topic": "Lineáris algebra",
+      "multi": true,
+      "prompt": "L: V→W lineáris leképezés. Melyik igaz?",
+      "options": [
+        {
+          "t": "L injektív ⇔ Ker(L) = {0}.",
+          "c": true
+        },
+        {
+          "t": "L szürjektív ⇔ Im(L) = W.",
+          "c": true
+        },
+        {
+          "t": "A leképezés rangja = dim Im(L).",
+          "c": true
+        },
+        {
+          "t": "Minden lineáris leképezés invertálható.",
+          "c": false
+        }
+      ],
+      "e": "Injektivitás ⇔ triviális mag; szürjektivitás ⇔ a kép a teljes W; a rang a kép dimenziója. Nem minden leképezés invertálható."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": false,
+      "prompt": "Mennyi L(0) (a nullvektor képe) egy homogén lineáris leképezésnél?",
+      "options": [
+        {
+          "t": "A nullvektor.",
+          "c": true
+        },
+        {
+          "t": "1",
+          "c": false
+        },
+        {
+          "t": "Nincs értelmezve.",
+          "c": false
+        },
+        {
+          "t": "Tetszőleges vektor.",
+          "c": false
+        }
+      ],
+      "e": "L(0) = L(0·x) = 0·L(x) = 0 — a nullvektor képe mindig a nullvektor."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Melyik leképezés lineáris az ℝ²→ℝ² síkon?",
+      "options": [
+        {
+          "t": "Az origó körüli forgatás.",
+          "c": true
+        },
+        {
+          "t": "Tükrözés egy origón átmenő egyenesre.",
+          "c": true
+        },
+        {
+          "t": "Az origóból való nyújtás (skálázás).",
+          "c": true
+        },
+        {
+          "t": "Eltolás egy nemnulla vektorral.",
+          "c": false
+        }
+      ],
+      "e": "Forgatás, tükrözés, skálázás lineáris (0-t 0-ba visz). Az eltolás affin, de nem lineáris (L(0) ≠ 0)."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": false,
+      "prompt": "Mi az identikus leképezés (L(x) = x) sajátértéke?",
+      "options": [
+        {
+          "t": "Csak az 1.",
+          "c": true
+        },
+        {
+          "t": "Csak a 0.",
+          "c": false
+        },
+        {
+          "t": "Minden valós szám.",
+          "c": false
+        },
+        {
+          "t": "Nincs sajátértéke.",
+          "c": false
+        }
+      ],
+      "e": "Minden vektor sajátvektor 1 sajátértékkel: L(x)=1·x. Az egyetlen sajátérték az 1."
+    },
+    {
+      "topic": "Normálformák",
+      "multi": false,
+      "prompt": "Mi a konjunktív normálforma (CNF)?",
+      "options": [
+        {
+          "t": "Klózok (diszjunkciók) konjunkciója.",
+          "c": true
+        },
+        {
+          "t": "Konjunkciók diszjunkciója (ez a DNF).",
+          "c": false
+        },
+        {
+          "t": "Csak negációk sorozata.",
+          "c": false
+        },
+        {
+          "t": "Kvantorok sorozata.",
+          "c": false
+        }
+      ],
+      "e": "CNF: literálok diszjunkcióinak (klózoknak) a konjunkciója — pl. (A∨¬B)∧(C∨D)."
+    },
+    {
+      "topic": "Normálformák",
+      "multi": true,
+      "prompt": "Melyik igaz a normálformára hozásról?",
+      "options": [
+        {
+          "t": "A prenex alak előtagja csak kvantorokból áll, utána jön a kvantormentes mag.",
+          "c": true
+        },
+        {
+          "t": "A skolemizálás kielégíthetőség-tartó (equiszatiszfiábilis), de nem feltétlenül ekvivalens.",
+          "c": true
+        },
+        {
+          "t": "A CNF-re hozás ekvivalens átalakítás.",
+          "c": true
+        },
+        {
+          "t": "A standardizálás új konstansszimbólumokat vezet be.",
+          "c": false
+        }
+      ],
+      "e": "Prenex: kvantorok előre. A skolemizálás csak kielégíthetőséget tart. A CNF ekvivalens átalakítás. A standardizálás változókat NEVEZ ÁT (nem konstansokat vezet be)."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": false,
+      "prompt": "Hány gyöke van multiplicitással egy ötödfokú komplex polinomnak?",
+      "options": [
+        {
+          "t": "5",
+          "c": true
+        },
+        {
+          "t": "4",
+          "c": false
+        },
+        {
+          "t": "10",
+          "c": false
+        },
+        {
+          "t": "1",
+          "c": false
+        }
+      ],
+      "e": "Az algebra alaptétele: egy n-edfokú polinomnak ℂ fölött multiplicitással pontosan n gyöke van."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": true,
+      "prompt": "Melyik igaz a gyöktényezős alakra?",
+      "options": [
+        {
+          "t": "Egy n-edfokú polinom felírható a(x − x₁)…(x − xₙ) alakban ℂ fölött.",
+          "c": true
+        },
+        {
+          "t": "A gyöktényezős alakból leolvashatók a gyökök.",
+          "c": true
+        },
+        {
+          "t": "A többszörös gyök multiplicitása a megfelelő tényező kitevője.",
+          "c": true
+        },
+        {
+          "t": "Minden valós polinom felbomlik valós elsőfokú tényezőkre.",
+          "c": false
+        }
+      ],
+      "e": "ℂ fölött teljes gyöktényezős alak van; a többszörös gyök kitevőként jelenik meg. Valós fölött maradhat felbonthatatlan másodfokú tényező (komplex gyökpár)."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": false,
+      "prompt": "Hány valós gyöke van az x² + 1 polinomnak?",
+      "options": [
+        {
+          "t": "0",
+          "c": true
+        },
+        {
+          "t": "1",
+          "c": false
+        },
+        {
+          "t": "2",
+          "c": false
+        },
+        {
+          "t": "Végtelen sok",
+          "c": false
+        }
+      ],
+      "e": "x² + 1 = 0 → x² = −1, aminek nincs valós megoldása (a gyökök ±i)."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": true,
+      "prompt": "Melyik igaz a komplex konjugált tételre (valós együtthatós polinomnál)?",
+      "options": [
+        {
+          "t": "Ha a + bi gyök (b ≠ 0), akkor a − bi is gyök.",
+          "c": true
+        },
+        {
+          "t": "Páratlan fokú valós polinomnak van valós gyöke.",
+          "c": true
+        },
+        {
+          "t": "A nem valós gyökök száma páros.",
+          "c": true
+        },
+        {
+          "t": "Valós együtthatós polinomnak csak valós gyökei lehetnek.",
+          "c": false
+        }
+      ],
+      "e": "A komplex gyökök konjugált párban jönnek → páros sokan vannak; ezért páratlan fokszámnál marad valós gyök."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Melyik igaz a relációkról?",
+      "options": [
+        {
+          "t": "Az ekvivalenciareláció a halmazt diszjunkt osztályokra (partícióra) bontja.",
+          "c": true
+        },
+        {
+          "t": "Egy A halmazon értelmezett (bináris) reláció az A × A részhalmaza.",
+          "c": true
+        },
+        {
+          "t": "A reflexív reláció minden elemet önmagával relációba állít.",
+          "c": true
+        },
+        {
+          "t": "Minden reláció egyben függvény is.",
+          "c": false
+        }
+      ],
+      "e": "Ekvivalencia → partíció; a reláció rendezett párok halmaza (A×A részhalmaza); reflexív: (a,a) mindig benne. Nem minden reláció függvény."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": false,
+      "prompt": "Mit jelent a teljes (lineáris) rendezés?",
+      "options": [
+        {
+          "t": "Bármely két elem összehasonlítható.",
+          "c": true
+        },
+        {
+          "t": "Van legnagyobb elem.",
+          "c": false
+        },
+        {
+          "t": "A halmaz véges.",
+          "c": false
+        },
+        {
+          "t": "Minden elem minimális.",
+          "c": false
+        }
+      ],
+      "e": "Teljes rendezés: minden elempár összehasonlítható (a ≤ b vagy b ≤ a). A részben rendezésben lehetnek összehasonlíthatatlan elemek."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": true,
+      "prompt": "Melyik igaz a rendezett halmazok elemeire?",
+      "options": [
+        {
+          "t": "Az infimum a legnagyobb alsó korlát.",
+          "c": true
+        },
+        {
+          "t": "A legkisebb elem (ha van) egyben minimális is.",
+          "c": true
+        },
+        {
+          "t": "Egy poszetben több maximális elem is lehet.",
+          "c": true
+        },
+        {
+          "t": "Minden poszetben van legnagyobb elem.",
+          "c": false
+        }
+      ],
+      "e": "Infimum = legnagyobb alsó korlát; a legkisebb elem minimális is. Lehet több maximális elem, és nem mindig van legnagyobb."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": false,
+      "prompt": "Mit ábrázol a Hasse-diagram?",
+      "options": [
+        {
+          "t": "Egy részben rendezett halmazt (a fedési relációval).",
+          "c": true
+        },
+        {
+          "t": "Egy gráf színezését.",
+          "c": false
+        },
+        {
+          "t": "Mindig egy fát.",
+          "c": false
+        },
+        {
+          "t": "Egy függvény grafikonját.",
+          "c": false
+        }
+      ],
+      "e": "A Hasse-diagram a részben rendezett halmaz fedési relációját ábrázolja (a tranzitív és reflexív éleket elhagyva)."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": false,
+      "prompt": "Az oszthatóság (a | b) az ℕ⁺ pozitív egészeken milyen reláció?",
+      "options": [
+        {
+          "t": "Részben rendezés.",
+          "c": true
+        },
+        {
+          "t": "Teljes rendezés.",
+          "c": false
+        },
+        {
+          "t": "Ekvivalenciareláció.",
+          "c": false
+        },
+        {
+          "t": "Nem reláció.",
+          "c": false
+        }
+      ],
+      "e": "Az oszthatóság reflexív, antiszimmetrikus, tranzitív → részben rendezés (de nem teljes: pl. 2 és 3 összehasonlíthatatlan)."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": false,
+      "prompt": "Hogyan kapjuk meg egy A mátrix λ sajátértékhez tartozó sajátvektorait?",
+      "options": [
+        {
+          "t": "Az (A − λI)x = 0 homogén rendszer nemtriviális megoldásai.",
+          "c": true
+        },
+        {
+          "t": "Az Ax = 0 megoldásai.",
+          "c": false
+        },
+        {
+          "t": "A oszlopvektorai.",
+          "c": false
+        },
+        {
+          "t": "A determináns kiszámításával.",
+          "c": false
+        }
+      ],
+      "e": "A λ-hoz tartozó sajátvektorok az (A−λI)x=0 rendszer nemnulla megoldásai (a sajáttér nemnulla vektorai)."
+    },
+    {
+      "topic": "Szimmetrikus mátrix",
+      "multi": false,
+      "prompt": "Milyenek egy valós szimmetrikus mátrix sajátértékei?",
+      "options": [
+        {
+          "t": "Mindig valósak.",
+          "c": true
+        },
+        {
+          "t": "Mindig komplexek.",
+          "c": false
+        },
+        {
+          "t": "Mindig pozitívak.",
+          "c": false
+        },
+        {
+          "t": "Mindig 0.",
+          "c": false
+        }
+      ],
+      "e": "A spektráltétel szerint a valós szimmetrikus mátrix minden sajátértéke valós."
+    },
+    {
+      "topic": "Szimmetrikus mátrix",
+      "multi": true,
+      "prompt": "Melyik művelet eredménye mindig szimmetrikus (tetszőleges A-ra)?",
+      "options": [
+        {
+          "t": "A + Aᵀ",
+          "c": true
+        },
+        {
+          "t": "AᵀA",
+          "c": true
+        },
+        {
+          "t": "A − Aᵀ",
+          "c": false
+        },
+        {
+          "t": "Bármely négyzetes A önmagában.",
+          "c": false
+        }
+      ],
+      "e": "(A+Aᵀ)ᵀ = A+Aᵀ és (AᵀA)ᵀ = AᵀA → szimmetrikusak. Az A−Aᵀ ferdén szimmetrikus; egy tetszőleges A nem feltétlenül szimmetrikus."
+    },
+    {
+      "topic": "Szimmetrikus mátrix",
+      "multi": false,
+      "prompt": "Mi a kapcsolat egy szimmetrikus mátrix és transzponáltja között?",
+      "options": [
+        {
+          "t": "Egyenlők: A = Aᵀ.",
+          "c": true
+        },
+        {
+          "t": "Ellentettek: A = −Aᵀ.",
+          "c": false
+        },
+        {
+          "t": "Egymás inverzei.",
+          "c": false
+        },
+        {
+          "t": "Sosem egyenlők.",
+          "c": false
+        }
+      ],
+      "e": "A szimmetria definíciója éppen A = Aᵀ."
+    },
+    {
+      "topic": "Szimmetrikus mátrix",
+      "multi": false,
+      "prompt": "A főtengelytétel szerint egy valós szimmetrikus mátrixhoz létezik…",
+      "options": [
+        {
+          "t": "ortonormált sajátvektor-bázis.",
+          "c": true
+        },
+        {
+          "t": "csak komplex sajátérték.",
+          "c": false
+        },
+        {
+          "t": "egyetlen sajátvektor sem.",
+          "c": false
+        },
+        {
+          "t": "egy ferde (nem merőleges) bázis.",
+          "c": false
+        }
+      ],
+      "e": "Főtengelytétel: van ortonormált sajátvektor-bázis, amelyben a mátrix diagonális (ortogonálisan diagonalizálható)."
+    },
+    {
+      "topic": "Színezés",
+      "multi": true,
+      "prompt": "Melyik igaz a kromatikus szám becsléseire?",
+      "options": [
+        {
+          "t": "χ(G) ≥ ω(G): a klikkszám alsó korlát.",
+          "c": true
+        },
+        {
+          "t": "χ(G) ≤ Δ(G) + 1: a maximális fokszám + 1 felső korlát.",
+          "c": true
+        },
+        {
+          "t": "Egy élmentes (de csúcsokat tartalmazó) gráf kromatikus száma 1.",
+          "c": true
+        },
+        {
+          "t": "χ(G) mindig egyenlő a csúcsok számával.",
+          "c": false
+        }
+      ],
+      "e": "A klikkszám alsó, a Δ+1 felső korlát; élmentes gráf 1 színnel színezhető. A csúcsszám csak egy laza felső korlát, nem egyenlőség."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": true,
+      "prompt": "Melyik igaz a síkgráfokra?",
+      "options": [
+        {
+          "t": "A Fáry–Wagner-tétel szerint minden síkgráf lerajzolható egyenes szakaszokkal (egyenes élekkel).",
+          "c": true
+        },
+        {
+          "t": "A K₅ nem síkbarajzolható.",
+          "c": true
+        },
+        {
+          "t": "Síkbeli reprezentációra teljesül c − e + l = 2 (Euler-formula).",
+          "c": true
+        },
+        {
+          "t": "Minden egyszerű gráf síkbarajzolható.",
+          "c": false
+        }
+      ],
+      "e": "Fáry–Wagner: egyenes élű lerajzolás létezik; K₅ (és K₃,₃) nem síkgráf; az Euler-formula c−e+l=2 minden összefüggő síkgráfra igaz."
+    },
+    {
+      "topic": "Vektortér",
+      "multi": true,
+      "prompt": "Melyik alkot vektorteret a szokásos műveletekkel?",
+      "options": [
+        {
+          "t": "A legfeljebb n-edfokú polinomok.",
+          "c": true
+        },
+        {
+          "t": "A valós m×n méretű mátrixok.",
+          "c": true
+        },
+        {
+          "t": "Az ℝⁿ rendezett szám-n-esek.",
+          "c": true
+        },
+        {
+          "t": "A pontosan n-edfokú polinomok.",
+          "c": false
+        }
+      ],
+      "e": "A 'legfeljebb n-edfokú' polinomok, a mátrixok és ℝⁿ vektorteret alkotnak. A 'pontosan n-edfokú' nem: az összegük lehet alacsonyabb fokú, és nincs benne a nullpolinom."
+    },
+    {
+      "topic": "Vektortér",
+      "multi": false,
+      "prompt": "Melyik vektort tartalmazza minden altér?",
+      "options": [
+        {
+          "t": "A nullvektort.",
+          "c": true
+        },
+        {
+          "t": "Az egységvektort.",
+          "c": false
+        },
+        {
+          "t": "Nincs közös elemük.",
+          "c": false
+        },
+        {
+          "t": "Egy rögzített bázisvektort.",
+          "c": false
+        }
+      ],
+      "e": "Minden altér tartalmazza a nullvektort (a skalárral való szorzásra való zártságból 0·v = 0)."
+    },
+    {
+      "topic": "Vektortér",
+      "multi": false,
+      "prompt": "Hány dimenziós a valós 2×2-es mátrixok vektortere?",
+      "options": [
+        {
+          "t": "4",
+          "c": true
+        },
+        {
+          "t": "2",
+          "c": false
+        },
+        {
+          "t": "3",
+          "c": false
+        },
+        {
+          "t": "8",
+          "c": false
+        }
+      ],
+      "e": "A 2×2-es mátrixoknak 4 független eleme van (a standard egységmátrixok bázisa), így a tér 4 dimenziós."
     }
   ]
 }
