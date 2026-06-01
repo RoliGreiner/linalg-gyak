@@ -32,12 +32,21 @@ const FALLBACK_PROBLEMS = [
 
 /* ===== Állapot ===== */
 let mode = 'kviz';                 // 'kviz' | 'szamolos'
-let bank = [], problems = [];
+/* Forrás szerint külön bankok: 'vizsga' = korábbi vizsgakérdések,
+   'gen' = (AI által) generált gyakorló kérdések. A FÁJL a forrás:
+   questions.json / feladatok.json   → generált
+   questions-vizsga.json / feladatok-vizsga.json → korábbi vizsga */
+let bankVizsga = [], bankGen = [];          // kvíz, forrás szerint
+let probVizsga = [], probGen = [];          // számolós, forrás szerint
+let examOnly = false;                       // toggle: csak korábbi vizsgakérdések
 let quiz = [], quizState = [], i = 0;       // kvíz futás
 let run = [], pstate = [], pi = 0;          // számolós futás
 let ghToken = '';
+let exportSrc = 'gen';                       // melyik fájllal dolgozzon az export/GitHub
 const app = document.getElementById('app');
 const foot = document.getElementById('foot');
+
+try { examOnly = localStorage.getItem('examOnly') === '1'; } catch (e) { }
 
 /* ===== Segédfüggvények ===== */
 function typeset(el) { if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(() => { }); }
@@ -46,13 +55,14 @@ function toast(m) { const t = document.getElementById('toast'); t.textContent = 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 function fmtPts(n) { const r = Math.round(n * 100) / 100; return r.toFixed(2).replace(/\.?0+$/, '').replace('.', ','); }
 
-function norm(arr) { return arr.filter(q => q && q.prompt && Array.isArray(q.options)).map(q => ({ topic: q.topic || "Egyéb", multi: !!q.multi, prompt: q.prompt, options: q.options.map(o => ({ t: o.t || o.text || '', c: !!o.c || !!o.correct })), e: q.e || q.explanation || '' })); }
+function norm(arr, src) { return arr.filter(q => q && q.prompt && Array.isArray(q.options)).map(q => ({ topic: q.topic || "Egyéb", multi: !!q.multi, prompt: q.prompt, options: q.options.map(o => ({ t: o.t || o.text || '', c: !!o.c || !!o.correct })), e: q.e || q.explanation || '', src: src || q.src || 'gen' })); }
 
-function normProblems(arr) {
+function normProblems(arr, src) {
   return (arr || []).filter(p => p && Array.isArray(p.parts) && p.parts.length).map(p => ({
     topic: p.topic || "Egyéb",
     title: p.title || '',
     preamble: p.preamble || '',
+    src: src || p.src || 'gen',
     parts: p.parts.map((pt, k) => {
       const type = (pt.type === 'single' || pt.type === 'multi') ? pt.type : 'text';
       const base = { id: pt.id || String(k + 1), type, prompt: pt.prompt || '', points: pt.points != null ? +pt.points : 1, e: pt.e || pt.explanation || '' };
@@ -101,27 +111,51 @@ function gradePart(part, st) {
   return Math.max(0, Math.min(max, pts));
 }
 
-/* ===== Indítás: mindkét JSON betöltése ===== */
+/* ===== Indítás: forrásonként külön JSON betöltése ===== */
+async function fetchJSON(name) {
+  const res = await fetch(name + '?t=' + Date.now(), { cache: 'no-store' });
+  if (!res.ok) throw 0;
+  return res.json();
+}
 async function init() {
-  try {
-    const res = await fetch('questions.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw 0;
-    const data = await res.json(); const clean = norm(Array.isArray(data) ? data : data.questions || []);
-    bank = clean.length ? clean : FALLBACK_BANK.map(q => ({ ...q }));
-  } catch (e) { bank = FALLBACK_BANK.map(q => ({ ...q })); }
-  try {
-    const res = await fetch('feladatok.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw 0;
-    const data = await res.json(); const clean = normProblems(Array.isArray(data) ? data : data.problems || []);
-    problems = clean.length ? clean : FALLBACK_PROBLEMS.map(p => normProblems([p])[0]);
-  } catch (e) { problems = normProblems(FALLBACK_PROBLEMS); }
+  // kvíz – generált
+  try { const d = await fetchJSON('questions.json'); bankGen = norm(Array.isArray(d) ? d : d.questions || [], 'gen'); }
+  catch (e) { bankGen = []; }
+  if (!bankGen.length) bankGen = norm(FALLBACK_BANK, 'gen');
+  // kvíz – korábbi vizsga
+  try { const d = await fetchJSON('questions-vizsga.json'); bankVizsga = norm(Array.isArray(d) ? d : d.questions || [], 'vizsga'); }
+  catch (e) { bankVizsga = []; }
+
+  // számolós – generált
+  try { const d = await fetchJSON('feladatok.json'); probGen = normProblems(Array.isArray(d) ? d : d.problems || [], 'gen'); }
+  catch (e) { probGen = []; }
+  if (!probGen.length) probGen = normProblems(FALLBACK_PROBLEMS, 'gen');
+  // számolós – korábbi vizsga
+  try { const d = await fetchJSON('feladatok-vizsga.json'); probVizsga = normProblems(Array.isArray(d) ? d : d.problems || [], 'vizsga'); }
+  catch (e) { probVizsga = []; }
+
+  // ha nincs egyetlen vizsgakérdés sem, kapcsoljuk ki a kizárólagos vizsga-szűrőt
+  if (examOnly && !bankVizsga.length && !probVizsga.length) examOnly = false;
   renderSetup();
 }
 
-/* ===== Aktív adathalmaz a mód szerint ===== */
-function activeArr() { return mode === 'kviz' ? bank : problems; }
+/* ===== Bankok forrás szerint ===== */
+function bankFor(src) { return src === 'vizsga' ? bankVizsga : bankGen; }
+function probFor(src) { return src === 'vizsga' ? probVizsga : probGen; }
+function allBank() { return examOnly ? bankVizsga.slice() : bankVizsga.concat(bankGen); }
+function allProblems() { return examOnly ? probVizsga.slice() : probVizsga.concat(probGen); }
+function vizsgaCount() { return mode === 'kviz' ? bankVizsga.length : probVizsga.length; }
+function genCount() { return mode === 'kviz' ? bankGen.length : probGen.length; }
+
+/* ===== Aktív adathalmaz a mód + toggle szerint ===== */
+function activeArr() { return mode === 'kviz' ? allBank() : allProblems(); }
 function activeName() { return mode === 'kviz' ? 'questions.json' : 'feladatok.json'; }
 function activeLabel() { return mode === 'kviz' ? 'kérdés' : 'feladat'; }
+/* a kiválasztott (mód × forrás) fájl neve */
+function fileNameFor(src) {
+  if (mode === 'kviz') return src === 'vizsga' ? 'questions-vizsga.json' : 'questions.json';
+  return src === 'vizsga' ? 'feladatok-vizsga.json' : 'feladatok.json';
+}
 
 /* ===== SETUP ===== */
 function renderSetup() {
@@ -131,6 +165,8 @@ function renderSetup() {
   const maxN = data.length, def = Math.min(10, maxN) || 1;
   const gh = detectRepo();
   const isK = mode === 'kviz';
+  const nV = vizsgaCount(), nG = genCount();
+  const noVizsga = nV === 0;
 
   app.innerHTML = `
    <div class="card setup">
@@ -138,11 +174,27 @@ function renderSetup() {
        <button class="${isK ? 'on' : ''}" id="m-kviz">📝 Kvíz</button>
        <button class="${isK ? '' : 'on'}" id="m-szam">🧮 Számolós feladatok</button>
      </div>
+
+     <div class="srctoggle ${examOnly ? 'on' : ''}" id="srctoggle">
+       <button class="srcswitch" id="examtoggle" role="switch" aria-checked="${examOnly}" ${noVizsga ? 'disabled' : ''}>
+         <span class="knob"></span>
+       </button>
+       <div class="srctoggle-txt">
+         <div class="srctoggle-title">Csak korábbi vizsgakérdések</div>
+         <div class="srctoggle-sub">${examOnly
+      ? `Most <b>kizárólag</b> a korábbi vizsgákból származó ${activeLabel()}ek jönnek (AI-generált nélkül).`
+      : `Most a korábbi vizsga <b>és</b> a generált ${activeLabel()}ek is bekerülnek a sorsolásba.`}</div>
+       </div>
+       <span class="srcbadge ${examOnly ? 'vizsga' : ''}">${examOnly ? '🎓 vizsga' : '🎓+🤖 mind'}</span>
+     </div>
+     ${noVizsga ? `<div class="help" style="margin:-8px 0 14px">Ehhez a módhoz még nincs korábbi vizsga ${activeLabel()} betöltve, ezért a kapcsoló inaktív.</div>` : ''}
+
      <h2>${isK ? 'Kvíz' : 'Számolós feladatok'} beállítása</h2>
      <div class="lead">${isK ? 'Válaszd ki, hány kérdés legyen — a program véletlenszerűen sorsol a bankból.' : 'Több részből álló számolós feladatok (komplex számok, sajátérték, relációk…). A program véletlenszerűen sorsol.'}</div>
      <div class="bankinfo">
-       <div class="stat"><div class="n">${data.length}</div><div class="l">${isK ? 'Kérdés' : 'Feladat'} a bankban</div></div>
-       <div class="stat"><div class="n">${topics.length}</div><div class="l">Téma</div></div>
+       <div class="stat"><div class="n">${data.length}</div><div class="l">${isK ? 'Kérdés' : 'Feladat'} most</div></div>
+       <div class="stat" title="Korábbi vizsgákból"><div class="n" style="color:var(--green)">${nV}</div><div class="l">🎓 vizsga</div></div>
+       <div class="stat" title="Generált gyakorló"><div class="n" style="color:var(--blue)">${nG}</div><div class="l">🤖 generált</div></div>
        <div class="stat"><div class="n" id="willdo">${def}</div><div class="l">Most kapok</div></div>
      </div>
      ${maxN === 0 ? `<div class="lead" style="color:var(--red)">Nincs betöltve ${activeLabel()}. Tölts be egy JSON-t lent.</div>` : `
@@ -157,25 +209,51 @@ function renderSetup() {
      <div class="controls">
        ${maxN ? `<button class="btn primary" id="start">${isK ? 'Kvíz' : 'Feladatok'} indítása →</button>` : ''}
        ${isK ? `<button class="btn ghost small" id="add">＋ Új kérdés</button>` : ''}
-       <button class="btn ghost small" id="export">⬇ ${isK ? 'Teljes bank' : 'Feladatok'} letöltése</button>
-       <button class="btn ghost small" id="loadbtn">📂 JSON felülírása</button>
-       <button class="btn ghost small" id="mergebtn" style="color:var(--accent-deep); border-color:var(--accent-deep)">➕ Új JSON hozzáfűzése</button>
-       <button class="btn blue small" id="ghbtn">⚙ GitHub feltöltés</button>
+       <button class="btn blue small" id="managebtn">⚙ Bank kezelése / feltöltés</button>
      </div>
 
      <div class="gh-panel" id="ghpanel">
-       <div class="flbl">${isK ? 'Kérdésbank' : 'Feladatbank'} feltöltése GitHubra (tulajdonosi mód)</div>
+       <div class="flbl">Melyik fájllal dolgozol?</div>
+       <div class="seg srcseg" id="srcseg">
+         <button data-src="vizsga" class="${exportSrc === 'vizsga' ? 'on' : ''}">🎓 Korábbi vizsga</button>
+         <button data-src="gen" class="${exportSrc === 'gen' ? 'on' : ''}">🤖 Generált</button>
+       </div>
+       <div class="help" id="srcfile" style="margin:6px 0 14px">Aktív fájl: <b>${fileNameFor(exportSrc)}</b> — <span id="srccount">${(exportSrc === 'vizsga' ? nV : nG)}</span> ${activeLabel()}.</div>
+
+       <div class="controls" style="margin-bottom:18px">
+         <button class="btn ghost small" id="export">⬇ Letöltés</button>
+         <button class="btn ghost small" id="loadbtn">📂 JSON felülírása</button>
+         <button class="btn ghost small" id="mergebtn" style="color:var(--accent-deep); border-color:var(--accent-deep)">➕ JSON hozzáfűzése</button>
+       </div>
+
+       <div class="flbl">Kiválasztott fájl feltöltése GitHubra (tulajdonosi mód)</div>
        <div class="gh-grid">
          <div><label class="flbl">Felhasználó / org</label><input type="text" id="gh-owner" value="${esc(gh.owner)}" placeholder="pl. kovacsanna"></div>
          <div><label class="flbl">Repó</label><input type="text" id="gh-repo" value="${esc(gh.repo)}" placeholder="pl. dm-la-kviz"></div>
-         <div><label class="flbl">Fájl útvonal</label><input type="text" id="gh-path" value="${activeName()}"></div>
+         <div><label class="flbl">Fájl útvonal</label><input type="text" id="gh-path" value="${fileNameFor(exportSrc)}"></div>
          <div><label class="flbl">Branch</label><input type="text" id="gh-branch" value="main"></div>
          <div class="full"><label class="flbl">Personal Access Token (Contents: write)</label><input type="password" id="gh-token" placeholder="github_pat_… (csak ebben a fülben tárolódik)"></div>
        </div>
        <button class="btn blue small" id="ghpush">Feltöltés GitHubra</button>
-       <div class="help">A token csak a memóriában marad. Visitoroknak nincs rá szükségük.</div>
+       <div class="help">A token csak a memóriában marad. Látogatóknak nincs rá szükségük. A két fájlt külön töltsd fel (forrásváltás fent).</div>
      </div>
    </div>`;
+
+  // korábbi-vizsga toggle
+  const exBtn = document.getElementById('examtoggle');
+  if (exBtn && !noVizsga) exBtn.addEventListener('click', () => {
+    examOnly = !examOnly;
+    try { localStorage.setItem('examOnly', examOnly ? '1' : '0'); } catch (e) { }
+    if (examOnly) exportSrc = 'vizsga';
+    renderSetup();
+  });
+
+  // forrás-választó (mely fájl: vizsga / generált)
+  const srcseg = document.getElementById('srcseg');
+  if (srcseg) srcseg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    exportSrc = b.dataset.src; renderSetup();
+    document.getElementById('ghpanel').classList.add('open');
+  }));
 
   // mód váltás
   document.getElementById('m-kviz').addEventListener('click', () => { if (mode !== 'kviz') { mode = 'kviz'; renderSetup(); } });
@@ -213,10 +291,10 @@ function renderSetup() {
   document.getElementById('loadbtn').addEventListener('click', loadFile);
   document.getElementById('mergebtn').addEventListener('click', mergeFile);
   const panel = document.getElementById('ghpanel');
-  document.getElementById('ghbtn').addEventListener('click', () => panel.classList.toggle('open'));
+  document.getElementById('managebtn').addEventListener('click', () => panel.classList.toggle('open'));
   document.getElementById('ghpush').addEventListener('click', pushToGitHub);
   if (ghToken) document.getElementById('gh-token').value = ghToken;
-  foot.textContent = `${isK ? 'Kérdésbank' : 'Feladatbank'}: ${data.length} ${activeLabel()} · ${topics.length} téma`;
+  foot.textContent = `${isK ? 'Kérdésbank' : 'Feladatbank'}: 🎓 ${nV} vizsga + 🤖 ${nG} generált · ${topics.length} téma${examOnly ? ' · csak vizsga mód' : ''}`;
 }
 
 function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -481,18 +559,25 @@ function animateValue(duration, step, done) {
 
 /* ===== ÚJ KÉRDÉS (csak kvíz) ===== */
 let draftType = 'multi';
+let draftSrc = 'gen';
 function renderAddForm() {
   draftType = 'multi';
-  const topics = [...new Set(bank.map(q => q.topic))].filter(Boolean).sort();
+  draftSrc = exportSrc;
+  const topics = [...new Set(bankVizsga.concat(bankGen).map(q => q.topic))].filter(Boolean).sort();
   const datalistOpts = topics.map(t => `<option value="${esc(t)}"></option>`).join('');
   app.innerHTML = `<div class="card addform"><h2>Új kérdés</h2>
    <div class="lead">A bekapcsolt jelölő = helyes válasz. LaTeX-hez: \\( ... \\).</div>
+   <div class="frow"><label class="flbl">Forrás (melyik bankba kerüljön)</label><div class="seg srcseg"><button id="s-vizsga" class="${draftSrc === 'vizsga' ? 'on' : ''}">🎓 Korábbi vizsga</button><button id="s-gen" class="${draftSrc === 'gen' ? 'on' : ''}">🤖 Generált</button></div></div>
    <div class="frow"><label class="flbl">Téma</label><input type="text" id="f-topic" list="topic-list" placeholder="Kattints ide a meglévőkhöz vagy gépelj újat..." autocomplete="off"><datalist id="topic-list">${datalistOpts}</datalist></div>
    <div class="frow"><label class="flbl">Típus</label><div class="seg"><button id="t-multi" class="on">Több válasz</button><button id="t-single">Egy válasz</button></div></div>
    <div class="frow"><label class="flbl">Kérdés szövege</label><textarea id="f-prompt" rows="2" placeholder="A kérdés..."></textarea></div>
    <div class="frow"><label class="flbl">Válaszlehetőségek (pipáld be a helyeseket)</label><div id="opts"></div><button class="btn ghost small" id="addopt" style="margin-top:4px;">＋ Válasz</button></div>
    <div class="frow"><label class="flbl">Magyarázat</label><textarea id="f-expl" rows="2" placeholder="Miért ez a helyes válasz..."></textarea></div>
    <div class="controls"><button class="btn primary" id="saveq">Hozzáadás a bankhoz</button><button class="btn ghost small" id="back">← Vissza</button></div></div>`;
+
+  const sv = document.getElementById('s-vizsga'), sg = document.getElementById('s-gen');
+  sv.addEventListener('click', () => { draftSrc = 'vizsga'; sv.classList.add('on'); sg.classList.remove('on'); });
+  sg.addEventListener('click', () => { draftSrc = 'gen'; sg.classList.add('on'); sv.classList.remove('on'); });
 
   function autosize(ta) { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
   app.querySelectorAll('textarea').forEach(ta => { ta.addEventListener('input', () => autosize(ta)); requestAnimationFrame(() => autosize(ta)); });
@@ -521,29 +606,39 @@ function renderAddForm() {
     const nC = options.filter(o => o.c).length;
     if (nC < 1) { toast('Jelölj meg helyes választ'); return; }
     if (draftType === 'single' && nC > 1) { toast('Egyválaszos: csak 1 helyes'); return; }
-    bank.push({ topic, multi: draftType === 'multi', prompt, options, e: expl });
-    toast('Hozzáadva (' + bank.length + ' kérdés)'); renderSetup();
+    bankFor(draftSrc).push({ topic, multi: draftType === 'multi', prompt, options, e: expl, src: draftSrc });
+    exportSrc = draftSrc;
+    toast('Hozzáadva a(z) ' + (draftSrc === 'vizsga' ? 'vizsga' : 'generált') + ' bankba (' + bankFor(draftSrc).length + ' kérdés)'); renderSetup();
   });
   document.getElementById('back').addEventListener('click', renderSetup);
   typeset(app);
 }
 
-/* ===== Export / import / GitHub (aktív adathalmazon) ===== */
-function bankJSON() { return mode === 'kviz' ? JSON.stringify({ version: 1, questions: bank }, null, 2) : JSON.stringify({ version: 1, problems: problems }, null, 2); }
+/* ===== Export / import / GitHub (a kiválasztott forrás-fájlon) ===== */
+function stripSrc(o) { const c = { ...o }; delete c.src; return c; }
+function bankJSON(src) {
+  if (mode === 'kviz') return JSON.stringify({ version: 1, source: src, questions: bankFor(src).map(stripSrc) }, null, 2);
+  return JSON.stringify({ version: 1, source: src, problems: probFor(src).map(stripSrc) }, null, 2);
+}
 function exportJSON() {
-  const blob = new Blob([bankJSON()], { type: 'application/json' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = activeName();
-  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href); toast('Letöltve: ' + activeName());
+  const name = fileNameFor(exportSrc);
+  const blob = new Blob([bankJSON(exportSrc)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href); toast('Letöltve: ' + name);
 }
 function parseActive(data) {
-  if (mode === 'kviz') return norm(Array.isArray(data) ? data : data.questions || []);
-  return normProblems(Array.isArray(data) ? data : data.problems || []);
+  if (mode === 'kviz') return norm(Array.isArray(data) ? data : data.questions || [], exportSrc);
+  return normProblems(Array.isArray(data) ? data : data.problems || [], exportSrc);
+}
+function setBank(src, arr) {
+  if (mode === 'kviz') { if (src === 'vizsga') bankVizsga = arr; else bankGen = arr; }
+  else { if (src === 'vizsga') probVizsga = arr; else probGen = arr; }
 }
 function loadFile() {
   const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
   inp.onchange = async () => {
     const f = inp.files[0]; if (!f) return;
-    try { const clean = parseActive(JSON.parse(await f.text())); if (!clean.length) throw new Error('üres'); if (mode === 'kviz') bank = clean; else problems = clean; toast('Betöltve: ' + clean.length + ' ' + activeLabel() + ' (felülírva)'); renderSetup(); }
+    try { const clean = parseActive(JSON.parse(await f.text())); if (!clean.length) throw new Error('üres'); setBank(exportSrc, clean); toast('Betöltve a(z) ' + fileNameFor(exportSrc) + ' helyére: ' + clean.length + ' ' + activeLabel() + ' (felülírva)'); renderSetup(); document.getElementById('ghpanel').classList.add('open'); }
     catch (e) { toast('Hiba: ' + e.message); }
   };
   inp.click();
@@ -552,7 +647,7 @@ function mergeFile() {
   const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
   inp.onchange = async () => {
     const f = inp.files[0]; if (!f) return;
-    try { const clean = parseActive(JSON.parse(await f.text())); if (!clean.length) throw new Error('nincs érvényes ' + activeLabel() + ' a fájlban'); (mode === 'kviz' ? bank : problems).push(...clean); toast('Hozzáfűzve ' + clean.length + ' ' + activeLabel() + ' (összesen: ' + activeArr().length + ')'); renderSetup(); }
+    try { const clean = parseActive(JSON.parse(await f.text())); if (!clean.length) throw new Error('nincs érvényes ' + activeLabel() + ' a fájlban'); (mode === 'kviz' ? bankFor(exportSrc) : probFor(exportSrc)).push(...clean); toast('Hozzáfűzve ' + clean.length + ' ' + activeLabel() + ' a(z) ' + fileNameFor(exportSrc) + ' bankhoz'); renderSetup(); document.getElementById('ghpanel').classList.add('open'); }
     catch (e) { toast('Hiba: ' + e.message); }
   };
   inp.click();
@@ -565,20 +660,21 @@ function b64utf8(str) { return btoa(unescape(encodeURIComponent(str))); }
 async function pushToGitHub() {
   const owner = document.getElementById('gh-owner').value.trim();
   const repo = document.getElementById('gh-repo').value.trim();
-  const path = document.getElementById('gh-path').value.trim() || activeName();
+  const path = document.getElementById('gh-path').value.trim() || fileNameFor(exportSrc);
   const branch = document.getElementById('gh-branch').value.trim() || 'main';
   ghToken = document.getElementById('gh-token').value.trim();
   if (!owner || !repo || !ghToken) { toast('Töltsd ki: owner, repó, token'); return; }
+  const count = (mode === 'kviz' ? bankFor(exportSrc) : probFor(exportSrc)).length;
   const api = `https://api.github.com/repos/${owner}/${repo}/contents/${path.split('/').map(encodeURIComponent).join('/')}`;
   const headers = { Authorization: `Bearer ${ghToken}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
-  toast('Feltöltés…');
+  toast('Feltöltés: ' + path + ' …');
   let sha = null;
   try { const g = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers }); if (g.ok) { const j = await g.json(); sha = j.sha; } } catch (e) { }
-  const body = { message: `${activeName()} frissítése (${activeArr().length} ${activeLabel()})`, content: b64utf8(bankJSON()), branch };
+  const body = { message: `${path} frissítése (${count} ${activeLabel()})`, content: b64utf8(bankJSON(exportSrc)), branch };
   if (sha) body.sha = sha;
   try {
     const r = await fetch(api, { method: 'PUT', headers, body: JSON.stringify(body) });
-    if (r.ok) toast('Feltöltve ✓ A Pages 1–2 perc múlva frissül.');
+    if (r.ok) toast('Feltöltve ✓ (' + path + ') A Pages 1–2 perc múlva frissül.');
     else { const e = await r.json().catch(() => ({})); toast('GitHub hiba: ' + (e.message || r.status)); }
   } catch (err) { toast('Hálózati hiba: ' + err.message); }
 }
