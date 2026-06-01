@@ -10,120 +10,150 @@
           "id": "a-re",
           "type": "text",
           "prompt": "3·z₁ − 2·z̄₂ valós része:",
-          "answer": "4",
           "points": 1,
-          "e": "z̄₂ = 1+i. 3z₁ = 6+15i, 2z̄₂ = 2+2i → 6−2 = 4 (valós), 15−2 = 13 (képzetes)."
+          "e": "z̄₂ = 1+i. 3z₁ = 6+15i, 2z̄₂ = 2+2i → 6−2 = 4 (valós), 15−2 = 13 (képzetes).",
+          "answer": "4",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "a-im",
           "type": "text",
           "prompt": "3·z₁ − 2·z̄₂ képzetes része (i együtthatója):",
-          "answer": "13",
           "points": 1,
-          "e": "Lásd fent: a képzetes rész 13."
+          "e": "Lásd fent: a képzetes rész 13.",
+          "answer": "13",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "b-re",
           "type": "text",
           "prompt": "z₁·z₂ valós része:",
-          "answer": "7",
           "points": 1,
-          "e": "(2+5i)(1−i) = 2−2i+5i+5 = 7+3i."
+          "e": "(2+5i)(1−i) = 2−2i+5i+5 = 7+3i.",
+          "answer": "7",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "b-im",
           "type": "text",
           "prompt": "z₁·z₂ képzetes része:",
-          "answer": "3",
           "points": 1,
-          "e": "A képzetes rész 3."
+          "e": "A képzetes rész 3.",
+          "answer": "3",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "c",
           "type": "text",
           "prompt": "|z₄| =",
-          "answer": "5",
           "points": 1,
-          "e": "z₄ = 5·e^(i·3π/5), így a hossza 5."
+          "e": "z₄ = 5·e^(i·3π/5), így a hossza 5.",
+          "answer": "5",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "d",
           "type": "text",
           "prompt": "z₂ argumentuma fokban (0 és 360 között):",
-          "answer": "315",
           "points": 1,
-          "e": "1−i a negyedik síknegyedben van: arg = −45° = 315°."
+          "e": "1−i a negyedik síknegyedben van: arg = −45° = 315°.",
+          "answer": "315",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "e-mag",
           "type": "text",
           "prompt": "z₃/z₄ abszolútértéke (tört vagy tizedes):",
+          "points": 1,
+          "e": "|z₃|/|z₄| = 3/5 = 0,6.",
           "answer": "0.6",
           "accept": [
             "3/5",
             "0,6",
             ".6"
           ],
-          "points": 1,
-          "e": "|z₃|/|z₄| = 3/5 = 0,6."
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "e-ang",
           "type": "text",
           "prompt": "z₃/z₄ szöge fokban:",
-          "answer": "192",
           "points": 2,
-          "e": "3π/5 = 108°. 300° − 108° = 192°."
+          "e": "3π/5 = 108°. 300° − 108° = 192°.",
+          "answer": "192",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "f-root",
           "type": "text",
           "prompt": "z₄ harmadik (köb)gyökeit w = ∛(□)·e^(iφ) alakban írjuk. A gyökjel alatti szám (□):",
-          "answer": "5",
           "points": 1,
-          "e": "A gyökök hossza ∛|z₄| = ∛5, azaz a gyök alatt 5 áll."
+          "e": "A gyökök hossza ∛|z₄| = ∛5, azaz a gyök alatt 5 áll.",
+          "answer": "5",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "f-w0",
           "type": "text",
           "prompt": "w₀ szöge radiánban (2 tizedes):",
+          "points": 1,
+          "e": "(3π/5)/3 = π/5 ≈ 0,63 rad.",
           "answer": "0.63",
           "accept": [
             "0,63"
           ],
           "tol": 0.02,
-          "points": 1,
-          "e": "(3π/5)/3 = π/5 ≈ 0,63 rad."
+          "suffix": ""
         },
         {
           "id": "f-w1",
           "type": "text",
           "prompt": "w₁ szöge radiánban:",
+          "points": 1,
+          "e": "0,63 + 2π/3 ≈ 2,72 rad.",
           "answer": "2.72",
           "accept": [
             "2,72"
           ],
           "tol": 0.02,
-          "points": 1,
-          "e": "0,63 + 2π/3 ≈ 2,72 rad."
+          "suffix": ""
         },
         {
           "id": "f-w2",
           "type": "text",
           "prompt": "w₂ szöge radiánban:",
+          "points": 1,
+          "e": "0,63 + 4π/3 ≈ 4,82 rad.",
           "answer": "4.82",
           "accept": [
             "4,82"
           ],
           "tol": 0.02,
-          "points": 1,
-          "e": "0,63 + 4π/3 ≈ 4,82 rad."
+          "suffix": ""
         },
         {
           "id": "g",
           "type": "multi",
           "prompt": "Mely számok egész kitevőjű hatványával állítható elő z₄?",
           "points": 2,
+          "e": "z₄ a saját gyökeinek (w₁, w₂) megfelelő egész hatványaként áll elő.",
           "options": [
             {
               "t": "w₁",
@@ -141,8 +171,7 @@
               "t": "w₃",
               "c": false
             }
-          ],
-          "e": "z₄ a saját gyökeinek (w₁, w₂) megfelelő egész hatványaként áll elő."
+          ]
         }
       ]
     },
@@ -156,6 +185,7 @@
           "type": "multi",
           "prompt": "Mely elemek állnak relációban A-val?",
           "points": 2,
+          "e": "A piros; vele azonos színű A (önmaga, reflexivitás) és E (szintén piros).",
           "options": [
             {
               "t": "A",
@@ -177,14 +207,14 @@
               "t": "egyik sem",
               "c": false
             }
-          ],
-          "e": "A piros; vele azonos színű A (önmaga, reflexivitás) és E (szintén piros)."
+          ]
         },
         {
           "id": "props",
           "type": "multi",
           "prompt": "R tulajdonságai:",
           "points": 3,
+          "e": "Minden elem azonos színű önmagával (reflexív), a kapcsolat kölcsönös (szimmetrikus) és átöröklődik (tranzitív).",
           "options": [
             {
               "t": "Reflexív",
@@ -202,14 +232,14 @@
               "t": "Antiszimmetrikus",
               "c": false
             }
-          ],
-          "e": "Minden elem azonos színű önmagával (reflexív), a kapcsolat kölcsönös (szimmetrikus) és átöröklődik (tranzitív)."
+          ]
         },
         {
           "id": "class",
           "type": "single",
           "prompt": "Ez alapján R:",
           "points": 1,
+          "e": "Reflexív + szimmetrikus + tranzitív → ekvivalenciareláció (a színek szerinti osztályozás).",
           "options": [
             {
               "t": "ekvivalenciareláció",
@@ -227,8 +257,7 @@
               "t": "egyik sem",
               "c": false
             }
-          ],
-          "e": "Reflexív + szimmetrikus + tranzitív → ekvivalenciareláció (a színek szerinti osztályozás)."
+          ]
         }
       ]
     },
@@ -241,33 +270,45 @@
           "id": "l1",
           "type": "text",
           "prompt": "A kisebbik sajátérték:",
-          "answer": "1",
           "points": 1,
-          "e": "det(A−λI) = (2−λ)²−1 = 0 → λ = 1 és λ = 3."
+          "e": "det(A−λI) = (2−λ)²−1 = 0 → λ = 1 és λ = 3.",
+          "answer": "1",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "l2",
           "type": "text",
           "prompt": "A nagyobbik sajátérték:",
-          "answer": "3",
           "points": 1,
-          "e": "A két sajátérték 1 és 3."
+          "e": "A két sajátérték 1 és 3.",
+          "answer": "3",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "det",
           "type": "text",
           "prompt": "det(A) =",
-          "answer": "3",
           "points": 1,
-          "e": "2·2 − 1·1 = 3 (a sajátértékek szorzata: 1·3)."
+          "e": "2·2 − 1·1 = 3 (a sajátértékek szorzata: 1·3).",
+          "answer": "3",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "tr",
           "type": "text",
           "prompt": "nyom (trace) =",
-          "answer": "4",
           "points": 1,
-          "e": "2 + 2 = 4 (a sajátértékek összege: 1+3)."
+          "e": "2 + 2 = 4 (a sajátértékek összege: 1+3).",
+          "answer": "4",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         }
       ]
     },
@@ -280,33 +321,469 @@
           "id": "m-re",
           "type": "text",
           "prompt": "z₁·z₂ valós része:",
-          "answer": "7",
           "points": 1,
-          "e": "(4−3i)(1+i) = 4+4i−3i+3 = 7+i."
+          "e": "(4−3i)(1+i) = 4+4i−3i+3 = 7+i.",
+          "answer": "7",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "m-im",
           "type": "text",
           "prompt": "z₁·z₂ képzetes része:",
-          "answer": "1",
           "points": 1,
-          "e": "A képzetes rész 1."
+          "e": "A képzetes rész 1.",
+          "answer": "1",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "abs",
           "type": "text",
           "prompt": "|z₁| =",
-          "answer": "5",
           "points": 1,
-          "e": "√(4²+3²) = √25 = 5."
+          "e": "√(4²+3²) = √25 = 5.",
+          "answer": "5",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
         },
         {
           "id": "conj",
           "type": "text",
           "prompt": "z̄₁ (konjugált) képzetes része:",
-          "answer": "3",
           "points": 1,
-          "e": "z₁ = 4−3i → z̄₁ = 4+3i, a képzetes rész +3."
+          "e": "z₁ = 4−3i → z̄₁ = 4+3i, a képzetes rész +3.",
+          "answer": "3",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        }
+      ]
+    },
+    {
+      "topic": "Komplex számok",
+      "title": "Trigonometrikus alak és Moivre-azonosság",
+      "preamble": "Legyen <b>z = 2·(cos 60° + i·sin 60°)</b>.",
+      "parts": [
+        {
+          "id": "abs",
+          "type": "text",
+          "prompt": "|z| =",
+          "points": 1,
+          "e": "A trigonometrikus alak előtti szorzó a hossz: |z| = 2.",
+          "answer": "2",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "re",
+          "type": "text",
+          "prompt": "z valós része (a + bi alakban):",
+          "points": 1,
+          "e": "2·cos 60° = 2·0,5 = 1.",
+          "answer": "1",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "im",
+          "type": "text",
+          "prompt": "z képzetes része (2 tizedes vagy √-alak):",
+          "points": 1,
+          "e": "2·sin 60° = 2·(√3/2) = √3 ≈ 1,73.",
+          "answer": "1.73",
+          "accept": [
+            "√3",
+            "1,73",
+            "1.732"
+          ],
+          "tol": 0.02,
+          "suffix": ""
+        },
+        {
+          "id": "abs3",
+          "type": "text",
+          "prompt": "|z³| =",
+          "points": 1,
+          "e": "Moivre: |z³| = |z|³ = 2³ = 8.",
+          "answer": "8",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "ang3",
+          "type": "text",
+          "prompt": "z³ szöge fokban (0–360):",
+          "points": 1,
+          "e": "Moivre: az argumentum 3-szorozódik: 3·60° = 180°.",
+          "answer": "180",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        }
+      ]
+    },
+    {
+      "topic": "Sajátérték",
+      "title": "2×2-es mátrix sajátértékei (II.)",
+      "preamble": "Adott az A = [ [4, 2], [1, 3] ] mátrix (első sor: 4 2, második sor: 1 3).",
+      "parts": [
+        {
+          "id": "tr",
+          "type": "text",
+          "prompt": "nyom (trace) =",
+          "points": 1,
+          "e": "4 + 3 = 7.",
+          "answer": "7",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "det",
+          "type": "text",
+          "prompt": "det(A) =",
+          "points": 1,
+          "e": "4·3 − 2·1 = 10.",
+          "answer": "10",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "l1",
+          "type": "text",
+          "prompt": "A kisebbik sajátérték:",
+          "points": 1,
+          "e": "λ² − 7λ + 10 = 0 → λ = 2 és λ = 5.",
+          "answer": "2",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "l2",
+          "type": "text",
+          "prompt": "A nagyobbik sajátérték:",
+          "points": 1,
+          "e": "A két gyök 2 és 5 (összegük 7, szorzatuk 10).",
+          "answer": "5",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "diag",
+          "type": "single",
+          "prompt": "Diagonalizálható-e A?",
+          "points": 1,
+          "e": "Két különböző sajátérték → két független sajátvektor → diagonalizálható.",
+          "options": [
+            {
+              "t": "Igen (két különböző sajátérték).",
+              "c": true
+            },
+            {
+              "t": "Nem.",
+              "c": false
+            },
+            {
+              "t": "Nem dönthető el.",
+              "c": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Polinomok",
+      "title": "Másodfokú polinom gyökei és Viète-formulák",
+      "preamble": "Adott a <b>p(x) = x² − 5x + 6</b> polinom.",
+      "parts": [
+        {
+          "id": "r1",
+          "type": "text",
+          "prompt": "A kisebbik gyök:",
+          "points": 1,
+          "e": "x² − 5x + 6 = (x−2)(x−3) → gyökök 2 és 3.",
+          "answer": "2",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "r2",
+          "type": "text",
+          "prompt": "A nagyobbik gyök:",
+          "points": 1,
+          "e": "A gyökök 2 és 3.",
+          "answer": "3",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "sum",
+          "type": "text",
+          "prompt": "A gyökök összege:",
+          "points": 1,
+          "e": "Viète: −b/a = 5.",
+          "answer": "5",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "prod",
+          "type": "text",
+          "prompt": "A gyökök szorzata:",
+          "points": 1,
+          "e": "Viète: c/a = 6.",
+          "answer": "6",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "nreal",
+          "type": "single",
+          "prompt": "Hány valós gyöke van?",
+          "points": 1,
+          "e": "A diszkrimináns 25 − 24 = 1 > 0 → két különböző valós gyök.",
+          "options": [
+            {
+              "t": "2",
+              "c": true
+            },
+            {
+              "t": "1",
+              "c": false
+            },
+            {
+              "t": "0",
+              "c": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Gráfok",
+      "title": "Fokszámok, élszám, Euler",
+      "preamble": "Egy egyszerű gráf 6 csúcsának fokszámai: <b>3, 3, 2, 2, 1, 1</b>.",
+      "parts": [
+        {
+          "id": "sum",
+          "type": "text",
+          "prompt": "A fokszámok összege:",
+          "points": 1,
+          "e": "3+3+2+2+1+1 = 12.",
+          "answer": "12",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "edges",
+          "type": "text",
+          "prompt": "Az élek száma:",
+          "points": 1,
+          "e": "Kézfogás-tétel: a fokszámösszeg az élszám kétszerese → 12/2 = 6.",
+          "answer": "6",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "euler-cycle",
+          "type": "single",
+          "prompt": "Van-e (biztosan) Euler-kör?",
+          "points": 1,
+          "e": "Euler-körhöz minden fokszámnak párosnak kellene lennie, de van páratlan (3 és 1) → nincs.",
+          "options": [
+            {
+              "t": "Nincs.",
+              "c": true
+            },
+            {
+              "t": "Van.",
+              "c": false
+            },
+            {
+              "t": "Nem dönthető el.",
+              "c": false
+            }
+          ]
+        },
+        {
+          "id": "euler-path",
+          "type": "single",
+          "prompt": "Van-e (biztosan) Euler-út?",
+          "points": 1,
+          "e": "Euler-úthoz legfeljebb 2 páratlan fokú csúcs kell; itt 4 páratlan van (3,3,1,1) → nincs.",
+          "options": [
+            {
+              "t": "Nincs.",
+              "c": true
+            },
+            {
+              "t": "Van.",
+              "c": false
+            },
+            {
+              "t": "Nem dönthető el.",
+              "c": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Rendezés",
+      "title": "Oszthatóság mint rendezés",
+      "preamble": "Az <b>A = {1, 2, 3, 6}</b> halmazon tekintsük az oszthatóság (a | b) relációt.",
+      "parts": [
+        {
+          "id": "kind",
+          "type": "single",
+          "prompt": "Milyen reláció ez?",
+          "points": 1,
+          "e": "Reflexív, antiszimmetrikus, tranzitív → részben rendezés. Nem teljes, mert 2 és 3 nem összehasonlítható.",
+          "options": [
+            {
+              "t": "Részben rendezési reláció.",
+              "c": true
+            },
+            {
+              "t": "Ekvivalenciareláció.",
+              "c": false
+            },
+            {
+              "t": "Teljes (lineáris) rendezés.",
+              "c": false
+            }
+          ]
+        },
+        {
+          "id": "min",
+          "type": "text",
+          "prompt": "A legkisebb elem:",
+          "points": 1,
+          "e": "1 osztója minden elemnek.",
+          "answer": "1",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "max",
+          "type": "text",
+          "prompt": "A legnagyobb elem:",
+          "points": 1,
+          "e": "6 többszöröse 1, 2, 3 mindegyikének (mind osztja a 6-ot).",
+          "answer": "6",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "total",
+          "type": "single",
+          "prompt": "Teljes (lineáris) rendezés-e?",
+          "points": 1,
+          "e": "2 és 3 nem összehasonlítható (egyik sem osztja a másikat) → nem teljes.",
+          "options": [
+            {
+              "t": "Nem.",
+              "c": true
+            },
+            {
+              "t": "Igen.",
+              "c": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Euklideszi tér",
+      "title": "Skaláris szorzat, hossz, szög",
+      "preamble": "ℝ³-ban legyen <b>u = (1, 2, 2)</b> és <b>v = (2, 0, 1)</b>.",
+      "parts": [
+        {
+          "id": "dot",
+          "type": "text",
+          "prompt": "⟨u, v⟩ (skaláris szorzat):",
+          "points": 1,
+          "e": "1·2 + 2·0 + 2·1 = 4.",
+          "answer": "4",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "nu",
+          "type": "text",
+          "prompt": "|u| =",
+          "points": 1,
+          "e": "√(1+4+4) = √9 = 3.",
+          "answer": "3",
+          "accept": [],
+          "tol": null,
+          "suffix": ""
+        },
+        {
+          "id": "nv",
+          "type": "text",
+          "prompt": "|v| (2 tizedes vagy √-alak):",
+          "points": 1,
+          "e": "√(4+0+1) = √5 ≈ 2,24.",
+          "answer": "2.24",
+          "accept": [
+            "√5",
+            "2,24",
+            "2.236"
+          ],
+          "tol": 0.02,
+          "suffix": ""
+        },
+        {
+          "id": "cos",
+          "type": "text",
+          "prompt": "A bezárt szög koszinusza (2 tizedes):",
+          "points": 1,
+          "e": "cos = ⟨u,v⟩/(|u|·|v|) = 4/(3√5) ≈ 0,60.",
+          "answer": "0.6",
+          "accept": [
+            "0,6",
+            "0.596",
+            "0.60"
+          ],
+          "tol": 0.02,
+          "suffix": ""
+        },
+        {
+          "id": "perp",
+          "type": "single",
+          "prompt": "Merőleges-e u és v?",
+          "points": 1,
+          "e": "A skaláris szorzat 4 ≠ 0, ezért nem merőlegesek.",
+          "options": [
+            {
+              "t": "Nem.",
+              "c": true
+            },
+            {
+              "t": "Igen.",
+              "c": false
+            }
+          ]
         }
       ]
     }
