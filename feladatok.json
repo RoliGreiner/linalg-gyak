@@ -20,13 +20,13 @@
         {
           "id": "a-im",
           "type": "text",
-          "prompt": "3·z₁ − 2·z̄₂ képzetes része (i együtthatója):",
+          "prompt": "3·z₁ − 2·z̄₂ képzetes része:",
           "points": 1,
           "e": "Lásd fent: a képzetes rész 13.",
           "answer": "13",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "i"
         },
         {
           "id": "b-re",
@@ -48,7 +48,7 @@
           "answer": "3",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "i"
         },
         {
           "id": "c",
@@ -70,7 +70,7 @@
           "answer": "315",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "°"
         },
         {
           "id": "e-mag",
@@ -96,7 +96,7 @@
           "answer": "192",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "°"
         },
         {
           "id": "f-root",
@@ -120,7 +120,7 @@
             "0,63"
           ],
           "tol": 0.02,
-          "suffix": ""
+          "suffix": "rad"
         },
         {
           "id": "f-w1",
@@ -133,7 +133,7 @@
             "2,72"
           ],
           "tol": 0.02,
-          "suffix": ""
+          "suffix": "rad"
         },
         {
           "id": "f-w2",
@@ -146,7 +146,7 @@
             "4,82"
           ],
           "tol": 0.02,
-          "suffix": ""
+          "suffix": "rad"
         },
         {
           "id": "g",
@@ -337,7 +337,7 @@
           "answer": "1",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "i"
         },
         {
           "id": "abs",
@@ -359,7 +359,7 @@
           "answer": "3",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "i"
         }
       ]
     },
@@ -403,7 +403,7 @@
             "1.732"
           ],
           "tol": 0.02,
-          "suffix": ""
+          "suffix": "i"
         },
         {
           "id": "abs3",
@@ -425,7 +425,7 @@
           "answer": "180",
           "accept": [],
           "tol": null,
-          "suffix": ""
+          "suffix": "°"
         }
       ]
     },
