@@ -697,6 +697,30 @@
         }
       ],
       "e": "Pozitív definit: Q(x)>0 minden x≠0 esetén."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\alpha\\) logikai következménye \\(\\beta\\), ha van olyan interpretáció, ahol \\(\\alpha\\) és \\(\\beta\\) is egyszerre igazak.",
+          "c": false
+        },
+        {
+          "t": "\\(\\alpha \\to \\beta\\) érvényes formula akkor és csak akkor, ha \\(\\alpha\\) logikai következménye \\(\\beta\\).",
+          "c": true
+        },
+        {
+          "t": "A rezolúció célja helyes következtetési sémák megtalálása.",
+          "c": true
+        },
+        {
+          "t": "Egységesítő helyettesítés során a konstansokat kicserélhetem az univerzum egy másik elemére.",
+          "c": false
+        }
+      ],
+      "e": "Logikai következmény: MINDEN interpretációban, ahol α igaz, β is igaz. Egységesítésnél változót cserélünk, konstanst nem."
     }
   ]
 }
