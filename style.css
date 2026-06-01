@@ -14,6 +14,17 @@
   --shadow: rgba(50, 38, 25, .14);
   --blue: #33617a;
   --blue-bg: #e3edf1;
+  --field: #fffdf8;
+  --field-hover: #fdf6ea;
+  --pure: #ffffff;
+  --on-accent: #ffffff;
+  --part-bg: #fbf0d8;
+  --skip: #ccc1ad;
+  --glow1: #fbf6ec;
+  --glow2: #efe6d4;
+  --sel-bg: #fbeede;
+  --disabled-bg: #cabfa9;
+  --disabled-fg: #f0e9da;
 }
 
 * {
@@ -24,7 +35,7 @@
 
 body {
   font-family: 'Spline Sans', system-ui, sans-serif;
-  background: radial-gradient(circle at 12% 8%, #fbf6ec, transparent 40%), radial-gradient(circle at 88% 92%, #efe6d4, transparent 45%), var(--paper);
+  background: radial-gradient(circle at 12% 8%, var(--glow1), transparent 40%), radial-gradient(circle at 88% 92%, var(--glow2), transparent 45%), var(--paper);
   color: var(--ink);
   min-height: 100vh;
   line-height: 1.5;
@@ -114,7 +125,7 @@ body::before {
 
 .q-nav-btn {
   aspect-ratio: 1;
-  background: #fffdf8;
+  background: var(--field);
   border: 1.5px solid var(--rule);
   border-radius: 6px;
   font-family: 'Spline Sans Mono', monospace;
@@ -129,15 +140,22 @@ body::before {
 
 .q-nav-btn:hover {
   border-color: var(--accent);
-  background: #fdf6ea;
+  background: var(--field-hover);
   color: var(--accent-deep);
+}
+
+.q-nav-btn.started {
+  border-color: var(--accent);
+  border-style: dashed;
+  color: var(--accent-deep);
+  background: var(--pure);
 }
 
 .q-nav-btn.active {
   border-color: var(--ink);
   box-shadow: 0 0 0 1px var(--ink);
   color: var(--ink);
-  background: #fff;
+  background: var(--pure);
 }
 
 .q-nav-btn.ok {
@@ -147,7 +165,7 @@ body::before {
 }
 
 .q-nav-btn.part {
-  background: #fbf0d8;
+  background: var(--part-bg);
   border-color: var(--gold);
   color: var(--gold);
 }
@@ -286,7 +304,7 @@ textarea {
   font-family: 'Spline Sans', sans-serif;
   font-size: .95rem;
   color: var(--ink);
-  background: #fffdf8;
+  background: var(--field);
   border: 1.5px solid var(--rule);
   border-radius: 6px;
   padding: 10px 12px;
@@ -309,7 +327,7 @@ textarea:focus {
 .stat {
   flex: 1;
   min-width: 110px;
-  background: #fffdf8;
+  background: var(--field);
   border: 1px solid var(--rule);
   border-radius: 8px;
   padding: 12px 14px;
@@ -364,10 +382,10 @@ button.btn:active {
 }
 
 .btn.primary:disabled {
-  background: #cabfa9;
+  background: var(--disabled-bg);
   cursor: not-allowed;
   box-shadow: none;
-  color: #f0e9da;
+  color: var(--disabled-fg);
 }
 
 .btn.ghost {
@@ -388,7 +406,7 @@ button.btn:active {
 
 .btn.blue {
   background: var(--blue);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .btn.blue:hover {
@@ -481,7 +499,7 @@ button.btn:active {
   gap: 13px;
   align-items: flex-start;
   border: 1.5px solid var(--rule);
-  background: #fefcf7;
+  background: var(--field);
   border-radius: 6px;
   padding: 13px 15px;
   cursor: pointer;
@@ -491,7 +509,7 @@ button.btn:active {
 
 .opt:hover {
   border-color: var(--accent);
-  background: #fdf6ea;
+  background: var(--field-hover);
 }
 
 .opt:active {
@@ -502,15 +520,15 @@ button.btn:active {
   flex: none;
   width: 22px;
   height: 22px;
-  border: 1.6px solid #b9ac96;
+  border: 1.6px solid var(--rule);
   border-radius: 5px;
   display: grid;
   place-items: center;
   margin-top: 1px;
   font-size: .8rem;
-  color: #fff;
+  color: var(--on-accent);
   transition: all .15s;
-  background: #fff;
+  background: var(--pure);
 }
 
 .opt.single .mark {
@@ -519,7 +537,7 @@ button.btn:active {
 
 .opt.sel {
   border-color: var(--accent);
-  background: #fbeede;
+  background: var(--sel-bg);
 }
 
 .opt.sel .mark {
@@ -535,7 +553,7 @@ button.btn:active {
   content: "";
   width: 9px;
   height: 9px;
-  background: #fff;
+  background: var(--pure);
   border-radius: 50%;
 }
 
@@ -544,7 +562,7 @@ button.btn:active {
 }
 
 .opt.locked:hover {
-  background: #fefcf7;
+  background: var(--field);
   border-color: var(--rule);
 }
 
@@ -560,7 +578,7 @@ button.btn:active {
 
 .opt.correct .mark::after {
   content: "✓";
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .opt.wrongpick {
@@ -575,13 +593,13 @@ button.btn:active {
 
 .opt.wrongpick .mark::after {
   content: "✕";
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .opt.missed {
   border-color: var(--green);
   border-style: dashed;
-  background: #fff;
+  background: var(--pure);
 }
 
 .opt.missed .mark {
@@ -621,17 +639,17 @@ button.btn:active {
 
 .feedback.ok {
   background: var(--green-bg);
-  border-color: #bcd0ad;
+  border-color: var(--green);
 }
 
 .feedback.part {
-  background: #fbf0d8;
-  border-color: #e6d09a;
+  background: var(--part-bg);
+  border-color: var(--gold);
 }
 
 .feedback.no {
   background: var(--red-bg);
-  border-color: #e3b9ad;
+  border-color: var(--red);
 }
 
 .fb-head {
@@ -808,7 +826,7 @@ button.btn:active {
 }
 
 .seg button {
-  background: #fffdf8;
+  background: var(--field);
   border: none;
   padding: 8px 18px;
   cursor: pointer;
@@ -970,7 +988,7 @@ textarea {
   width: 3.4em;
   text-align: center;
   color: var(--ink);
-  background: #fffdf8;
+  background: var(--field);
   border: 1.5px solid var(--rule);
   border-radius: 8px;
   padding: 4px 6px;
@@ -1005,7 +1023,7 @@ textarea {
 .stat-chip {
   display: flex; align-items: center; gap: 8px;
   border: 1px solid var(--rule); border-radius: 99px;
-  padding: 7px 14px; background: #fffdf8;
+  padding: 7px 14px; background: var(--field);
   font-size: .85rem; font-family: 'Spline Sans Mono', monospace;
 }
 .stat-chip b { font-family: 'Fraunces', serif; font-size: 1.05rem; }
@@ -1024,7 +1042,7 @@ textarea {
 .distbar .ok { background: var(--green); }
 .distbar .part { background: var(--gold); }
 .distbar .no { background: var(--red); }
-.distbar .skip { background: #ccc1ad; }
+.distbar .skip { background: var(--skip); }
 
 /* témánkénti bontás (vízszintes oszlopdiagram) */
 .section-title {
@@ -1064,14 +1082,14 @@ textarea {
 
 /* feladat előzménye */
 .preamble {
-  background: #fffdf8; border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+  background: var(--field); border: 1px solid var(--rule); border-left: 3px solid var(--accent);
   border-radius: 6px; padding: 14px 16px; margin: 6px 0 20px;
   font-size: .95rem; line-height: 1.6; color: var(--ink);
 }
 
 /* részfeladat */
-.part { padding: 18px 0 4px; border-top: 1px dashed var(--rule); }
-.part:first-of-type { border-top: none; padding-top: 6px; }
+.prob-part { padding: 18px 0 4px; border-top: 1px dashed var(--rule); }
+.prob-part:first-of-type { border-top: none; padding-top: 6px; }
 .pprompt { font-weight: 600; margin-bottom: 10px; line-height: 1.5; position: relative; padding-right: 70px; }
 .ppoints { position: absolute; right: 0; top: 2px; font-family: 'Spline Sans Mono', monospace; font-size: .68rem; color: var(--ink-soft); white-space: nowrap; }
 
@@ -1097,3 +1115,61 @@ textarea {
 .part-pts.part { color: var(--accent-deep); border-color: var(--gold); }
 .part-pts.no { color: var(--red); border-color: var(--red); }
 .part-expl { margin-top: 8px; font-size: .88rem; line-height: 1.55; color: var(--ink-soft); }
+/* ============================================================
+   SÖTÉT TÉMA (kékes) + TÉMAVÁLTÓ GOMB
+   ============================================================ */
+:root[data-theme="dark"] {
+  --paper: #0e1621;
+  --ink: #e7edf4;
+  --ink-soft: #9fb1c3;
+  --rule: #2a3a4c;
+  --accent: #d76a3c;
+  --accent-deep: #ef9d73;
+  --green: #6fb061;
+  --green-bg: #17271b;
+  --red: #e3715a;
+  --red-bg: #2c1815;
+  --gold: #d6a33f;
+  --card: #16212e;
+  --shadow: rgba(0, 0, 0, .55);
+  --blue: #3f87aa;
+  --blue-bg: #122733;
+  --field: #1b2735;
+  --field-hover: #243446;
+  --pure: #1b2735;
+  --on-accent: #ffffff;
+  --part-bg: #2b2512;
+  --skip: #3a4858;
+  --glow1: #16232f;
+  --glow2: #0b141d;
+  --sel-bg: #233140;
+  --disabled-bg: #28333f;
+  --disabled-fg: #6f8194;
+}
+/* a mód-választó sávja sötétben legyen mélyebb, az aktív fül emeltebb */
+:root[data-theme="dark"] .modebar { background: #0b131c; }
+:root[data-theme="dark"] .modebar button.on { background: #22303f; }
+/* a kettős vonalas fejléc sötétben az ink helyett a rule legyen, hogy ne legyen vakító */
+:root[data-theme="dark"] header.masthead { border-bottom-color: var(--rule); }
+
+/* Témaváltó gomb (fix, jobb felső sarok) */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 10px -4px var(--shadow);
+  transition: transform .15s, border-color .15s, background .15s;
+}
+.theme-toggle:hover { transform: scale(1.08); border-color: var(--accent); }
+.theme-toggle:active { transform: scale(.96); }
+@media (max-width: 900px) { .theme-toggle { top: 10px; right: 10px; width: 38px; height: 38px; font-size: 1.05rem; } }

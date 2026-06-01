@@ -236,6 +236,12 @@ function renderSidebar() {
     let cls = 'q-nav-btn';
     if (idx === cur) cls += ' active';
     if (s.answered && s.result) cls += ' ' + s.result;
+    else if (!s.answered) {
+      const started = mode === 'kviz'
+        ? (s.selected && s.selected.size > 0)
+        : (s.parts && s.parts.some(p => (p.value && p.value.trim() !== '') || (p.sel && p.sel.size > 0)));
+      if (started) cls += ' started';
+    }
     return `<button class="${cls}" onclick="goTo(${idx})">${idx + 1}</button>`;
   }).join('');
   document.getElementById('sidebar-finishbtn').textContent = mode === 'kviz' ? 'Kvíz befejezése' : 'Feladatok befejezése';
@@ -286,6 +292,7 @@ function renderQuestion() {
       if (q.multi) { if (s.selected.has(idx)) { s.selected.delete(idx); el.classList.remove('sel'); } else { s.selected.add(idx); el.classList.add('sel'); } }
       else { s.selected.clear(); app.querySelectorAll('.opt').forEach(o => o.classList.remove('sel')); s.selected.add(idx); el.classList.add('sel'); }
       document.getElementById('checkbtn').disabled = s.selected.size === 0;
+      renderSidebar();
     }));
     document.getElementById('checkbtn').addEventListener('click', () => { s.points = scoreQuestion(q, s.selected); s.result = classify(s.points); s.answered = true; renderQuestion(); renderSidebar(); });
   }
@@ -325,7 +332,7 @@ function renderProblem() {
       }).join('') + `</ul>`;
     }
     const fb = st.answered ? `<div class="part-pts ${ps.ok ? 'ok' : (ps.pts > 0 ? 'part' : 'no')}">${fmtPts(ps.pts)} / ${fmtPts(part.points || 1)} pont</div>${part.e ? `<div class="part-expl">${part.e}</div>` : ''}` : '';
-    return `<div class="part"><div class="pprompt">${part.prompt}${pointsLbl}</div>${body}${fb}</div>`;
+    return `<div class="prob-part"><div class="pprompt">${part.prompt}${pointsLbl}</div>${body}${fb}</div>`;
   }).join('');
 
   const maxAll = runMaxPoints();
@@ -345,11 +352,12 @@ function renderProblem() {
   document.getElementById('pfill').style.width = (pstate.filter(x => x.answered).length / run.length * 100) + "%";
 
   if (!st.answered) {
-    app.querySelectorAll('.pin-text').forEach(inp => inp.addEventListener('input', () => { st.parts[+inp.dataset.j].value = inp.value; }));
+    app.querySelectorAll('.pin-text').forEach(inp => inp.addEventListener('input', () => { st.parts[+inp.dataset.j].value = inp.value; renderSidebar(); }));
     app.querySelectorAll('.opt').forEach(el => el.addEventListener('click', () => {
       const j = +el.dataset.j, idx = +el.dataset.idx, part = pr.parts[j], sel = st.parts[j].sel;
       if (part.type === 'single') { sel.clear(); app.querySelectorAll(`.opt[data-j="${j}"]`).forEach(o => o.classList.remove('sel')); sel.add(idx); el.classList.add('sel'); }
       else { if (sel.has(idx)) { sel.delete(idx); el.classList.remove('sel'); } else { sel.add(idx); el.classList.add('sel'); } }
+      renderSidebar();
     }));
     document.getElementById('checkbtn').addEventListener('click', () => {
       let earned = 0;
@@ -575,4 +583,17 @@ async function pushToGitHub() {
   } catch (err) { toast('Hálózati hiba: ' + err.message); }
 }
 
+/* ===== Témaváltó (világos / kékes sötét) ===== */
+function setupThemeToggle() {
+  const root = document.documentElement, btn = document.getElementById('themebtn');
+  function icon() { if (btn) btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
+  icon();
+  if (btn) btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) { }
+    icon();
+  });
+}
+setupThemeToggle();
 init();
