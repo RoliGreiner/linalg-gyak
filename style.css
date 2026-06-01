@@ -56,8 +56,8 @@ body::before {
 /* === LAYOUT (Grid) === */
 .layout {
   display: grid;
-  /* 3 oszlop: bal (üres, 1fr), közép (feladat, max 780px), jobb (oldalsávnak hely, 1fr) */
-  grid-template-columns: 1fr minmax(auto, 780px) 1fr;
+  /* Eredeti: grid-template-columns: 1fr minmax(auto, 780px) 1fr; */
+  grid-template-columns: 1fr minmax(auto, 1000px) 1fr;
   gap: 30px;
   width: 100%;
   align-items: start;
@@ -1217,4 +1217,17 @@ textarea {
 @media (max-width: 560px) {
   .srctoggle { flex-wrap: wrap; }
   .srcbadge { order: 3; }
+}
+
+/* Arányos nagyítás (Ctrl + hatás) asztali képernyőkön */
+@media (min-width: 1024px) {
+  body {
+    zoom: 1.25;
+    min-height: 80vh; 
+  }
+  
+  /* Oldalsáv magasságának korrigálása a nagyításhoz */
+  .sidebar {
+    max-height: calc(60vh);
+  }
 }
