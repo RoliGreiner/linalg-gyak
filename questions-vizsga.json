@@ -1,0 +1,702 @@
+{
+  "version": 1,
+  "source": "vizsga",
+  "questions": [
+    {
+      "topic": "Sajátérték",
+      "multi": false,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Különböző sajátértékhez tartozó sajátvektorok lineárisan összefüggőek.",
+          "c": false
+        },
+        {
+          "t": "A sajátértékek algebrai és geometriai multiplicitása megegyezik.",
+          "c": false
+        },
+        {
+          "t": "A karakterisztikus egyenletből nem feltétlenül kapjuk meg a leképezés sajátértékeit.",
+          "c": false
+        },
+        {
+          "t": "A karakterisztikus egyenlet megoldásával megkapjuk a leképezés sajátértékeit.",
+          "c": true
+        }
+      ],
+      "e": "Különböző sajátértékhez tartozó sajátvektorok lineárisan <b>függetlenek</b>. A geom. multiplicitás ≤ alg. multiplicitás (nem mindig egyenlő)."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A karakterisztikus egyenletből nem feltétlenül kapjuk meg a leképezés sajátértékeit.",
+          "c": false
+        },
+        {
+          "t": "A karakterisztikus egyenlet megoldásával megkapjuk a leképezés sajátértékeit.",
+          "c": true
+        },
+        {
+          "t": "A sajátértékek algebrai és geometriai multiplicitása megegyezik.",
+          "c": false
+        },
+        {
+          "t": "Ha annyi (különböző) sajátértékünk van, mint amennyi a vektortér dimenziója, a leképezés mátrixa diagonalizálható.",
+          "c": true
+        }
+      ],
+      "e": "n különböző sajátérték ⇒ diagonalizálható."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": false,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha \\(s\\) egy transzformáció sajátvektora, akkor \\(s\\) képe a nullvektor.",
+          "c": false
+        },
+        {
+          "t": "Egy transzformáció különböző sajátértékeihez tartozó sajátvektorai merőlegesek egymásra.",
+          "c": false
+        },
+        {
+          "t": "Egy sajátérték geometriai multiplicitása nem lehet nagyobb, mint az algebrai multiplicitása.",
+          "c": true
+        },
+        {
+          "t": "Egy transzformációnak mindig annyi sajátértéke van, ahány dimenziós a vektortér.",
+          "c": false
+        }
+      ],
+      "e": "Merőlegesség csak szimmetrikus mátrixnál garantált; általában csak lineáris függetlenség igaz."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": false,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Az a leképezés, amely egy mátrixhoz hozzárendeli az első sorában lévő elemek összegét, homogén lineáris leképezés.",
+          "c": true
+        },
+        {
+          "t": "Egy (\\(L\\)) leképezés homogén, ha az összeg képéhez (\\(L(u+v)\\)) a képek összegét (\\(L(u)+L(v)\\)) rendeli.",
+          "c": false
+        },
+        {
+          "t": "A \\(ax^2+bx+c \\to abx^2+b+c\\) leképezés homogén lineáris.",
+          "c": false
+        },
+        {
+          "t": "Van olyan homogén lineáris leképezés véges dimenziós vektorterek között, amelyhez nem írható fel a leképezés mátrixa.",
+          "c": false
+        }
+      ],
+      "e": "A 2. állítás az additivitást írja le, nem a homogenitást."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Lineáris transzformációnak a nulla mindig sajátértéke.",
+          "c": false
+        },
+        {
+          "t": "Ha egy leképezés homogén, akkor számszoros képéhez (\\(L(\\lambda x)\\)) a kép számszorosát (\\(\\lambda L(x)\\)) rendeli.",
+          "c": true
+        },
+        {
+          "t": "Homogén lineáris leképezés esetén a nullvektor mindig előáll képként.",
+          "c": true
+        },
+        {
+          "t": "Homogén lineáris leképezés a vektorok szorzatához (\\(L(u\\cdot v)\\)) a képek szorzatát (\\(L(u)\\cdot L(v)\\)) rendeli.",
+          "c": false
+        }
+      ],
+      "e": "\\(L(\\vec 0)=\\vec 0\\) mindig teljesül."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Van olyan (véges dimenziós) homogén lineáris leképezés, amelyhez nem írható fel a leképezés mátrixa.",
+          "c": false
+        },
+        {
+          "t": "A \\(ax^2+bx+c \\to (a+b)x^2+b+c\\) leképezés homogén lineáris.",
+          "c": true
+        },
+        {
+          "t": "Az a leképezés, amely egy mátrixhoz hozzárendeli az utolsó oszlopában lévő elemek összegét, homogén lineáris leképezés.",
+          "c": true
+        },
+        {
+          "t": "Egy (\\(L\\)) leképezés lineáris, ha az számszoros képéhez (\\(L(\\lambda u)\\)) a kép számszorosát (\\(\\lambda L(u)\\)) rendeli.",
+          "c": false
+        }
+      ],
+      "e": "Véges dimenzióban minden homogén lineáris leképezéshez tartozik mátrix."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Adott az \\(L:V\\to W\\) homogén lineáris leképezés. Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(L\\) magtere azon vektorok összessége \\(V\\)-ben, melyek képe a nullvektor.",
+          "c": true
+        },
+        {
+          "t": "A magtér csak egyetlen vektort tartalmaz.",
+          "c": false
+        },
+        {
+          "t": "\\(L\\) képtere \\(W\\) altere.",
+          "c": true
+        },
+        {
+          "t": "A képtér dimenziója megegyezik \\(V\\) dimenziójával.",
+          "c": false
+        }
+      ],
+      "e": "dim(képtér)+dim(magtér)=dim V (dimenziótétel)."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Polinomok között nem lehet lineáris leképezést megadni.",
+          "c": false
+        },
+        {
+          "t": "Az \\(L: ax^2+bx+c \\to cx^2-2bx+2a+b\\) homogén lineáris leképezés.",
+          "c": true
+        },
+        {
+          "t": "Az \\(L: ax^2+bx+c \\to acx^2-2bc+c\\) homogén lineáris leképezés.",
+          "c": false
+        },
+        {
+          "t": "A legfeljebb harmadfokú polinomok vektorteret alkotnak.",
+          "c": true
+        }
+      ],
+      "e": "A 3. nem lineáris (szorzat ac, illetve konstanstag c miatt sérül a homogenitás)."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A rezolúció minden lépésében ekvivalens átalakításokat végzünk.",
+          "c": false
+        },
+        {
+          "t": "A rezolúció célja helyes következtetési sémák megtalálása.",
+          "c": true
+        },
+        {
+          "t": "\\(\\alpha \\to \\beta\\) érvényes formula akkor és csak akkor, ha \\(\\alpha\\) logikai következménye \\(\\beta\\).",
+          "c": true
+        },
+        {
+          "t": "\\(\\alpha\\) logikai következménye \\(\\beta\\), ha van olyan interpretáció, ahol \\(\\alpha\\) és \\(\\beta\\) is egyszerre igazak.",
+          "c": false
+        }
+      ],
+      "e": "Logikai következmény: MINDEN interpretációban, ahol α igaz, β is igaz."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\alpha \\to \\beta\\) érvényes formula akkor és csak akkor, ha \\(\\alpha\\) logikai következménye \\(\\beta\\).",
+          "c": true
+        },
+        {
+          "t": "A rezolúció minden lépésében a meglévő klózhalmaz logikai következményét írjuk fel.",
+          "c": true
+        },
+        {
+          "t": "\\(\\alpha\\) logikai következménye \\(\\beta\\), ha minden olyan interpretációban, ahol \\(\\alpha\\) igaz, ott \\(\\beta\\) is igaz.",
+          "c": true
+        },
+        {
+          "t": "A rezolúció alkalmazható annak eldöntésére, hogy egy formula kontradikció-e.",
+          "c": true
+        }
+      ],
+      "e": "Mind a négy állítás igaz."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\lnot\\forall x\\,P(x,f(x)) \\equiv \\exists x\\,\\lnot P(x,f(x))\\)",
+          "c": true
+        },
+        {
+          "t": "Két formula ekvivalens, ha van olyan interpretáció, melyben azonos az igazságértékük.",
+          "c": false
+        },
+        {
+          "t": "Két formula ekvivalens, ha minden interpretációban azonos az igazságértékük.",
+          "c": true
+        },
+        {
+          "t": "\\(\\lnot\\forall x\\,P(x,f(x)) \\equiv \\exists x\\,P(x,f(x))\\)",
+          "c": false
+        }
+      ],
+      "e": "A tagadás bevihető a kvantor mögé az állítás tagadásával."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Két formula ekvivalens, ha van olyan interpretáció, melyben azonos az igazságértékük.",
+          "c": false
+        },
+        {
+          "t": "\\(\\lnot\\exists x\\,P(x,f(x)) \\equiv \\exists x\\,\\lnot P(x,f(x))\\)",
+          "c": false
+        },
+        {
+          "t": "\\(\\lnot\\exists x\\,P(x,f(x)) \\equiv \\forall x\\,\\lnot P(x,f(x))\\)",
+          "c": true
+        },
+        {
+          "t": "Két formula ekvivalens, ha minden interpretációban azonos az igazságértékük.",
+          "c": true
+        }
+      ],
+      "e": "¬∃ ≡ ∀¬."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A primitív \\(n\\). egységgyökök száma éppen \\(n\\).",
+          "c": false
+        },
+        {
+          "t": "A \\(z\\) komplex szám \\(n\\). gyökei alatt azokat a \\(w\\) komplex számokat értjük, melyekre \\(w^n - z = 0\\).",
+          "c": true
+        },
+        {
+          "t": "A komplex \\(n\\). egységgyökök száma éppen \\(n\\).",
+          "c": true
+        },
+        {
+          "t": "A \\(z\\) komplex szám \\(n\\). gyökei alatt azokat a \\(w\\) komplex számokat értjük, melyekre \\(w - z^n = 0\\).",
+          "c": false
+        }
+      ],
+      "e": "Pontosan n darab n-edik egységgyök van; a primitívek száma φ(n)."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy komplex szám megegyezik a konjugáltjának \\(-1\\)-szeresével, akkor képzetes része 0.",
+          "c": false
+        },
+        {
+          "t": "Ha egy komplex szám megegyezik a konjugáltjának \\(-1\\)-szeresével, akkor valós része 0.",
+          "c": true
+        },
+        {
+          "t": "Komplex szám konjugálása során a képzetes részét ellentettjére változtatjuk.",
+          "c": true
+        },
+        {
+          "t": "Két komplex szám konjugáltjának hányadosa megegyezik a két komplex szám hányadosával.",
+          "c": false
+        }
+      ],
+      "e": "\\(z=-\\bar z\\) ⇔ tisztán képzetes ⇔ valós rész 0."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Egy komplex szám ötödik hatványának öt különböző megoldása van.",
+          "c": false
+        },
+        {
+          "t": "Komplex szám \\(n\\). hatványozása során az argumentum \\(n\\)-szeresére változik.",
+          "c": true
+        },
+        {
+          "t": "Komplex szám \\(n\\). hatványozása során az abszolút érték \\(n\\)-szeresére változik.",
+          "c": false
+        },
+        {
+          "t": "Egy komplex szám ötödik hatványa egyértelműen meghatározható.",
+          "c": true
+        }
+      ],
+      "e": "Moivre: az abszolút érték n-edik HATVÁNYára (nem n-szeresére) változik; a hatványozás egyértelmű."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Valós együtthatós polinomnak mindig van valós gyöke.",
+          "c": false
+        },
+        {
+          "t": "Valós együtthatós polinomnak lehet komplex (nem tisztán valós) gyöke.",
+          "c": true
+        },
+        {
+          "t": "Komplex együtthatós polinomnak nincsenek gyökei.",
+          "c": false
+        },
+        {
+          "t": "Egy \\(n\\)-edfokú polinomnak multiplicitással számolva \\(n\\) gyöke van a komplex számok halmazán.",
+          "c": true
+        }
+      ],
+      "e": "Az algebra alaptétele."
+    },
+    {
+      "topic": "Bázis",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Nem minden bázis generátorrendszer.",
+          "c": false
+        },
+        {
+          "t": "Van olyan generátorrendszer, amely egyben bázis is.",
+          "c": true
+        },
+        {
+          "t": "Ha lineárisan összefüggő generátorrendszerből egy vektort elhagyva lineárisan független lesz, bázist kapunk.",
+          "c": true
+        },
+        {
+          "t": "Egy generátorrendszer tetszőleges vektorát elhagyva bázist kapunk.",
+          "c": false
+        }
+      ],
+      "e": "Minden bázis generátorrendszer is; nem minden vektor elhagyható."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha két gráf fokszámsorozata megegyezik, akkor izomorfak.",
+          "c": false
+        },
+        {
+          "t": "A gráfok halmazán az izomorfia ekvivalencia relációnak tekinthető.",
+          "c": true
+        },
+        {
+          "t": "Ha két gráf izomorf egymással, akkor megegyezik a fokszámsorozata.",
+          "c": true
+        },
+        {
+          "t": "Ha két gráf fokszámainak összege különböző, attól még lehetnek izomorfak egymással.",
+          "c": false
+        }
+      ],
+      "e": "A fokszámsorozat egyezése szükséges, de nem elégséges feltétel."
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A gráfok halmazán az izomorfia ekvivalencia relációnak tekinthető.",
+          "c": true
+        },
+        {
+          "t": "Ha két gráf fokszámainak összege különböző, attól még lehetnek izomorfak egymással.",
+          "c": false
+        },
+        {
+          "t": "Ha két gráf fokszámsorozata megegyezik, akkor izomorfak.",
+          "c": false
+        },
+        {
+          "t": "Egy gráf fokszámainak összege páros szám.",
+          "c": true
+        }
+      ],
+      "e": "Kézfogás-lemma: a fokszámösszeg = 2·élszám, tehát páros."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Egy gráf feszítőfája egyben részgráfja is.",
+          "c": true
+        },
+        {
+          "t": "A Kruskal-algoritmust minimális feszítőfa megtalálására használjuk.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráf legkisebb fokszáma legalább \\(n/2\\), akkor a gráf összefüggő.",
+          "c": true
+        },
+        {
+          "t": "Minden gráf homeomorf egy megfelelően választott fagráffal.",
+          "c": false
+        }
+      ],
+      "e": "Dirac-feltétel ⇒ összefüggő (sőt Hamilton-kör is van)."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Nem minden összefüggő gráfnak van feszítőfája.",
+          "c": false
+        },
+        {
+          "t": "Fagráf éleinek száma \\(n\\cdot(n-1)/2\\), ahol \\(n\\) a gráf pontjainak száma.",
+          "c": false
+        },
+        {
+          "t": "Egy gráf feszítőfája egyben részgráfja is.",
+          "c": true
+        },
+        {
+          "t": "A Kruskal-algoritmust minimális feszítőfa megtalálására használjuk.",
+          "c": true
+        }
+      ],
+      "e": "Fa éleinek száma n−1; minden összefüggő gráfnak van feszítőfája."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy gráfban van olyan kör, amely minden csúcsát tartalmazza, akkor van benne Hamilton-kör is.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráfban van Euler-kör, akkor minden pontjának fokszáma páros.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráfban van Hamilton-kör, akkor van benne Euler-kör is.",
+          "c": false
+        },
+        {
+          "t": "Fagráfban nem lehet Hamilton-út.",
+          "c": false
+        }
+      ],
+      "e": "Egy minden csúcsot tartalmazó kör maga a Hamilton-kör. Fában lehet Hamilton-út (pl. út-gráf)."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy gráfban van Euler-út, akkor van benne Euler-kör is.",
+          "c": false
+        },
+        {
+          "t": "Fagráfban lehet Hamilton-út.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráfban van olyan kör, amely minden csúcsát tartalmazza, akkor van benne Hamilton-kör is.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráfban van Hamilton-kör, akkor van benne Euler-kör is.",
+          "c": false
+        }
+      ],
+      "e": "Euler-út ⇏ Euler-kör (0 vagy 2 páratlan fokú csúcs)."
+    },
+    {
+      "topic": "Színezés",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Síkgráf kromatikus száma legfeljebb öt lehet.",
+          "c": false
+        },
+        {
+          "t": "Tetszőleges térkép kiszínezhető legfeljebb négy színnel.",
+          "c": true
+        },
+        {
+          "t": "Egy gráf mindig kiszínezhető legfeljebb annyi színnel, amennyi csúcsot a legnagyobb teljes részgráfja tartalmaz.",
+          "c": false
+        },
+        {
+          "t": "Ha egy gráfban van öt hosszú kör, kromatikus száma legalább három.",
+          "c": true
+        }
+      ],
+      "e": "Négyszín-tétel: síkgráf χ ≤ 4. Páratlan kör χ = 3."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy gráf tartalmaz \\(K_{3,3}\\)-mal homeomorf részgráfot, akkor nem rajzolható síkba.",
+          "c": true
+        },
+        {
+          "t": "Az Euler-poliéder tétel szerint minden egyszerű, összefüggő síkgráf pontjainak (\\(p\\)), éleinek (\\(e\\)) és tartományainak (\\(t\\)) száma között fennáll: \\(p+e-t \\ge 2\\).",
+          "c": false
+        },
+        {
+          "t": "Egyszerű, összefüggő síkgráf fokszámsorozata legfeljebb öttel kezdődhet.",
+          "c": true
+        },
+        {
+          "t": "Tetszőleges egyszerű, összefüggő gráf síkba rajzolható.",
+          "c": false
+        }
+      ],
+      "e": "Kuratowski-tétel. Euler-formula: p − e + t = 2."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Egy részhalmaz alulról korlátos, ha van olyan eredeti halmazbeli elem (\\(a_k\\)), amely relációban áll az összes részhalmazbeli elemmel (azaz tetszőleges \\(r\\) részhalmazbeli elemre \\((a_k,r)\\in R\\)).",
+          "c": true
+        },
+        {
+          "t": "A rendezési reláció reflexív, szimmetrikus és tranzitív.",
+          "c": false
+        },
+        {
+          "t": "Rendezési reláció segítségével megkereshetőek a minimális és maximális elemek, ha léteznek.",
+          "c": true
+        },
+        {
+          "t": "Ha értelmezett egy rendezési reláció, akkor minden részhalmaz korlátos.",
+          "c": false
+        }
+      ],
+      "e": "A rendezési reláció antiszimmetrikus (nem szimmetrikus)."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A bináris relációk rendezett párokat tartalmaznak az eredeti halmazból.",
+          "c": true
+        },
+        {
+          "t": "Az ekvivalenciareláció segítségével kiválasztható a halmazból a legkisebb és a legnagyobb elem (ha léteznek).",
+          "c": false
+        },
+        {
+          "t": "Az ekvivalenciareláció reflexív, szimmetrikus és tranzitív.",
+          "c": true
+        },
+        {
+          "t": "Ha a különböző csoportba tartozó hallgatók állnak relációban egymással, az egy ekvivalenciareláció.",
+          "c": false
+        }
+      ],
+      "e": "Min/max elem rendezési relációhoz tartozik, nem ekvivalenciához."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A \\(\\langle\\cdot,\\cdot\\rangle:V^2\\to\\mathbb{R}\\) függvényt skaláris szorzatnak nevezzük, ha pozitív definit, homogén, és teljesül a háromszög-egyenlőtlenség.",
+          "c": false
+        },
+        {
+          "t": "A skaláris szorzattal ellátott vektorteret Euklideszi térnek nevezzük.",
+          "c": true
+        },
+        {
+          "t": "A \\(\\langle\\cdot,\\cdot\\rangle:V^2\\to\\mathbb{R}\\) függvényt skaláris szorzatnak nevezzük, ha pozitív definit, szimmetrikus, homogén és lineáris.",
+          "c": true
+        },
+        {
+          "t": "A \\(\\langle\\cdot,\\cdot\\rangle:V^2\\to\\mathbb{R}\\) függvényt skaláris szorzatnak nevezzük, ha pozitív definit, homogén és tranzitív.",
+          "c": false
+        }
+      ],
+      "e": "A skaláris szorzat: pozitív definit, szimmetrikus, bilineáris (homogén + additív)."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A bilineáris függvény mátrixa mindig szimmetrikus.",
+          "c": false
+        },
+        {
+          "t": "A kvadratikus alakhoz tartozó mátrix felírható úgy, hogy ne legyen szimmetrikus.",
+          "c": true
+        },
+        {
+          "t": "Ha egy kvadratikus alak pozitív definit, akkor csak úgy lehet értéke 0, ha \\(\\vec{x}=\\vec{0}\\).",
+          "c": true
+        },
+        {
+          "t": "Szimmetrikus mátrixok különböző sajátértékeihez tartozó sajátvektorai merőlegesek egymásra.",
+          "c": true
+        }
+      ],
+      "e": "Pozitív definit: Q(x)>0 minden x≠0 esetén."
+    }
+  ]
+}
