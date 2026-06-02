@@ -1231,3 +1231,44 @@ textarea {
     max-height: calc(60vh);
   }
 }
+/* ============================================================
+   KÉZI KIVÁLASZTÁS (pick mode)
+   ============================================================ */
+.seg.pickseg { display: flex; width: 100%; margin: 0 0 16px; }
+.seg.pickseg button { flex: 1; text-align: center; transition: background .15s, color .15s; }
+.seg.pickseg button.on { background: var(--ink); color: var(--paper); }
+
+.pickerhead {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin: 4px 0 8px; flex-wrap: wrap;
+}
+#pickcount { font-weight: 700; color: var(--accent-deep); font-size: .92rem; }
+.pickerhead-btns { display: flex; gap: 6px; }
+
+.picker {
+  border: 1.5px solid var(--rule); border-radius: 12px; background: var(--field);
+  max-height: 360px; overflow-y: auto; padding: 4px;
+}
+.picker-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: 8px; cursor: pointer;
+  border-bottom: 1px solid var(--rule); transition: background .12s;
+}
+.picker-row:last-child { border-bottom: none; }
+.picker-row:hover { background: var(--field-hover); }
+.picker-row.on { background: var(--sel-bg); }
+.picker-row input[type="checkbox"] { width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--accent); cursor: pointer; }
+.picker-badge { flex: 0 0 auto; font-size: .9rem; }
+.picker-topic {
+  flex: 0 0 auto; font-size: .72rem; font-weight: 700; color: var(--ink-soft);
+  background: var(--card); border: 1px solid var(--rule); border-radius: 99px;
+  padding: 2px 9px; white-space: nowrap;
+}
+.picker-text {
+  flex: 1 1 auto; min-width: 0; font-size: .9rem; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .picker-text { white-space: normal; }
+  .picker-topic { display: none; }
+}

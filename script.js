@@ -43,6 +43,10 @@ let quiz = [], quizState = [], i = 0;       // kvíz futás
 let run = [], pstate = [], pi = 0;          // számolós futás
 let ghToken = '';
 let exportSrc = 'gen';                       // melyik fájllal dolgozzon az export/GitHub
+let pickMode = 'random';                     // 'random' = sorsolás | 'manual' = kézi kiválasztás
+let pickedKviz = new Set();                  // kézzel kiválasztott kérdés-objektumok
+let pickedSzam = new Set();                  // kézzel kiválasztott feladat-objektumok
+let pickerItems = [];                        // az épp listázott (szűrt) elemek
 const app = document.getElementById('app');
 const foot = document.getElementById('foot');
 
@@ -167,6 +171,8 @@ function renderSetup() {
   const isK = mode === 'kviz';
   const nV = vizsgaCount(), nG = genCount();
   const noVizsga = nV === 0;
+  const pset = mode === 'kviz' ? pickedKviz : pickedSzam;
+  const apc = [...pset].filter(x => data.includes(x)).length;   // aktív (látható) kijelöltek száma
 
   app.innerHTML = `
    <div class="card setup">
@@ -198,16 +204,30 @@ function renderSetup() {
        <div class="stat"><div class="n" id="willdo">${def}</div><div class="l">Most kapok</div></div>
      </div>
      ${maxN === 0 ? `<div class="lead" style="color:var(--red)">Nincs betöltve ${activeLabel()}. Tölts be egy JSON-t lent.</div>` : `
+     <div class="seg pickseg" id="pickseg">
+       <button data-pm="random" class="${pickMode === 'random' ? 'on' : ''}">🎲 Véletlen sorsolás</button>
+       <button data-pm="manual" class="${pickMode === 'manual' ? 'on' : ''}">✋ Kézi kiválasztás</button>
+     </div>
      <div class="field"><label for="topic">Téma szűrő</label>
        <select id="topic"><option value="__all">Összes téma (${data.length})</option>
        ${topics.map(t => `<option value="${esc(t)}">${esc(t)} (${data.filter(q => q.topic === t).length})</option>`).join("")}</select></div>
+     ${pickMode === 'random' ? `
      <div class="field"><label for="count">${isK ? 'Kérdések' : 'Feladatok'} száma (csúszka vagy beírás)</label>
        <div class="countrow">
          <input type="range" id="count" min="1" max="${maxN}" value="${def}">
          <input type="number" id="countnum" class="countbadge-input" min="1" max="${maxN}" value="${def}" inputmode="numeric">
-       </div></div>`}
+       </div></div>` : `
+     <div class="pickerhead">
+       <span id="pickcount">0 kiválasztva</span>
+       <span class="pickerhead-btns">
+         <button class="btn ghost small" id="pickall">Mind (lista)</button>
+         <button class="btn ghost small" id="picknone">Egyik sem</button>
+       </span>
+     </div>
+     <div class="picker" id="picker"></div>
+     <div class="help" style="margin-top:6px">Pipáld ki, melyik ${activeLabel()}ek legyenek a ${isK ? 'kvízben' : 'feladatsorban'}. A téma szűrő csak a listát szűkíti, a kijelölés megmarad.</div>`}`}
      <div class="controls">
-       ${maxN ? `<button class="btn primary" id="start">${isK ? 'Kvíz' : 'Feladatok'} indítása →</button>` : ''}
+       ${maxN ? `<button class="btn primary" id="start" ${pickMode === 'manual' && apc === 0 ? 'disabled' : ''}>${pickMode === 'manual' ? `Kiválasztottakkal indítás (${apc}) →` : `${isK ? 'Kvíz' : 'Feladatok'} indítása →`}</button>` : ''}
        ${isK ? `<button class="btn ghost small" id="add">＋ Új kérdés</button>` : ''}
        <button class="btn blue small" id="managebtn">⚙ Bank kezelése / feltöltés</button>
      </div>
@@ -259,20 +279,42 @@ function renderSetup() {
   document.getElementById('m-kviz').addEventListener('click', () => { if (mode !== 'kviz') { mode = 'kviz'; renderSetup(); } });
   document.getElementById('m-szam').addEventListener('click', () => { if (mode !== 'szamolos') { mode = 'szamolos'; renderSetup(); } });
 
+  // kiválasztási mód váltó (sorsolás / kézi)
+  const pickseg = document.getElementById('pickseg');
+  if (pickseg) pickseg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    if (pickMode !== b.dataset.pm) { pickMode = b.dataset.pm; renderSetup(); }
+  }));
+
   if (maxN) {
-    const range = document.getElementById('count'), num = document.getElementById('countnum'),
-      willdo = document.getElementById('willdo'), topicSel = document.getElementById('topic');
-    function setCount(v) { const mx = +range.max; v = Math.round(+v) || 1; v = Math.max(1, Math.min(mx, v)); range.value = v; num.value = v; willdo.textContent = v; }
-    function refreshMax() { const t = topicSel.value; const n = t === '__all' ? data.length : data.filter(q => q.topic === t).length; range.max = n; num.max = n; setCount(Math.min(+num.value || 1, n)); }
-    topicSel.addEventListener('change', refreshMax);
-    range.addEventListener('input', () => setCount(range.value));
-    num.addEventListener('input', () => { if (num.value === '') { willdo.textContent = '…'; return; } setCount(num.value); });
-    num.addEventListener('blur', () => setCount(num.value || 1));
+    const topicSel = document.getElementById('topic');
+
+    if (pickMode === 'random') {
+      const range = document.getElementById('count'), num = document.getElementById('countnum'),
+        willdo = document.getElementById('willdo');
+      function setCount(v) { const mx = +range.max; v = Math.round(+v) || 1; v = Math.max(1, Math.min(mx, v)); range.value = v; num.value = v; willdo.textContent = v; }
+      function refreshMax() { const t = topicSel.value; const n = t === '__all' ? data.length : data.filter(q => q.topic === t).length; range.max = n; num.max = n; setCount(Math.min(+num.value || 1, n)); }
+      topicSel.addEventListener('change', refreshMax);
+      range.addEventListener('input', () => setCount(range.value));
+      num.addEventListener('input', () => { if (num.value === '') { willdo.textContent = '…'; return; } setCount(num.value); });
+      num.addEventListener('blur', () => setCount(num.value || 1));
+    } else {
+      // KÉZI KIVÁLASZTÁS
+      buildPicker(topicSel.value);
+      topicSel.addEventListener('change', () => buildPicker(topicSel.value));
+      document.getElementById('pickall').addEventListener('click', () => { pickerItems.forEach(it => pset.add(it)); buildPicker(topicSel.value); });
+      document.getElementById('picknone').addEventListener('click', () => { pset.clear(); buildPicker(topicSel.value); });
+    }
 
     document.getElementById('start').addEventListener('click', () => {
-      const t = topicSel.value, pool = t === '__all' ? data : data.filter(q => q.topic === t);
-      const n = Math.min(Math.max(1, +num.value || 1), pool.length);
-      const chosen = shuffle(pool).slice(0, n);
+      let chosen;
+      if (pickMode === 'manual') {
+        chosen = data.filter(x => pset.has(x));
+        if (!chosen.length) { toast('Pipálj ki legalább egy ' + activeLabel() + 't'); return; }
+      } else {
+        const t = topicSel.value, pool = t === '__all' ? data : data.filter(q => q.topic === t);
+        const n = Math.min(Math.max(1, +document.getElementById('countnum').value || 1), pool.length);
+        chosen = shuffle(pool).slice(0, n);
+      }
       if (mode === 'kviz') {
         quiz = chosen;
         quizState = quiz.map(() => ({ answered: false, selected: new Set(), result: null, points: 0 }));
@@ -295,6 +337,42 @@ function renderSetup() {
   document.getElementById('ghpush').addEventListener('click', pushToGitHub);
   if (ghToken) document.getElementById('gh-token').value = ghToken;
   foot.textContent = `${isK ? 'Kérdésbank' : 'Feladatbank'}: 🎓 ${nV} vizsga + 🤖 ${nG} generált · ${topics.length} téma${examOnly ? ' · csak vizsga mód' : ''}`;
+  if (pickMode === 'manual') updatePickCount();
+}
+
+/* ===== Kézi kiválasztás segédfüggvényei ===== */
+function pickLabel(it) {
+  if (mode === 'kviz') return it.prompt || '';
+  return it.title || (it.preamble || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 90);
+}
+function buildPicker(topicVal) {
+  const box = document.getElementById('picker'); if (!box) return;
+  const data = activeArr();
+  const pset = mode === 'kviz' ? pickedKviz : pickedSzam;
+  pickerItems = (topicVal && topicVal !== '__all') ? data.filter(q => q.topic === topicVal) : data;
+  box.innerHTML = pickerItems.map((it, idx) =>
+    `<label class="picker-row${pset.has(it) ? ' on' : ''}">
+       <input type="checkbox" class="pchk" data-i="${idx}" ${pset.has(it) ? 'checked' : ''}>
+       <span class="picker-badge ${it.src === 'vizsga' ? 'v' : 'g'}" title="${it.src === 'vizsga' ? 'korábbi vizsga' : 'generált'}">${it.src === 'vizsga' ? '🎓' : '🤖'}</span>
+       <span class="picker-topic">${esc(it.topic || '')}</span>
+       <span class="picker-text">${pickLabel(it)}</span>
+     </label>`).join('') || `<div class="help" style="padding:10px">Nincs ${activeLabel()} ebben a szűrőben.</div>`;
+  box.querySelectorAll('.pchk').forEach(chk => chk.addEventListener('change', () => {
+    const it = pickerItems[+chk.dataset.i];
+    if (chk.checked) pset.add(it); else pset.delete(it);
+    chk.closest('.picker-row').classList.toggle('on', chk.checked);
+    updatePickCount();
+  }));
+  typeset(box);
+  updatePickCount();
+}
+function updatePickCount() {
+  const data = activeArr();
+  const pset = mode === 'kviz' ? pickedKviz : pickedSzam;
+  const n = [...pset].filter(x => data.includes(x)).length;
+  const pc = document.getElementById('pickcount'); if (pc) pc.textContent = n + ' kiválasztva';
+  const wd = document.getElementById('willdo'); if (wd) wd.textContent = n;
+  const sb = document.getElementById('start'); if (sb) { sb.disabled = n === 0; sb.textContent = `Kiválasztottakkal indítás (${n}) →`; }
 }
 
 function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -481,7 +559,8 @@ function summaryCard(opts) {
      <div class="breakdown">${rows}</div>
      <div class="controls" style="justify-content:center">
        <button class="btn ghost" id="review">Vissza a ${mode === 'kviz' ? 'kérdésekhez' : 'feladatokhoz'}</button>
-       <button class="btn primary" id="again">Új ${mode === 'kviz' ? 'kvíz' : 'feladatsor'} beállítása</button>
+       <button class="btn primary" id="retry">↻ Újra ugyanezekkel</button>
+       <button class="btn ghost" id="again">Új ${mode === 'kviz' ? 'kvíz' : 'feladatsor'} beállítása</button>
      </div>
    </div>`;
 
@@ -495,12 +574,26 @@ function summaryCard(opts) {
   requestAnimationFrame(() => app.querySelectorAll('[data-w]').forEach(el => { el.style.width = el.dataset.w; }));
 
   document.getElementById('again').addEventListener('click', renderSetup);
+  document.getElementById('retry').addEventListener('click', retrySame);
   document.getElementById('review').addEventListener('click', () => {
     document.getElementById('sidebar').classList.add('open'); renderSidebar();
     if (mode === 'kviz') renderQuestion(); else renderProblem();
     scrollTop();
   });
   typeset(app);
+}
+
+/* ===== Újra ugyanazokkal a kérdésekkel (friss állapot, nincs új sorsolás) ===== */
+function retrySame() {
+  document.getElementById('sidebar').classList.add('open');
+  if (mode === 'kviz') {
+    quizState = quiz.map(() => ({ answered: false, selected: new Set(), result: null, points: 0 }));
+    i = 0; renderSidebar(); renderQuestion();
+  } else {
+    pstate = run.map(pr => ({ answered: false, earned: 0, result: null, max: pr.parts.reduce((s, p) => s + (p.points || 1), 0), parts: pr.parts.map(() => ({ value: '', sel: new Set(), pts: 0, ok: false })) }));
+    pi = 0; renderSidebar(); renderProblem();
+  }
+  scrollTop();
 }
 
 function finish() {
