@@ -453,7 +453,7 @@ function renderProblem() {
 function summaryCard(opts) {
   // opts: {pct, earned, max, dist, distLabels, topicArr, rows, reviewLabel}
   const { pct, earned, max, dist, topicArr, rows } = opts;
-  const verdict = pct >= 90 ? "Kiváló — ez vizsgaérett tudás." : pct >= 70 ? "Erős teljesítmény, pár fogalmat csiszolj." : pct >= 50 ? "Megvan az elégséges (50%) — nézd át a gyengébb témákat." : "Még gyakorolj — a magyarázatok segítenek.";
+  const verdict = pct >= 90 ? "Kiváló — ez vizsgaérett tudás." : pct >= 70 ? "Buzi vagy." : pct >= 50 ? "Buzi vagy" : "Extra buzi vagy.";
   const total = dist.ok + dist.part + dist.no + dist.skip;
   const chips = `<div class="stat-chips">
       <div class="stat-chip"><span class="d ok"></span><b>${dist.ok}</b> teljes</div>
