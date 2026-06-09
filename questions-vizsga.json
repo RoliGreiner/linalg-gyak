@@ -721,6 +721,246 @@
         }
       ],
       "e": "Logikai következmény: MINDEN interpretációban, ahol α igaz, β is igaz. Egységesítésnél változót cserélünk, konstanst nem."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Valós együtthatós polinomnak, ha van komplex gyöke, annak komplex konjugáltja is gyök.",
+          "c": true
+        },
+        {
+          "t": "Páratlan fokú polinomnak mindig van valós gyöke.",
+          "c": true
+        },
+        {
+          "t": "Egy \\(n\\)-edfokú polinomnak \\(n\\) különböző gyöke van a komplex számok halmazán.",
+          "c": false
+        },
+        {
+          "t": "Páros fokú polinomnak mindig van két gyöke, melyek megegyeznek.",
+          "c": false
+        }
+      ],
+      "e": "Komplex gyökök konjugált párban. n gyök MULTIPLICITÁSSAL (nem feltétlenül különböző)."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Standardizálás során a különböző klózokban szereplő változókat hozzuk azonos alakra.",
+          "c": false
+        },
+        {
+          "t": "\\(\\forall x\\,P(x)\\) logikai következménye \\(P(a)\\), ahol \\(a\\) egy konstans.",
+          "c": true
+        },
+        {
+          "t": "\\(\\alpha\\) logikai következménye \\(\\beta\\), ha \\(\\beta\\) csak akkor lehet igaz, ha \\(\\alpha\\) igaz.",
+          "c": false
+        },
+        {
+          "t": "\\(\\alpha\\) és \\(\\beta\\) pontosan akkor ekvivalensek, ha \\((\\alpha\\to\\beta)\\land(\\beta\\to\\alpha)\\) érvényes formula (tautológia).",
+          "c": true
+        }
+      ],
+      "e": "Standardizáláskor a változókat KÜLÖNBÖZŐRE nevezzük át."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Adott az \\(L:V\\to W\\) lineáris transzformáció, ahol \\(V\\) és \\(W\\) dimenziója különböző. Jelölje \\(A\\) a leképezés mátrixát! Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(V\\)-ben és \\(W\\)-ben nem hajtható végre ugyanaz a bázistranszformáció.",
+          "c": true
+        },
+        {
+          "t": "Ha bázistranszformációt végzünk \\(V\\)-ben, melyhez tartozó áttérési mátrix \\(B\\), akkor a leképezés mátrixa \\(A\\cdot B\\)-re változik.",
+          "c": true
+        },
+        {
+          "t": "Ha bázistranszformációt végzünk \\(V\\)-ben, melyhez tartozó áttérési mátrix \\(B\\), akkor a leképezés mátrixa \\(B^{-1}\\cdot A\\)-ra változik.",
+          "c": false
+        },
+        {
+          "t": "\\(A\\) egy négyzetes mátrix.",
+          "c": false
+        }
+      ],
+      "e": "Eltérő dimenzió → A nem négyzetes; a kiindulási bázis cseréje az oszlopokat módosítja: A·B."
+    },
+    {
+      "topic": "Síkgráfok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Tetszőleges egyszerű, összefüggő gráf, melyben a 2-nél nagyobb fokszámú csúcsok száma 4, síkba rajzolható.",
+          "c": true
+        },
+        {
+          "t": "Az Euler-poliéder tétel szerint minden egyszerű, összefüggő síkgráf pontjainak (\\(p\\)), éleinek (\\(e\\)) és tartományainak (\\(t\\)) száma között fennáll: \\(p-e+t=2\\).",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráf tartalmaz \\(K_{3,3}\\)-mal homeomorf részgráfot, akkor nem rajzolható síkba.",
+          "c": true
+        },
+        {
+          "t": "Egyszerű, összefüggő síkgráf kromatikus száma legfeljebb 4, de lehet ennél kevesebb is.",
+          "c": true
+        }
+      ],
+      "e": "Mind a négy állítás igaz (Euler-formula, Kuratowski, négyszín-tétel)."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy kvadratikus alak pozitív definit, akkor csak úgy lehet értéke 0, ha \\(\\vec{x}\\) a magtér eleme.",
+          "c": false
+        },
+        {
+          "t": "A kvadratikus alakhoz tartozó mátrix felírható úgy, hogy szimmetrikus legyen.",
+          "c": true
+        },
+        {
+          "t": "A bilineáris függvény mátrixa mindig szimmetrikus.",
+          "c": false
+        },
+        {
+          "t": "Szimmetrikus mátrixok különböző sajátértékeihez tartozó sajátvektorai merőlegesek egymásra.",
+          "c": true
+        }
+      ],
+      "e": "Pozitív definit: Q(x)=0 csak x=0 esetén. Bilineáris függvény mátrixa nem feltétlenül szimmetrikus."
+    },
+    {
+      "topic": "Logika",
+      "multi": false,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\lnot\\forall x\\,Q(x,f(x)) \\equiv \\exists x\\,\\lnot P(x,f(x))\\)",
+          "c": false
+        },
+        {
+          "t": "\\(\\lnot\\forall x\\,P(x,f(x)) \\equiv \\forall x\\,\\lnot P(x,f(x))\\)",
+          "c": false
+        },
+        {
+          "t": "Két formula ekvivalens, ha minden interpretációban azonos az igazságértékük.",
+          "c": true
+        },
+        {
+          "t": "Két formula ekvivalens, ha van olyan interpretáció, melyben azonos az igazságértékük.",
+          "c": false
+        }
+      ],
+      "e": "¬∀ ≡ ∃¬ (és a P/Q-nak egyeznie kell). Ekvivalencia: MINDEN interpretációban azonos igazságérték."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Legyen \\(L:V\\to W\\) homogén lineáris leképezés. Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A magtérnek a nullvektor mindig eleme.",
+          "c": true
+        },
+        {
+          "t": "Egy leképezés képtere az „érkezési” vektortérben (\\(W\\)) értelmezett bázisvektorok összes lehetséges lineáris kombinációja.",
+          "c": false
+        },
+        {
+          "t": "A képtér és a magtér dimenziója megegyezik.",
+          "c": false
+        },
+        {
+          "t": "Egy leképezés képtere lehet nulla dimenziós.",
+          "c": true
+        }
+      ],
+      "e": "L(0)=0 → 0 a magtérben. A nulla-leképezés képtere {0}, azaz 0 dimenziós."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A relációk rendezetlen párok halmaza.",
+          "c": false
+        },
+        {
+          "t": "Ha az azonos csoportba tartozó hallgatók állnak relációban egymással, az egy ekvivalenciareláció.",
+          "c": true
+        },
+        {
+          "t": "Az ekvivalenciareláció segítségével az eredeti halmaz felosztható diszjunkt részhalmazokra. (Két halmaz diszjunkt, ha metszetük az üres halmaz.)",
+          "c": true
+        },
+        {
+          "t": "Az ekvivalenciareláció reflexív, szimmetrikus és tranzitív.",
+          "c": true
+        }
+      ],
+      "e": "A reláció RENDEZETT párok halmaza. Ekvivalenciareláció → osztályozás (diszjunkt osztályok)."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Komplex szám \\(n\\). hatványozása során az abszolút érték \\(n\\)-edik hatványra emelődik.",
+          "c": true
+        },
+        {
+          "t": "Komplex szám \\(n\\). egész kitevőjű hatványozása során az argumentum \\(n\\)-ed részére változik.",
+          "c": false
+        },
+        {
+          "t": "Egy komplex szám harmadik hatványa egyértelműen meghatározható.",
+          "c": true
+        },
+        {
+          "t": "Egy komplex szám ötödik hatványának öt különböző megoldása van.",
+          "c": false
+        }
+      ],
+      "e": "Moivre: |z|ⁿ és az argumentum n-SZERESE (nem n-ed része). A hatvány egyértelmű; a GYÖK többértékű."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy \\(n\\) pontú egyszerű gráfban minden fokszám legalább \\(n/2\\), akkor van a gráfban Hamilton-kör.",
+          "c": true
+        },
+        {
+          "t": "Ha egy gráfban pontosan 2 csúcs fokszáma páratlan, van benne Euler-út.",
+          "c": false
+        },
+        {
+          "t": "Van olyan gráf, melyben van Hamilton-kör és Euler-kör is.",
+          "c": true
+        },
+        {
+          "t": "Ha egy \\(n\\) pontú egyszerű gráfban bármely két nem szomszédos csúcs fokszámának összege kisebb, mint \\(n\\), van benne Hamilton-kör.",
+          "c": false
+        }
+      ],
+      "e": "Dirac-tétel: δ(G)≥n/2 ⇒ Hamilton-kör. Az Euler-úthoz összefüggőség is kell. Ore-tételben ≥n kell (nem <n)."
     }
   ]
 }
