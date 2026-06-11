@@ -4,7 +4,7 @@
   "questions": [
     {
       "topic": "Sajátérték",
-      "multi": false,
+      "multi": true,
       "prompt": "Jelöld be az igaz állítás(oka)t!",
       "options": [
         {
@@ -52,7 +52,7 @@
     },
     {
       "topic": "Sajátérték",
-      "multi": false,
+      "multi": true,
       "prompt": "Jelöld be az igaz állítás(oka)t!",
       "options": [
         {
@@ -76,7 +76,7 @@
     },
     {
       "topic": "Lineáris leképezés",
-      "multi": false,
+      "multi": true,
       "prompt": "Jelöld be az igaz állítás(oka)t!",
       "options": [
         {
@@ -844,7 +844,7 @@
     },
     {
       "topic": "Logika",
-      "multi": false,
+      "multi": true,
       "prompt": "Jelöld be az igaz állítás(oka)t!",
       "options": [
         {
