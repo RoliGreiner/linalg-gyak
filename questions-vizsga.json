@@ -961,6 +961,246 @@
         }
       ],
       "e": "Dirac-tétel: δ(G)≥n/2 ⇒ Hamilton-kör. Az Euler-úthoz összefüggőség is kell. Ore-tételben ≥n kell (nem <n)."
+    },
+    {
+      "topic": "Polinomok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Valós együtthatós polinomnak, ha van komplex gyöke, annak komplex konjugáltja is gyök.",
+          "c": true
+        },
+        {
+          "t": "Egy \\(n\\)-edfokú polinom két gyöke nem egyezhet meg.",
+          "c": false
+        },
+        {
+          "t": "Páros fokú polinomnak mindig van valós gyöke.",
+          "c": false
+        },
+        {
+          "t": "Egy \\(n\\)-edfokú polinomnak multiplicitással számolva \\(n\\) gyöke van a komplex számok halmazán.",
+          "c": true
+        }
+      ],
+      "e": "Komplex gyökök konjugált párban; a gyökök között lehetnek egyenlők (többszörös gyök)."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Legyen \\(L:V\\to W\\) homogén lineáris leképezés. Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Egy leképezés képtere lehet nulla dimenziós.",
+          "c": true
+        },
+        {
+          "t": "A magtér és a képtér dimenziójának összege megegyezik a kiinduló vektortér dimenziójával.",
+          "c": true
+        },
+        {
+          "t": "Egy leképezés képtere az „érkezési” vektortérben (\\(W\\)) értelmezett bázisvektorok összes lehetséges lineáris kombinációja.",
+          "c": false
+        },
+        {
+          "t": "A képtér és a magtér dimenziója megegyezik.",
+          "c": false
+        }
+      ],
+      "e": "Dimenziótétel: dim(Ker)+dim(Im)=dim(V). A nulla-leképezés képtere {0} (0 dimenziós)."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\lnot\\forall x\\,Q(x,f(x)) \\equiv \\exists x\\,\\lnot Q(x,f(x))\\)",
+          "c": true
+        },
+        {
+          "t": "\\(\\lnot\\forall x\\,R(x,f(x)) \\equiv \\forall x\\,\\lnot R(x,f(x))\\)",
+          "c": false
+        },
+        {
+          "t": "Két formula ekvivalens, ha van olyan interpretáció, melyben azonos az igazságértékük.",
+          "c": false
+        },
+        {
+          "t": "\\(\\lnot\\forall x\\,R(x) \\land \\forall y\\,Q(y) \\equiv \\forall x\\,(R(x) \\land Q(x))\\)",
+          "c": false
+        }
+      ],
+      "e": "¬∀ ≡ ∃¬ (ugyanazzal a predikátummal). Ekvivalencia: MINDEN interpretációban azonos igazságérték."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Adott az \\(L:V\\to W\\) lineáris transzformáció, ahol \\(V\\) és \\(W\\) dimenziója különböző. Jelölje \\(A\\) a leképezés mátrixát! Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha bázistranszformációt végzünk \\(W\\)-ben, melyhez tartozó áttérési mátrix \\(B\\), akkor a leképezés mátrixa \\(A\\cdot B\\)-re változik.",
+          "c": false
+        },
+        {
+          "t": "Ha \\(W\\) dimenziója nagyobb, mint \\(V\\) dimenziója, akkor \\(A\\) sorai lineárisan összefüggőek.",
+          "c": true
+        },
+        {
+          "t": "Ha bázistranszformációt végzünk \\(W\\)-ben, melyhez tartozó áttérési mátrix \\(B\\), akkor a leképezés mátrixa \\(B^{-1}\\cdot A\\)-ra változik.",
+          "c": true
+        },
+        {
+          "t": "\\(A\\) diagonalizálható.",
+          "c": false
+        }
+      ],
+      "e": "A képtér bázisának cseréje balról szoroz: B⁻¹·A. Eltérő dimenzió → A nem négyzetes, nem diagonalizálható."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Komplex szám \\(n\\). egész kitevőjű hatványozása során az argumentum \\(n\\)-szeresére változik.",
+          "c": true
+        },
+        {
+          "t": "Egy komplex szám harmadik hatványának három különböző megoldása van.",
+          "c": false
+        },
+        {
+          "t": "Egy komplex szám ötödik hatványa egyértelműen meghatározható.",
+          "c": true
+        },
+        {
+          "t": "Komplex szám \\(n\\). hatványozása során az abszolút érték \\(n\\)-szeresére változik.",
+          "c": false
+        }
+      ],
+      "e": "Moivre: argumentum n-szerese, |z| az n-EDIK hatványra. A hatvány egyértelmű; a gyök többértékű."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy \\(n\\) pontú egyszerű gráfban minden nem szomszédos csúcsának fokszámösszege legalább \\(n\\), akkor van a gráfban Hamilton-kör.",
+          "c": true
+        },
+        {
+          "t": "A Hamilton-kör a gráf minden élét pontosan egyszer tartalmazza.",
+          "c": false
+        },
+        {
+          "t": "Ha egy összefüggő gráfban pontosan 2 csúcs fokszáma páratlan, van benne Euler-út.",
+          "c": true
+        },
+        {
+          "t": "Nincs olyan gráf, melyben van Hamilton-kör és Euler-kör is.",
+          "c": false
+        }
+      ],
+      "e": "Ore-tétel: nem szomszédos csúcsok fokszámösszege ≥ n ⇒ Hamilton-kör. A Hamilton-kör a CSÚCSOKAT járja be (az ÉLEKET az Euler-kör)."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Nem minden összefüggő gráfnak van feszítőfája.",
+          "c": false
+        },
+        {
+          "t": "A Prim-algoritmust minimális feszítőfa megtalálására használjuk.",
+          "c": true
+        },
+        {
+          "t": "Egy gráf feszítőfája egyben részgráfja is.",
+          "c": true
+        },
+        {
+          "t": "Fagráf éleinek száma \\(n-1\\), ahol \\(n\\) a gráf pontjainak száma.",
+          "c": true
+        }
+      ],
+      "e": "Minden összefüggő gráfnak van feszítőfája; a fa éleinek száma n−1."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Mely esetekben végezhető el az egységesítő helyettesítés?",
+      "options": [
+        {
+          "t": "\\(\\mathrm{Golfozik}(x,\\mathrm{apja}(x)),\\ \\mathrm{Golfozik}(x,\\mathrm{J\\acute{o}zsi})\\)",
+          "c": false
+        },
+        {
+          "t": "\\(\\mathrm{Golfozik}(x,\\mathrm{apja}(x)),\\ \\mathrm{Golfozik}(\\mathrm{apja}(x),x)\\)",
+          "c": false
+        },
+        {
+          "t": "\\(\\mathrm{Golfozik}(x,\\mathrm{apja}(x)),\\ \\mathrm{Golfozik}(x,y)\\)",
+          "c": true
+        },
+        {
+          "t": "\\(\\mathrm{Golfozik}(x,\\mathrm{apja}(x)),\\ \\mathrm{Golfozik}(x,\\mathrm{apja}(\\mathrm{G\\acute{e}za}))\\)",
+          "c": true
+        }
+      ],
+      "e": "Egységesíthető, ha a megfelelő argumentumok illeszthetők (változó bármire, illetve apja(x) ↔ apja(Géza) x=Géza-val). apja(x) és Józsi nem egységesíthető; az (apja(x),x) körbeforgó behelyettesítést adna."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(P(a)\\) logikai következménye \\(\\forall x\\,P(x)\\), ahol \\(a\\) egy konstans.",
+          "c": false
+        },
+        {
+          "t": "\\(\\alpha\\) logikai következménye \\(\\beta\\), ha \\(\\beta\\) igaz minden olyan interpretációban, ahol \\(\\alpha\\) igaz.",
+          "c": true
+        },
+        {
+          "t": "Standardizálás során az ismétlődő változókon nevezünk át, hogy létre tudjuk hozni a prenex alakot.",
+          "c": true
+        },
+        {
+          "t": "A rezolúciót helyes következtetési sémák megtalálására és bizonyítására használjuk.",
+          "c": true
+        }
+      ],
+      "e": "Fordítva igaz: ∀x P(x) ⊨ P(a), nem P(a) ⊨ ∀x P(x)."
+    },
+    {
+      "topic": "Sajátérték",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A nullvektor mindig a leképezés sajátvektora.",
+          "c": false
+        },
+        {
+          "t": "Egy szimmetrikus mátrixnak multiplicitással számolva mindig annyi sajátértéke van, ahány oszlopból áll a mátrix.",
+          "c": true
+        },
+        {
+          "t": "Egy transzformáció különböző sajátértékeihez tartozó sajátvektorai lineárisan függetlenek.",
+          "c": false
+        },
+        {
+          "t": "Egy sajátérték geometriai multiplicitása kisebb vagy egyenlő, mint az algebrai multiplicitása.",
+          "c": true
+        }
+      ],
+      "e": "A sajátvektor definíció szerint nem a nullvektor. Szimmetrikus (valós) mátrix sajátértékei valósak, multiplicitással n darab. (A 3. állítást a vizsga kulcsa nem fogadta el helyesként.)"
     }
   ]
 }
