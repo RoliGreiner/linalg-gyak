@@ -1201,6 +1201,270 @@
         }
       ],
       "e": "A sajátvektor definíció szerint nem a nullvektor. Szimmetrikus (valós) mátrix sajátértékei valósak, multiplicitással n darab. (A 3. állítást a vizsga kulcsa nem fogadta el helyesként.)"
+    },
+    {
+      "topic": "Gráfok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha két gráf izomorf egymással, megegyezik a fokszámsorozatuk.",
+          "c": true
+        },
+        {
+          "t": "Van olyan gráf, melynek fokszámsorozata 2,2,2,2,2,2,2,2,2,2,2,2.",
+          "c": true
+        },
+        {
+          "t": "Izomorf gráfok csúcsainak elnevezése (pl. A, B, C) meg kell egyezzen.",
+          "c": false
+        },
+        {
+          "t": "Egy gráf páratlan fokszámú csúcsainak száma páratlan.",
+          "c": false
+        }
+      ],
+      "e": "Kézfogás-lemma: páratlan fokú csúcsok száma PÁROS. 12-csúcsos 2-reguláris gráf létezik (pl. 12-kör)."
+    },
+    {
+      "topic": "Komplex számok",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Egy komplex szám harmadik gyökének három különböző megoldása van.",
+          "c": true
+        },
+        {
+          "t": "Egy komplex szám tetszőleges negyedik gyökét negyedik hatványra emelve megkapjuk az eredeti komplex számot.",
+          "c": true
+        },
+        {
+          "t": "Egy komplex számból \\(n\\)-edik gyököt vonva az abszolút érték ötödére változik.",
+          "c": false
+        },
+        {
+          "t": "Egy \\(z\\) komplex szám ötödik gyökei a \\(w^5 = z\\) egyenlet összes lehetséges megoldása \\(w\\)-re vonatkoztatva.",
+          "c": true
+        }
+      ],
+      "e": "n-edik gyök: abszolút érték az n-EDIK gyökére csökken. Gyökök száma n, a w^n=z összes megoldása."
+    },
+    {
+      "topic": "Fák",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Nem minden összefüggő gráfnak van feszítőfája.",
+          "c": false
+        },
+        {
+          "t": "A Prim-algoritmust minimális feszítőfa megtalálására használjuk.",
+          "c": true
+        },
+        {
+          "t": "Egy gráf feszítőfája egyben részgráfja is.",
+          "c": true
+        },
+        {
+          "t": "Fagráf éleinek száma \\(n-1\\), ahol \\(n\\) a gráf pontjainak száma.",
+          "c": true
+        }
+      ],
+      "e": "Minden összefüggő gráfnak van feszítőfája. Fa: n csúcs, n-1 él, összefüggő, körmentes."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\forall x(P(x) \\lor Q(x,a)) \\models P(a)\\)",
+          "c": false
+        },
+        {
+          "t": "\\(P(a)\\) logikai következménye \\(\\exists x\\,P(x)\\), ahol \\(a\\) egy konstans.",
+          "c": true
+        },
+        {
+          "t": "\\(\\alpha\\) logikai következménye \\(\\beta\\), ha \\(\\beta\\) csak akkor lehet igaz, ha \\(\\alpha\\) igaz.",
+          "c": false
+        },
+        {
+          "t": "Standardizálás során az ismétlődő változókon nevezzük át, hogy létre tudjuk hozni a prenex alakot.",
+          "c": true
+        }
+      ],
+      "e": "P(a)⊨∃xP(x): igaz (a konkrét elem). Logikai következmény iránya: ahol α igaz, ott β is igaz."
+    },
+    {
+      "topic": "Bejárások",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Az Euler-út a gráf csúcsait csak egyszer tartalmazhatja.",
+          "c": false
+        },
+        {
+          "t": "Fagráfban nem lehet Hamilton-út.",
+          "c": false
+        },
+        {
+          "t": "Ha egy egyszerű összefüggő gráfban minden csúcs fokszáma pozitív és páros, van benne Euler-kör.",
+          "c": true
+        },
+        {
+          "t": "Az \\(n>2\\) pontú teljes gráfban van Hamilton-kör.",
+          "c": true
+        }
+      ],
+      "e": "Euler-út az ÉLEKET járja be egyszer. Fában lehet Hamilton-út. Teljes gráf K_n (n>2): Hamilton-kör létezik."
+    },
+    {
+      "topic": "Lineáris leképezés",
+      "multi": true,
+      "prompt": "Legyen \\(L:V\\to W\\) homogén lineáris leképezés. Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A magtér és a képtér dimenziójának összege megegyezik az érkezési (\\(W\\)) vektortér dimenziójával.",
+          "c": false
+        },
+        {
+          "t": "A képtér és a magtér dimenziója megegyezhet.",
+          "c": true
+        },
+        {
+          "t": "Egy leképezés képtere a \\(V\\)-beli bázisvektorok képeinek összes lehetséges lineáris kombinációja.",
+          "c": true
+        },
+        {
+          "t": "Egy leképezés magtere lehet nulla dimenziós.",
+          "c": true
+        }
+      ],
+      "e": "Dimenziótétel: dim(Ker)+dim(Im)=dim(V), nem dim(W). Képtér = V bázisképeinek lineáris burka."
+    },
+    {
+      "topic": "Logika",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "\\(\\lnot\\forall x\\,Q(x,f(x)) \\equiv \\exists x\\,\\lnot Q(x,f(x))\\)",
+          "c": true
+        },
+        {
+          "t": "\\(\\lnot\\forall x\\,R(x,f(x)) \\equiv \\forall x\\,\\lnot R(x,f(x))\\)",
+          "c": false
+        },
+        {
+          "t": "Két formula ekvivalens, ha van olyan interpretáció, melyben azonos az igazságértékük.",
+          "c": false
+        },
+        {
+          "t": "\\(\\lnot\\forall x\\,R(x) \\land \\forall y\\,Q(y) \\equiv \\forall x\\,(R(x) \\land Q(x))\\)",
+          "c": false
+        }
+      ],
+      "e": "¬∀xF(x) ≡ ∃x¬F(x). Ekvivalencia: MINDEN interpretációban azonos igazságérték."
+    },
+    {
+      "topic": "Relációk",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha az azonos fajba tartozó állatok állnak relációban egymással, az egy ekvivalenciareláció.",
+          "c": true
+        },
+        {
+          "t": "A relációk rendezett n-esek halmaza.",
+          "c": true
+        },
+        {
+          "t": "Az ekvivalenciareláció reflexív, antiszimmetrikus és tranzitív.",
+          "c": false
+        },
+        {
+          "t": "Ha a különböző fajba tartozó állatok állnak relációban egymással, az egy ekvivalenciareláció.",
+          "c": false
+        }
+      ],
+      "e": "Ekvivalenciareláció: reflexív, SZIMMETRIKUS és tranzitív (nem antiszimmetrikus)."
+    },
+    {
+      "topic": "Euklideszi tér",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "A skaláris szorzat segítségével megadható egy vektornak a hossza.",
+          "c": true
+        },
+        {
+          "t": "Két vektor közötti \\(\\sum_{i=1}^n (-1)^i x_i y_i\\) függvény skaláris szorzatnak tekinthető.",
+          "c": false
+        },
+        {
+          "t": "Két vektor közötti \\(\\sum_{i=1}^n x_i y_i\\) függvény skaláris szorzatnak tekinthető.",
+          "c": true
+        },
+        {
+          "t": "A \\(\\langle\\cdot,\\cdot\\rangle:V^2\\to\\mathbb{R}\\) függvényt skaláris szorzatnak nevezzük, ha pozitív definit, szimmetrikus, homogén és lineáris.",
+          "c": true
+        }
+      ],
+      "e": "(-1)^i szorzó miatt nem pozitív definit. Standard ∑xᵢyᵢ skaláris szorzat."
+    },
+    {
+      "topic": "Rendezés",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Véges részhalmaznak mindig van alsó és felső korlátja.",
+          "c": false
+        },
+        {
+          "t": "Rendezési reláció segítségével megkereshetőek a minimális és maximális elemek, ha léteznek.",
+          "c": true
+        },
+        {
+          "t": "A rendezési reláció reflexív, antiszimmetrikus, de nem tranzitív.",
+          "c": false
+        },
+        {
+          "t": "Egy részhalmaznak van infimuma, ha az alsó korlátok közül kiválasztható a legnagyobb.",
+          "c": true
+        }
+      ],
+      "e": "Rendezési reláció: reflexív + antiszimmetrikus + TRANZITÍV. Infimum = legnagyobb alsó korlát."
+    },
+    {
+      "topic": "Kvadratikus alak",
+      "multi": true,
+      "prompt": "Jelöld be az igaz állítás(oka)t!",
+      "options": [
+        {
+          "t": "Ha egy kvadratikus alak pozitív definit, akkor csak úgy lehet értéke 0, ha \\(\\vec{x}\\) egységvektor.",
+          "c": false
+        },
+        {
+          "t": "A kvadratikus alakok nem mindig diagonalizálhatóak.",
+          "c": false
+        },
+        {
+          "t": "Szimmetrikus mátrixok különböző sajátértékeihez tartozó sajátvektorai lineárisan függetlenek.",
+          "c": true
+        },
+        {
+          "t": "Az \\(x^2 + 3xy - 2y^2\\) egy kvadratikus alak.",
+          "c": true
+        }
+      ],
+      "e": "Pozitív definit: Q(x)=0 ⟺ x=0. Szimmetrikus mátrix mindig diagonalizálható valós sajátvektorokkal."
     }
   ]
 }
