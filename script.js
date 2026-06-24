@@ -31,6 +31,8 @@ const FALLBACK_PROBLEMS = [
 ];
 
 /* ===== Állapot ===== */
+let lastTopic = '__all';                     // Megjegyzi a legutóbbi témát
+let lastCount = 10;                          // Megjegyzi a legutóbbi darabszámot
 let mode = 'kviz';                 // 'kviz' | 'szamolos'
 /* Forrás szerint külön bankok: 'vizsga' = korábbi vizsgakérdések,
    'gen' = (AI által) generált gyakorló kérdések. A FÁJL a forrás:
@@ -310,10 +312,18 @@ function renderSetup() {
       if (pickMode === 'manual') {
         chosen = data.filter(x => pset.has(x));
         if (!chosen.length) { toast('Pipálj ki legalább egy ' + activeLabel() + 't'); return; }
+        
+        // Ha kézzel válogatott össze pl. 5 kérdést, az "Új random" gomb 5 db véletlen kérdést fog adni az összesből:
+        lastTopic = '__all';
+        lastCount = chosen.length;
       } else {
         const t = topicSel.value, pool = t === '__all' ? data : data.filter(q => q.topic === t);
         const n = Math.min(Math.max(1, +document.getElementById('countnum').value || 1), pool.length);
         chosen = shuffle(pool).slice(0, n);
+        
+        // Mentsük el a sorsolási beállításokat a következő körre:
+        lastTopic = t;
+        lastCount = n;
       }
       if (mode === 'kviz') {
         quiz = chosen;
@@ -559,7 +569,8 @@ function summaryCard(opts) {
      <div class="breakdown">${rows}</div>
      <div class="controls" style="justify-content:center">
        <button class="btn ghost" id="review">Vissza a ${mode === 'kviz' ? 'kérdésekhez' : 'feladatokhoz'}</button>
-       <button class="btn primary" id="retry">↻ Újra ugyanezekkel</button>
+       <button class="btn ghost" id="retry">↻ Újra ugyanezekkel</button>
+       <button class="btn primary" id="newrandom">🎲 Új random sorsolás</button>
        <button class="btn ghost" id="again">Új ${mode === 'kviz' ? 'kvíz' : 'feladatsor'} beállítása</button>
      </div>
    </div>`;
@@ -575,12 +586,37 @@ function summaryCard(opts) {
 
   document.getElementById('again').addEventListener('click', renderSetup);
   document.getElementById('retry').addEventListener('click', retrySame);
+  document.getElementById('newrandom').addEventListener('click', startNewRandom); // <-- EZT ADD HOZZÁ
   document.getElementById('review').addEventListener('click', () => {
     document.getElementById('sidebar').classList.add('open'); renderSidebar();
     if (mode === 'kviz') renderQuestion(); else renderProblem();
     scrollTop();
   });
   typeset(app);
+}
+
+/* Új random sorsolás a legutóbbi beállítások alapján */
+function startNewRandom() {
+  const data = activeArr();
+  const pool = lastTopic === '__all' ? data : data.filter(q => q.topic === lastTopic);
+  const n = Math.min(Math.max(1, lastCount), pool.length);
+  const chosen = shuffle(pool).slice(0, n);
+
+  if (!chosen.length) { toast('Nincs elég kérdés a sorsoláshoz!'); return; }
+
+  if (mode === 'kviz') {
+    quiz = chosen;
+    quizState = quiz.map(() => ({ answered: false, selected: new Set(), result: null, points: 0 }));
+    i = 0; 
+  } else {
+    run = chosen;
+    pstate = run.map(pr => ({ answered: false, earned: 0, result: null, max: pr.parts.reduce((s, p) => s + (p.points || 1), 0), parts: pr.parts.map(() => ({ value: '', sel: new Set(), pts: 0, ok: false })) }));
+    pi = 0; 
+  }
+  document.getElementById('sidebar').classList.add('open'); 
+  renderSidebar(); 
+  if (mode === 'kviz') renderQuestion(); else renderProblem();
+  scrollTop();
 }
 
 /* ===== Újra ugyanazokkal a kérdésekkel (friss állapot, nincs új sorsolás) ===== */
